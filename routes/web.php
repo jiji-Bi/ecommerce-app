@@ -16,5 +16,7 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::get('/home', [HomeController::class, 'index']);
-Route::get('/add/category', [CategoryController::class, 'index']);
-Route::post('/add/category', [CategoryController::class, 'AjouterCategory']);
+Route::post('/categorie/add', [CategoryController::class, 'AjouterCategory']);
+Route::get('/categorie/addform', [CategoryController::class, 'FormAddCategory']);
+Route::get('/categorie/list', [CategoryController::class, 'ListerCategory']);
+Route::get('/categorie/delete/{id}', [CategoryController::class, 'SupprimerCategory']);

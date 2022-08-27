@@ -1,0 +1,17 @@
+.white-space-nowrap {
+  width: 1px;
+  white-space: nowrap;
+}
+
+.table > thead > tr > th {
+  padding-top: 0.625rem !important;
+  padding-bottom: 0.625rem !important;
+  line-height: 1;
+  color: $gray-700;
+  // &:first-child {
+  //   padding-left: 0;
+  // }
+  // &:last-child {
+  //   padding-right: 0;
+  // }
+}

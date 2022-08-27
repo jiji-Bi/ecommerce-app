@@ -7,15 +7,34 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function AjouterCategory()
+    public function FormAddCategory()
     {
-        $category = new Categorie();
-        $category->nom = "t-shirts";
-        $category->description = "hi";
-        $category->save();
+        return view('category.addform');
     }
-    public function index()
+    public function AjouterCategory(Request $request)
     {
-        return view('formulaire');
+        // dd($request);
+        $request->validate(['nom' => 'required', 'description' => 'required']);
+        $categorie = new Categorie();
+        $categorie->nom = $request->nom;
+        $categorie->description = $request->description;
+        if ($categorie->save()) {
+            return redirect('/categorie/list')->with('alerte', 'La catégorie est ajoutée avec succés');
+        } else {
+            return 'failed to add category';
+        }
+    }
+    public function SupprimerCategory($id)
+    {
+        $categorie = Categorie::find($id);
+        if ($categorie->delete()) {
+            return redirect('/categorie/list')->with('alerte', 'La catégorie est supprimée avec succés');
+        } else {
+            return 'failed to delete category';
+        }
+    }
+    public function ListerCategory()
+    {
+        return view('category.list', ['categories' => Categorie::all()]);
     }
 }
