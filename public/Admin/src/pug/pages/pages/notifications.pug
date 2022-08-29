@@ -1,0 +1,161 @@
+extends ../../layouts/LayoutTheme
+include ../../mixins/common/Avatar
+
+append variables
+  - 
+    var breadcrumb = [
+      {
+        label: 'Pages',
+        href: '#!'
+      },
+      {
+        label: 'Notifications',
+        href: '#!',
+        active: true
+      }
+    ];
+  -
+    var today= [
+      { 
+        avatar: 'team/40.png',
+        name: "Jessie Samson",
+        text: "<span class='me-1'>💬</span>Mentioned you in a comment",
+        textBold:" \"Well done! Proud of you ❤️\"",
+        ago:"10M",
+        icon:"fas fa-clock",
+        time:"10:41 AM ",
+        date:"August 7,2021"
+
+      },
+      { 
+        avatar:'team/3.png',
+        name:"Jane Foster",
+        text:"<span class='me-1'>📅</span>Created an event",
+        textBold:" Rome holidays",
+        ago:"1H",
+        icon:"fas fa-clock",
+        time:"10:20 AM ",
+        date:"August 7,2021"
+
+      },
+      { 
+        avatar:'team/2.png',
+        name:"Aron Stone",
+        text:"<span class='me-1'>👍</span>Liked your comment",
+        textBold:" \"Amazing Works️\"",
+        ago:"2H",
+        icon:"fas fa-clock",
+        time:"9:30 AM ",
+        date:"August 7,2021"
+      },
+      { 
+        avatar:'team/24.png',
+        name:"Kiera Anderson",
+        text:"<span class='me-1'>💬</span>Mentioned you in a comment",
+        textBold:" \"This is too good to be true!\"",
+        ago:"6H",
+        icon:"fas fa-clock",
+        time:"9:11 AM ",
+        date:"August 7,2021"
+      }
+    ]
+  -
+    var yesterday= [
+      { 
+        avatar:'team/21.png',
+        name:"Allen Dune",
+        text:"<span class='me-1'>💬</span>Mentioned you in a comment",
+        textBold:" \"I think these will do\"",
+        ago:"",
+        icon:"fas fa-clock",
+        time:"11:43 PM ",
+        date:"August 7,2021"
+
+      },
+      { 
+        avatar:'team/22.png',
+        name:"Herman Carter",
+        text:"<span class='me-1'>👤</span>Tagged you in a",
+        textBold:" post",
+        ago:"",
+        icon:"fas fa-clock",
+        time:"10:58 PM ",
+        date:"August 7,2021"
+      },
+      { 
+        avatar:'team/20.png',
+        name:"Benjamin Button",
+        text:"<span class='me-1'>👍</span>Liked your comment",
+        textBold:" \"Welcome to the team️\"",
+        ago:"",
+        icon:"fas fa-clock",
+        time:"10:18 AM ",
+        date:"August 7,2021"
+      },
+      { 
+        avatar:'team/4.png',
+        name:"Aron Paul",
+        text:"<span class='me-1'>📷</span>Tagged you in a",
+        textBold:" photo",
+        ago:"",
+        icon:"fas fa-clock",
+        time:"9:53 AM ",
+        date:"August 7,2021"
+      },
+      { 
+        avatar:'team/6.png',
+        name:"Rick Sanchez",
+        text:"<span class='me-1'>💬</span>Mentioned you in a comment",
+        textBold:" \"You need to see these amazing photos️\"",
+        ago:"",
+        icon:"fas fa-clock",
+        time:"9:45 AM ",
+        date:"August 7,2021"
+      },
+      { 
+        avatar:'team/34.png',
+        name:"Allie Hall",
+        text:"<span class='me-1'>📅</span>Created an event",
+        textBold:" \"Friday Hangout\"",
+        ago:"",
+        icon:"fas fa-clock",
+        time:"9:36 AM ",
+        date:"August 7,2021"
+      }
+    ]
+
+mixin NotificationItem(info)
+  .row.align-items-md-center.mb-4.g-3
+    .col-auto
+      +Avatar({size: 'xl', img: info.avatar, round: 'circle'})
+    .col-auto.flex-1
+      .row.justify-content-sm-between.align-items-center
+        .col-md-auto.col-12
+          h4.fs--1.text-black=info.name
+            span.ms-2.text-400.fw-bold.fs--2.d-md-none=info.ago
+          p.fs--1.mb-1.mb-md-0.text-1000!=info.text
+            span.fw-bold=info.textBold
+        .col-md-auto.col-12
+          p.text-800.fs--1.mb-0
+            span.text-400.fs--2.fw-bold.d-none.d-md-inline.me-2=info.ago
+            span.me-1(class=`${info.icon}`)
+            span.fw-bold=info.time 
+            | #{info.date}
+
+block content
+
+  h2.mb-5 Notifications
+  h5.text-semi-bold.text-black.mb-4 Today
+  each item in today
+    +NotificationItem(item)
+  h5.text-semi-bold.text-black.mb-4 Yesterday
+  each item in yesterday
+    +NotificationItem(item)
+
+
+
+
+
+
+
+

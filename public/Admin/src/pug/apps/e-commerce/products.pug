@@ -1,0 +1,80 @@
+extends ../../layouts/LayoutTheme
+include ../../mixins/dashboard/common
+include ../../mixins/e-commerce/ProductsTable
+
+
+block content
+  .row.align-items-center.justify-content-between.g-3.mb-4
+    .col-auto
+      h2.mb-0 Products
+    .col-auto
+      .d-flex.align-items-center
+        button.btn.btn-link.text-900.me-1
+          span.fas.fa-cloud-download-alt.fs--1.me-2
+          | Export
+        button.btn.btn-primary
+          span.fas.fa-plus.me-2
+          | Add product
+  ul.nav.nav-links.mb-2.mx-n2
+    li.nav-item
+      a.nav-link.active(aria-current='page', href='#')
+        | All 
+        span.text-700.fw-semi-bold (68817)
+    li.nav-item
+      a.nav-link(href='#')
+        | Published 
+        span.text-700.fw-semi-bold (70348)
+    li.nav-item
+      a.nav-link(href='#')
+        | Drafts 
+        span.text-700.fw-semi-bold (17)
+    li.nav-item
+      a.nav-link(href='#')
+        | On discount 
+        span.text-700.fw-semi-bold (810)
+
+  #products(data-list!={
+    valueNames: ["product", "price", "category", "tags", "vendor", "time"],
+    page: 10,
+    pagination: true
+  })
+    .mb-4
+      .row.g-2
+        .col.col-xl-auto
+          +Search({placeholder: 'Search products', inputClass: ''}).w-100(style='max-width:30rem;')
+        .col-auto.scrollbar.overflow-hidden-y
+          .btn-group.position-static(role='group')
+            .btn-group.position-static
+              button.btn.btn-sm.btn-phoenix-secondary.px-7.flex-shrink-0(type='button', data-bs-toggle='dropdown', data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent") 
+                | Category
+                span.fas.fa-angle-down.ms-2
+              ul.dropdown-menu
+                li
+                  a.dropdown-item(href='#') Action
+                li
+                  a.dropdown-item(href='#') Another action
+                li
+                  a.dropdown-item(href='#') Something else here
+                li
+                  hr.dropdown-divider
+                li
+                  a.dropdown-item(href='#') Separated link
+            .btn-group.position-static
+              button.btn.btn-sm.btn-phoenix-secondary.px-7.flex-shrink-0(type='button', data-bs-toggle='dropdown', data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent") 
+                | Vendor
+                span.fas.fa-angle-down.ms-2
+              ul.dropdown-menu
+                li
+                  a.dropdown-item(href='#') Action
+                li
+                  a.dropdown-item(href='#') Another action
+                li
+                  a.dropdown-item(href='#') Something else here
+                li
+                  hr.dropdown-divider
+                li
+                  a.dropdown-item(href='#') Separated link
+            button.btn.btn-sm.btn-phoenix-secondary.px-7.flex-shrink-0 More filters
+    .mx-n4.px-4.mx-lg-n6.px-lg-6.bg-white.border-y.position-relative.top-1
+      +ProductTable
+      
