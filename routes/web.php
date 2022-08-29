@@ -3,7 +3,7 @@
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +15,12 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/home', [HomeController::class, 'index']);
-Route::get('/add/category', [CategoryController::class, 'index']);
-Route::post('/add/category', [CategoryController::class, 'AjouterCategory']);
+Route::get('/landingpage', [HomeController::class, 'index']);
+Route::post('/categorie/add', [CategoryController::class, 'AjouterCategory']);
+Route::get('/categorie/addform', [CategoryController::class, 'FormAddCategory']);
+Route::get('/categorie/list', [CategoryController::class, 'ListerCategory']);
+Route::get('/categorie/delete/{id}', [CategoryController::class, 'SupprimerCategory']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
