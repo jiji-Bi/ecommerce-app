@@ -33,8 +33,8 @@ class CategoryController extends Controller
             return 'failed to delete category';
         }
     }
-    public function ListerCategory()
+    public function index()
     {
-        return view('categorie.list', ['categories' => Categorie::all()]);
+        return view('categorie.index');/* ['categories' => Categorie::all()]$/);*/
     }
 }
