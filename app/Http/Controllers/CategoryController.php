@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function FormAddCategory()
-    {
-        return view('categorie.addform');
-    }
     public function AjouterCategory(Request $request)
     {
         // dd($request);
@@ -19,22 +15,35 @@ class CategoryController extends Controller
         $categorie->nom = $request->nom;
         $categorie->description = $request->description;
         if ($categorie->save()) {
-            return redirect('/categorie/list')->with('alerte', 'La catégorie est ajoutée avec succés');
+            return redirect()->back()->with('alerte', 'La catégorie est ajoutée avec succés');
         } else {
             return 'failed to add category';
         }
     }
-    public function SupprimerCategory($id)
+    public function SupprimerCategory(Request $request)
     {
-        $categorie = Categorie::find($id);
+        $categorie = Categorie::find($request->id);
         if ($categorie->delete()) {
-            return redirect('/categorie/list')->with('alerte', 'La catégorie est supprimée avec succés');
+            return redirect('/admin/categories')->with('alerte', 'La catégorie est supprimée avec succés');
         } else {
             return 'failed to delete category';
         }
     }
+    public function ModifierCategory(Request $request)
+    {
+        $request->validate(['nom' => 'required', 'description' => 'required']);
+        //$categorie = Categorie::find($request->id);
+        // $categorie->nom = $request->nom;
+        // $categorie->description = $request->description;
+        $categorie = Categorie::findOrFail($request->id);
+        if ($categorie->update($request->all())) {
+            return redirect()->back()->with('alerte', 'La catégorie est modifiée avec succés');
+        } else {
+            return 'failed to edit category';
+        }
+    }
     public function index()
     {
-        return view('categorie.index');/* ['categories' => Categorie::all()]$/);*/
+        return view('categorie.index', ['categories' => Categorie::all()]);
     }
 }
