@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image');
             $table->integer('stock');
             $table->double('price');
+            $table->foreignId('categorie_id')->onDelete('cascade');
             $table->timestamps();
         });
     }

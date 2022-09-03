@@ -44,6 +44,6 @@ class CategoryController extends Controller
     }
     public function index()
     {
-        return view('categorie.index', ['categories' => Categorie::all()]);
+        return view('admin.categorie.index', ['categories' => Categorie::all()]);
     }
 }

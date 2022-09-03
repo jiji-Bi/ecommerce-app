@@ -1,4 +1,4 @@
-@extends('composants.layout')
+@extends('admin.composants.layout')
 @section('content')
     <div class="content">
         <div class="pb-5">

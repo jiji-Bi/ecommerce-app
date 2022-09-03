@@ -3,7 +3,7 @@
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 //This route '/' always gives a redirection to the welcomepage
-Route::get('/', [WelcomeController::class, 'welcomepage']);
-Route::get('/welcome', [WelcomeController::class, 'welcome']);
+Route::get('/', [GuestController::class, 'welcomepage']);
+Route::get('/welcome', [GuestController::class, 'welcome']);
 Route::get('/home', [HomeController::class, 'index']);
 //Scaffolded authentification routes 
 Auth::routes();
