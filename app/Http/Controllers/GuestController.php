@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
+use App\Models\Produit;
 use Illuminate\Http\Request;
 
 class GuestController extends Controller
@@ -10,8 +12,11 @@ class GuestController extends Controller
     {
         return redirect('welcome');
     }
-    public function welcome()
+
+    public function index()
     {
-        return view('guest.home');
+        $categories = Categorie::all();
+        $produits = Produit::all();
+        return view('guest.index', ['categories' => $categories, 'produits' => $produits]);
     }
 }
