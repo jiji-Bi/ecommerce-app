@@ -123,8 +123,9 @@
                                     <th scope="row">{{ $produit->id }}</th>
                                     <td>{{ $produit->nom }}</td>
                                     <td>{{ $produit->description }}</td>
-                                    <td>{{ $produit->stock }}</td>
                                     <td>{{ $produit->price }}</td>
+                                    <td>{{ $produit->stock }}</td>
+
                                     <td>
                                         <img src="{{ asset('uploads') }}/{{ $produit->image }}" width='150'>
                                     </td>

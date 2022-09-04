@@ -20,9 +20,9 @@ class CategoryController extends Controller
             return 'failed to add category';
         }
     }
-    public function SupprimerCategory(Request $request)
+    public function SupprimerCategory($id)
     {
-        $categorie = Categorie::find($request->id);
+        $categorie = Categorie::find($id);
         if ($categorie->delete()) {
             return redirect('/admin/categories')->with('alerte', 'La catégorie est supprimée avec succés');
         } else {

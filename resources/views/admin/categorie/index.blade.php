@@ -152,9 +152,10 @@
                                                                 name="id" value="{{ $categorie->id }}">
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button class="btn btn-primary"
-                                                                type="submit">Confirmer</button><button
-                                                                class="btn btn-outline-primary" type="button"
+                                                            <button class="btn btn-primary" type="submit">Confirmer
+                                                            </button>
+
+                                                            <button class="btn btn-outline-primary" type="button"
                                                                 data-bs-dismiss="modal">Annuler</button>
                                                         </div>
                                                     </form>

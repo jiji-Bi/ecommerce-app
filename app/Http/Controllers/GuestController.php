@@ -19,8 +19,11 @@ class GuestController extends Controller
         $produits = Produit::all();
         return view('guest.index', ['categories' => $categories, 'produits' => $produits]);
     }
-    public function productDetails()
+    public function productDetails($id)
     {
-        return view('guest.product-detail');
+        $produit = Produit::find($id);
+        $produits = Produit::where('id', '!=', $id)->get();
+        $categories = Categorie::all();
+        return view('guest.product-detail', ['produit' => $produit, 'produits' => $produits, 'categories' => $categories]);
     }
 }
