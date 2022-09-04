@@ -32,5 +32,5 @@
 
     <!-- Product quick-view Modal -->
     @include('guest.components.product-quick-view')
-    @yield('product-quick-view')
+    @yield('quick-view')
 @endsection

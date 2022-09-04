@@ -60,6 +60,5 @@ Route::get('/client/dashboard', [ClientController::class, 'dashboard'])->name('c
 
 
 //testing routes
-Route::get('/product-detail', function () {
-    return view('guest.product-detail');
-});
+
+Route::get('/product/details/{id}', [GuestController::class, 'productDetails']);
