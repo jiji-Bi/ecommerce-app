@@ -57,3 +57,9 @@ Route::post('/admin/categorie/edit', [CategoryController::class, 'ModifierCatego
 
 //Client routes 
 Route::get('/client/dashboard', [ClientController::class, 'dashboard'])->name('client-dashboard')->middleware('auth', 'client');
+
+
+//testing routes
+Route::get('/product-detail', function () {
+    return view('guest.product-detail');
+});
