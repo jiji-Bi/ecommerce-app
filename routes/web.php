@@ -45,7 +45,8 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 //Admin routes 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard')->middleware('auth', 'revalidate', 'admin');
 //Admin produits routes 
-Route::get('/admin/produits', [ProductController::class, 'index'])->name('gestion-produits')->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/produit', [ProductController::class, 'index'])->name('gestion-produit')->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/produits', [ProductController::class, 'listeproduits'])->name('gestion-produits')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/produit/add', [ProductController::class, 'AjouterProduit'])->name('produits-add')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/produit/delete/{id}', [ProductController::class, 'SupprimerProduit'])->name('produits-delete')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/produit/edit', [ProductController::class, 'ModifierProduit'])->name('produits-edit')->middleware('auth', 'revalidate', 'admin');
@@ -54,7 +55,6 @@ Route::get('/admin/categories', [CategoryController::class, 'index'])->name('ges
 Route::post('/admin/categorie/add', [CategoryController::class, 'AjouterCategory'])->name('categories-add')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/categorie/delete/{id}', [CategoryController::class, 'SupprimerCategory'])->name('categories-delete')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/categorie/edit', [CategoryController::class, 'ModifierCategory'])->name('categories-edit')->middleware('auth', 'revalidate', 'admin');
-
 //Client routes 
 Route::get('/client/dashboard', [ClientController::class, 'dashboard'])->name('client-dashboard')->middleware('auth', 'client');
 
