@@ -8,6 +8,58 @@
                         <h2 class="card-header ">Liste des produits
                         </h2>
                     </div>
+                    @if ($message = Session::get('ajout'))
+                        {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
+                        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                        <script type="text/javascript">
+                            var message = "{{ Js::from($message) }}";
+                            new swal({
+                                icon: 'success',
+
+                                title: 'Success',
+                                text: "{{ Session::get('alerte') }}",
+                                type: 'error',
+                                timer: 5000
+                            }).then((value) => {
+                                //location.reload();
+                            }).catch(swal.noop);
+                        </script>
+                    @endif
+                    @if ($message = Session::get('edit'))
+                        {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
+                        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                        <script type="text/javascript">
+                            var message = "{{ Js::from($message) }}";
+                            new swal({
+                                icon: 'success',
+                                title: 'Success',
+                                text: "{{ Session::get('alerte') }}",
+                                type: 'error',
+                                timer: 5000
+                            }).then((value) => {
+                                //location.reload();
+                            }).catch(swal.noop);
+                        </script>
+                    @endif
+                    @if ($message = Session::get('delete'))
+                        {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
+                        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                        <script type="text/javascript">
+                            var message = "{{ Js::from($message) }}";
+                            new swal({
+                                icon: 'success',
+                                title: 'Success',
+                                text: "{{ Session::get('alerte') }}",
+                                type: 'error',
+                                timer: 5000
+                            }).then((value) => {
+                                //location.reload();
+                            }).catch(swal.noop);
+                        </script>
+                    @endif
                     <div class="card-body">
                         <table class="table">
                             <thead>
@@ -23,9 +75,7 @@
                             </thead>
                             <tbody>
 
-                                @if ($message = Session::get('alerte'))
-                                    <div class="alert alert-success warning">{{ $message }}</div>
-                                @endif
+
 
                                 @foreach ($produits as $produit)
                                     <tr>

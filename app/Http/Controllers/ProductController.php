@@ -55,7 +55,7 @@ class ProductController extends Controller
         $produit = Produit::find($request->id);
         $this->SupprimerImage($produit);
         if ($produit->delete()) {
-            return redirect('/admin/produits')->with('alerte', 'Le Produit est supprimée avec succés');
+            return redirect('/admin/produits')->with('delete', 'Le Produit est supprimée avec succés');
         } else {
             return 'failed to delete category';
         }
@@ -78,7 +78,7 @@ class ProductController extends Controller
                 }
             }
         }
-        return redirect('/admin/produits')->with('alerte', 'Le Produit est ajoutée avec succés');
+        return redirect('/admin/produits')->with('ajout', 'Le Produit est ajoutée avec succés');
     }
     public function ModifierProduit(Request $request)
     {
@@ -92,7 +92,7 @@ class ProductController extends Controller
                     $produit->images()->create(['produit_id' => $produit->id, 'image' => $this->UploadImage($imagefile)]);;
                 }
             }
-            return redirect()->back()->with('alerte', 'Le Produit est modifiée avec succés');
+            return redirect()->back()->with('edit', 'Le Produit est modifiée avec succés');
         } else {
             return 'failed to edit produit';
         }

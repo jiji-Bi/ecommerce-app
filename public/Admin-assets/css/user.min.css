@@ -8,15 +8,21 @@
     font-size: 30px;
 }
 .card-header {
-    background-color: #c3cdd6;
-    color: whitesmoke;
+    color: #222834;
+    font-size: Nunito Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+        Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+        Segoe UI Symbol;
 }
-.wanring {
-    background-color: green;
-}
+
 .photos-container {
     display: inline-block;
 }
 .photo {
     size: 2px;
+}
+
+.logo {
+    color: 222834;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
 }

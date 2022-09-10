@@ -17476,7 +17476,7 @@ h3 {
     top: 4rem;
     padding: 0;
     width: 100vw;
-    background-color: #222834;
+    background-color: var(--phoenix-body-bg);
 }
 .navbar-vertical + .navbar-top .navbar-collapse {
     padding-right: 1.5rem;
@@ -17530,7 +17530,7 @@ h3 {
     word-break: break-word;
     line-height: 1.188rem;
     padding-left: 1.5rem;
-    color: #9fa6bc;
+    color: #222834;
 }
 .navbar-vertical
     .navbar-vertical-content
@@ -17540,7 +17540,7 @@ h3 {
 }
 .navbar-vertical .navbar-vertical-content .navbar-nav .nav-link.active,
 .navbar-vertical .navbar-vertical-content .navbar-nav .nav-link:hover {
-    color: #eff2f6;
+    color: #222834;
 }
 .navbar-vertical
     .navbar-vertical-content
@@ -17682,7 +17682,7 @@ h3 {
         display: none;
     }
     .navbar-vertical.navbar-expand-xxl + .navbar-top .navbar-logo {
-        background-color: #222834;
+        background-color: whitesmoke;
         border-right: 1px solid var(--phoenix-navbar-vertical-border-color);
         border-bottom-color: transparent;
         padding-left: 1rem;
@@ -17844,7 +17844,7 @@ h3 {
         display: none;
     }
     .navbar-vertical.navbar-expand-lg + .navbar-top .navbar-logo {
-        background-color: #222834;
+        background-color: var(--phoenix-body-bg);
         border-right: 1px solid var(--phoenix-navbar-vertical-border-color);
         border-bottom-color: transparent;
         padding-left: 1rem;
@@ -17925,7 +17925,7 @@ h3 {
         display: none;
     }
     .navbar-vertical.navbar-expand-md + .navbar-top .navbar-logo {
-        background-color: #222834;
+        background-color: var(--phoenix-body-bg);
         border-right: 1px solid var(--phoenix-navbar-vertical-border-color);
         border-bottom-color: transparent;
         padding-left: 1rem;
@@ -18006,7 +18006,7 @@ h3 {
         display: none;
     }
     .navbar-vertical.navbar-expand-sm + .navbar-top .navbar-logo {
-        background-color: #222834;
+        background-color: white;
         border-right: 1px solid var(--phoenix-navbar-vertical-border-color);
         border-bottom-color: transparent;
         padding-left: 1rem;
@@ -18086,7 +18086,7 @@ h3 {
     display: none;
 }
 .navbar-vertical.navbar-expand-xs + .navbar-top .navbar-logo {
-    background-color: #222834;
+    background-color: white;
     border-right: 1px solid var(--phoenix-navbar-vertical-border-color);
     border-bottom-color: transparent;
     padding-left: 1rem;

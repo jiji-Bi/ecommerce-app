@@ -7,7 +7,7 @@
                 href="/admin/dashboard">
                 <div class="d-flex align-items-center">
                     <div class="d-flex align-items-center"><img src="{{ asset('') }}" alt="" width="32">
-                        <p class="logo-text ms-2 d-none d-sm-block">Admin </p>
+                        <p class="logo">Admin </p>
                     </div>
                 </div>
             </a></div>
