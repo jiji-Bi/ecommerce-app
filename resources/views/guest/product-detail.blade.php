@@ -126,49 +126,25 @@
                             <div class="wrap-slick3 flex-sb flex-w">
                                 <div class="wrap-slick3-dots"></div>
                                 <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
-
                                 <div class="slick3 gallery-lb">
-                                    <div class="item-slick3" data-thumb="{{ asset('uploads') }}/{{ $produit->image }}">
-                                        <div class="wrap-pic-w pos-relative">
-                                            <img src="{{ asset('uploads') }}/{{ $produit->image }}" alt="IMG-PRODUCT">
-
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                href="images/product-detail-01.jpg">
-                                                <i class="fa fa-expand"></i>
-                                            </a>
+                                    @foreach ($produit->images as $img)
+                                        <div class="item-slick3"
+                                            data-thumb="{{ asset('uploads') }}/{{ $img->image }}"width="100">
+                                            <div
+                                                class="wrap-pic-w
+                                                pos-relative">
+                                                <img src="{{ asset('uploads') }}/{{ $img->image }}" alt="IMG-PRODUCT">
+                                                <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+                                                    href="{{ asset('uploads') }}/{{ $img->image }}">
+                                                    <i class="fa fa-expand"></i>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="item-slick3"
-                                        data-thumb="{{ asset('Client-assets/images/product-detail-02.jpg') }}">
-                                        <div class="wrap-pic-w pos-relative">
-                                            <img src="{{ asset('Client-assets/images/product-detail-02.jpg') }}"
-                                                alt="IMG-PRODUCT">
-
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                href="images/product-detail-02.jpg">
-                                                <i class="fa fa-expand"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div class="item-slick3"
-                                        data-thumb="{{ asset('Client-assets/images/product-detail-03.jpg') }}">
-                                        <div class="wrap-pic-w pos-relative">
-                                            <img src="{{ asset('Client-assets/images/product-detail-03.jpg') }}"
-                                                alt="IMG-PRODUCT">
-
-                                            <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
-                                                href="{{ asset('Client-assets/images/product-detail-03.jpg') }}">
-                                                <i class="fa fa-expand"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-6 col-lg-5 p-b-30">
                         <div class="p-r-50 p-t-5 p-lr-0-lg">
                             <h4 class="mtext-105 cl2 js-name-detail p-b-14">

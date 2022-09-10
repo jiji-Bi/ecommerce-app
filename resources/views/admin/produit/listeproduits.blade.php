@@ -82,6 +82,22 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+
+                                            @if (Session::get('error_code') && Session::get('error_code') == 5)
+                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                                @foreach ($produit->images as $img)
+                                                    @if ($img->produit_id == $produit->id)
+                                                        <script>
+                                                            var id = "{{ Js::from($produit->id) }}";
+                                                            $(document).ready(function() {
+                                                                $('#editProduit' + id).modal('show');
+                                                            });
+                                                        </script>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+
                                             {{-- POPUP EDIT --}}
                                             <div class="modal fade" id="editProduit{{ $produit->id }}" tabindex="-1"
                                                 aria-labelledby="editCategoryLabel" aria-hidden="true">
@@ -142,17 +158,20 @@
                                                                         name="images[]">
                                                                     <br>
                                                                     @if (count($produit->images))
-                                                                        @foreach ($produit->images as $img)
-                                                                            <div class="photos-container">
-                                                                                <img src="{{ asset('uploads') }}/{{ $img->image }}"
-                                                                                    style="width: 80px;height:80px"
-                                                                                    class="me-4 border">
-                                                                                <a class="photo"
-                                                                                    href="">Remove</a>
-                                                                            </div>
-                                                                        @endforeach
-                                                                    @else
-                                                                        <h5> pas d'images ajoutés </h5>
+                                                                        <center>
+                                                                            @foreach ($produit->images as $img)
+                                                                                <div class="photos-container">
+                                                                                    <img src="{{ asset('uploads') }}/{{ $img->image }}"
+                                                                                        style="width: 80px;height:80px"
+                                                                                        class="me-4 border">
+                                                                                    <a class="photo"
+                                                                                        href="{{ url('/admin/produit-image') . '/' . $img->id . '/delete' }}">Remove</a>
+
+                                                                                </div>
+                                                                            @endforeach
+                                                                            <center />
+                                                                        @else
+                                                                            <h5> pas d'images ajoutés </h5>
                                                                     @endif
                                                                 </div>
 

@@ -50,6 +50,8 @@ Route::get('/admin/produits', [ProductController::class, 'listeproduits'])->name
 Route::post('/admin/produit/add', [ProductController::class, 'AjouterProduit'])->name('produits-add')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/produit/delete/{id}', [ProductController::class, 'SupprimerProduit'])->name('produits-delete')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/produit/edit', [ProductController::class, 'ModifierProduit'])->name('produits-edit')->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/produit-image/{image_id}/delete', [ProductController::class, 'SupprimerImageRecord'])->name('records-delete')->middleware('auth', 'revalidate', 'admin');
+
 //Admin categories routes 
 Route::get('/admin/categories', [CategoryController::class, 'index'])->name('gestion-categories')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/categorie/add', [CategoryController::class, 'AjouterCategory'])->name('categories-add')->middleware('auth', 'revalidate', 'admin');

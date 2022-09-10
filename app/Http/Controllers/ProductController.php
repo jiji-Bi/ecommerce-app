@@ -7,10 +7,27 @@ use App\Models\ProductImages;
 use App\Models\Produit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
-    public function UploadImage($request, $imagefile)
+
+
+    public function index()
+    {
+        return view('admin.produit.index', ['categories' => Categorie::all(), 'produits' => Produit::all()]);
+    }
+
+    public function SupprimerImage($produit)
+    {
+        $images = ProductImages::where('produit_id', $produit->id)->get();
+        foreach ($images as $name) {;
+            $path = public_path()  . '/uploads/' . $name->image;
+            unlink($path);
+        }
+        ProductImages::where('produit_id', $produit->id)->delete();
+    }
+    public function UploadImage($imagefile)
     {
         //Upload product image
         $destinationPath = 'uploads';
@@ -22,24 +39,15 @@ class ProductController extends Controller
             return 'failed to upload product image';
         }
     }
+    public function SupprimerImageRecord(int $image_id)
+    { //find the image to remove 
+        $produit_image = ProductImages::findOrFail($image_id);
+        $path = public_path()  . '/uploads/' . $produit_image->image;
+        unlink($path);
 
-    public function index()
-    {
-        return view('admin.produit.index', ['categories' => Categorie::all(), 'produits' => Produit::all()]);
-    }
-    public function listeproduits()
-    {
-        return view('admin.produit.listeproduits', ['categories' => Categorie::all(), 'produits' => Produit::all()]);
-    }
-    //problems
-    public function SupprimerImage($produit)
-    {
-        $images = ProductImages::where('produit_id', $produit->id)->get();
-        foreach ($images as $name) {;
-            $path = public_path()  . '/uploads/' . $name->image;
-            unlink($path);
-        }
-        ProductImages::where('produit_id', $produit->id)->delete();
+        if ($produit_image->delete()) {
+            return  redirect()->back()->with('error_code', '5');
+        } //Remove it from the product
     }
 
     public function SupprimerProduit(Request $request)
@@ -66,7 +74,7 @@ class ProductController extends Controller
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $imagefile) {
 
-                    $produit->images()->create(['produit_id' => $produit->id, 'image' => $this->UploadImage($request, $imagefile)]);
+                    $produit->images()->create(['produit_id' => $produit->id, 'image' => $this->UploadImage($imagefile)]);
                 }
             }
         }
@@ -81,12 +89,16 @@ class ProductController extends Controller
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $imagefile) {
 
-                    $produit->images()->create(['produit_id' => $produit->id, 'image' => $this->UploadImage($request, $imagefile)]);;
+                    $produit->images()->create(['produit_id' => $produit->id, 'image' => $this->UploadImage($imagefile)]);;
                 }
             }
             return redirect()->back()->with('alerte', 'Le Produit est modifiée avec succés');
         } else {
             return 'failed to edit produit';
         }
+    }
+    public function listeproduits()
+    {
+        return view('admin.produit.listeproduits', ['categories' => Categorie::all(), 'produits' => Produit::all()]);
     }
 }
