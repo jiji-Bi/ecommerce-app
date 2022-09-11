@@ -21,6 +21,16 @@
                                     data-bs-target="#pills-image" type="button" role="tab" aria-controls="pills-image"
                                     aria-selected="false">Images produit</button>
                             </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-colors-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-colors" type="button" role="tab"
+                                    aria-controls="pills-colors" aria-selected="false">Couleurs produit</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-sizes-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-sizes" type="button" role="tab" aria-controls="pills-sizes"
+                                    aria-selected="false">Tailles produit</button>
+                            </li>
                         </ul>
                         <form method="POST" action="/admin/produit/add" enctype="multipart/form-data">
                             @csrf
@@ -92,8 +102,30 @@
 
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="pills-image" role="tabpanel"
-                                    aria-labelledby="pills-image-tab" tabindex="0">mimi.</div>
+                                <div class="tab-pane fade" id="pills-colors" role="tabpanel"
+                                    aria-labelledby="pills-colors-tab" tabindex="0">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="exampleFormControlInput1">
+                                            Sélectionnez les images de votre produit
+                                        </label>
+
+                                        <input class="form-control" id="exampleFormControlInput1" multiple type="file"
+                                            placeholder="name@example.com" name="images[]">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="pills-sizes" role="tabpanel"
+                                    aria-labelledby="pills-sizes-tab" tabindex="0">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="exampleFormControlInput1">
+                                            Sélectionnez les images de votre produit
+                                        </label>
+
+                                        <input class="form-control" id="exampleFormControlInput1" multiple type="file"
+                                            placeholder="name@example.com" name="images[]">
+
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary detail">Submit</button>

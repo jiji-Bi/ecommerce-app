@@ -6,9 +6,13 @@
                         class="toggle-line"></span></span></button> <a class="navbar-brand me-1 me-sm-3"
                 href="/admin/dashboard">
                 <div class="d-flex align-items-center">
-                    <div class="d-flex align-items-center"><img src="{{ asset('') }}" alt="" width="32">
-                        <p class="logo">Admin </p>
-                    </div>
+                    <center>
+                        <div class="d-flex align-items-center"><img src="{{ asset('/Admin-assets/img/AdminLTELogo.png') }}"
+                                alt="" width="32">
+                            <span class=" logo">dministrateur</span>
+                        </div>
+                    </center>
+
                 </div>
             </a></div>
         <div class="collapse navbar-collapse">

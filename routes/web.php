@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\ColorController;
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +25,11 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/home', [HomeController::class, 'index']);
-
 //This route '/' always gives a redirection to the welcomepage
 Route::get('/', [GuestController::class, 'welcomepage']);
 Route::get('/welcome', [GuestController::class, 'index']);
+Route::get('/product/details/{id}', [GuestController::class, 'productDetails']);
+
 //Scaffolded authentification routes 
 // Authentication Routes...
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('revalidate');
@@ -44,23 +46,28 @@ Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('
 
 //Admin routes 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard')->middleware('auth', 'revalidate', 'admin');
+
 //Admin produits routes 
-Route::get('/admin/produit', [ProductController::class, 'index'])->name('gestion-produit')->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/produit', [ProductController::class, 'index'])->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/produits', [ProductController::class, 'listeproduits'])->name('gestion-produits')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/produit/add', [ProductController::class, 'AjouterProduit'])->name('produits-add')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/produit/delete/{id}', [ProductController::class, 'SupprimerProduit'])->name('produits-delete')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/produit/edit', [ProductController::class, 'ModifierProduit'])->name('produits-edit')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/produit-image/{image_id}/delete', [ProductController::class, 'SupprimerImageRecord'])->name('records-delete')->middleware('auth', 'revalidate', 'admin');
 
+//Admin couleurs routes 
+Route::get('/admin/color', [ColorController::class, 'index'])->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/colors', [ColorController::class, 'listecouleurs'])->name('couleurs-liste')->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/color/add', [ColorController::class, 'AjouterCouleur'])->name('couleurs-ajouter')->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/color/delete/{id}', [ColorController::class, 'SupprimerCouleur'])->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/color/edit', [ColorController::class, 'ModifierCouleur'])->middleware('auth', 'revalidate', 'admin');
+
 //Admin categories routes 
 Route::get('/admin/categories', [CategoryController::class, 'index'])->name('gestion-categories')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/categorie/add', [CategoryController::class, 'AjouterCategory'])->name('categories-add')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/categorie/delete/{id}', [CategoryController::class, 'SupprimerCategory'])->name('categories-delete')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/categorie/edit', [CategoryController::class, 'ModifierCategory'])->name('categories-edit')->middleware('auth', 'revalidate', 'admin');
+
+
 //Client routes 
 Route::get('/client/dashboard', [ClientController::class, 'dashboard'])->name('client-dashboard')->middleware('auth', 'client');
-
-
-//testing routes
-
-Route::get('/product/details/{id}', [GuestController::class, 'productDetails']);

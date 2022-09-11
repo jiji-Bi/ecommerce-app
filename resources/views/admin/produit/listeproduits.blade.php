@@ -13,13 +13,12 @@
                         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                         <script type="text/javascript">
-                            var message = "{{ Js::from($message) }}";
+                            var message = {{ Js::from($message) }};
                             new swal({
                                 icon: 'success',
-
-                                title: 'Success',
-                                text: "{{ Session::get('alerte') }}",
-                                type: 'error',
+                                confirmButtonColor: "#3874ff",
+                                title: '',
+                                text: message,
                                 timer: 5000
                             }).then((value) => {
                                 //location.reload();
@@ -31,12 +30,12 @@
                         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                         <script type="text/javascript">
-                            var message = "{{ Js::from($message) }}";
+                            var message = {{ Js::from($message) }};
                             new swal({
                                 icon: 'success',
-                                title: 'Success',
-                                text: "{{ Session::get('alerte') }}",
-                                type: 'error',
+                                title: '',
+                                text: message,
+                                confirmButtonColor: "#3874ff",
                                 timer: 5000
                             }).then((value) => {
                                 //location.reload();
@@ -48,12 +47,12 @@
                         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                         <script type="text/javascript">
-                            var message = "{{ Js::from($message) }}";
+                            var message = {{ Js::from($message) }};
                             new swal({
                                 icon: 'success',
-                                title: 'Success',
-                                text: "{{ Session::get('alerte') }}",
-                                type: 'error',
+                                title: '',
+                                text: message,
+                                confirmButtonColor: "#3874ff",
                                 timer: 5000
                             }).then((value) => {
                                 //location.reload();
@@ -276,6 +275,16 @@
                         </table>
                     </div>
                 </div>
+                <footer class="footer">
+                    <div class="row g-0 justify-content-between align-items-center h-100 mb-3">
+                        <div class="col-12 col-sm-auto text-center">
+
+                        </div>
+                        <div class="col-12 col-sm-auto text-center">
+                            <p class="mb-0 text-600">chez-jiji v1.0</p>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
     @endsection
