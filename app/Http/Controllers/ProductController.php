@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorie;
+use App\Models\Couleur;
 use App\Models\ProductImages;
 use App\Models\Produit;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        return view('admin.produit.index', ['categories' => Categorie::all(), 'produits' => Produit::all()]);
+        return view('admin.produit.index', ['categories' => Categorie::all(), 'produits' => Produit::all(), 'couleurs' => Couleur::where('status', '0')->get()]);
     }
 
     public function SupprimerImage($produit)

@@ -69,13 +69,13 @@
                             </div>
                         </a>
                         <ul class="nav collapse parent show" id="e-commerce4">
-                            <li class="nav-item"><a class="nav-link" href="/admin/categories" data-bs-toggle=""
+                            <li class="nav-item"><a class="nav-link" href="/admin/couleur" data-bs-toggle=""
                                     aria-expanded="false">
                                     <div class="d-flex align-items-center"><span class="nav-link-text">Ajouter
                                             couleur</span>
                                     </div>
                                 </a></li>
-                            <li class="nav-item"><a class="nav-link active" href="/admin/categories" data-bs-toggle=""
+                            <li class="nav-item"><a class="nav-link active" href="/admin/couleurs" data-bs-toggle=""
                                     aria-expanded="false">
                                     <div class="d-flex align-items-center"><span class="nav-link-text">Liste des
                                             couleurs</span>

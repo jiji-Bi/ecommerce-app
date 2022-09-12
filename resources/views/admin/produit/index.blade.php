@@ -106,25 +106,37 @@
                                     aria-labelledby="pills-colors-tab" tabindex="0">
                                     <div class="mb-3">
                                         <label class="form-label" for="exampleFormControlInput1">
-                                            Sélectionnez les images de votre produit
-                                        </label>
+                                            Cochez les tailles de votre produit
+                                        </label> <br>
 
-                                        <input class="form-control" id="exampleFormControlInput1" multiple type="file"
-                                            placeholder="name@example.com" name="images[]">
+                                        <div class="row">
+                                            @forelse ($couleurs as $couleur)
+                                                <div class="col-md-3">
+                                                    <div class="p-2 border mb-3">
 
+                                                        Couleur: <input type="checkbox" value="{{ $couleur->id }}"
+                                                            name="colors[{{ $couleur->id }}]" />
+                                                        {{ $couleur->nom }}
+                                                        <br>
+                                                        Quantité: <input type="number"
+                                                            name="quantity[{{ $couleur->id }}]"
+                                                            style="width:50px; border:1px solid" />
+                                                    </div>
+
+
+                                                </div>
+                                            @empty
+                                                <div class="col-md-12">
+                                                    <h1>Aucune couleur ajouté</h1>
+                                                </div>
+                                            @endforelse
+                                        </div>
                                     </div>
+
                                 </div>
                                 <div class="tab-pane fade" id="pills-sizes" role="tabpanel"
                                     aria-labelledby="pills-sizes-tab" tabindex="0">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="exampleFormControlInput1">
-                                            Sélectionnez les images de votre produit
-                                        </label>
 
-                                        <input class="form-control" id="exampleFormControlInput1" multiple type="file"
-                                            placeholder="name@example.com" name="images[]">
-
-                                    </div>
                                 </div>
                             </div>
                             <div>

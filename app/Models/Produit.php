@@ -19,4 +19,8 @@ class Produit extends Model
     {
         return $this->hasMany(ProductImages::class);
     }
+    public function couleurs()
+    {
+        return $this->hasMany(Couleur::class);
+    }
 }

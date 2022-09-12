@@ -56,11 +56,11 @@ Route::post('/admin/produit/edit', [ProductController::class, 'ModifierProduit']
 Route::get('/admin/produit-image/{image_id}/delete', [ProductController::class, 'SupprimerImageRecord'])->name('records-delete')->middleware('auth', 'revalidate', 'admin');
 
 //Admin couleurs routes 
-Route::get('/admin/color', [ColorController::class, 'index'])->middleware('auth', 'revalidate', 'admin');
-Route::get('/admin/colors', [ColorController::class, 'listecouleurs'])->name('couleurs-liste')->middleware('auth', 'revalidate', 'admin');
-Route::post('/admin/color/add', [ColorController::class, 'AjouterCouleur'])->name('couleurs-ajouter')->middleware('auth', 'revalidate', 'admin');
-Route::get('/admin/color/delete/{id}', [ColorController::class, 'SupprimerCouleur'])->middleware('auth', 'revalidate', 'admin');
-Route::post('/admin/color/edit', [ColorController::class, 'ModifierCouleur'])->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/couleur', [ColorController::class, 'index'])->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/couleurs', [ColorController::class, 'listecouleurs'])->name('couleurs-liste')->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/couleur/add', [ColorController::class, 'AjouterCouleur'])->name('couleurs-ajouter')->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/couleur/delete/{id}', [ColorController::class, 'SupprimerCouleur'])->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/couleur/edit', [ColorController::class, 'ModifierCouleur'])->middleware('auth', 'revalidate', 'admin');
 
 //Admin categories routes 
 Route::get('/admin/categories', [CategoryController::class, 'index'])->name('gestion-categories')->middleware('auth', 'revalidate', 'admin');
