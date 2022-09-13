@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categorie;
 use App\Models\Couleur;
+use App\Models\Taille;
 use App\Models\ProductImages;
 use App\Models\Produit;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('admin.produit.index', ['categories' => Categorie::all(), 'produits' => Produit::all()]);
+        return view('admin.produit.create', ['categories' => Categorie::all(), 'produits' => Produit::all(), 'couleurs' => Couleur::all(), 'tailles' => Taille::all()]);
     }
     public function UploadImage($imagefile)
     {
@@ -36,9 +37,9 @@ class ProductController extends Controller
         $request->validate([
             'moreFields.*.nom' => 'required', 'moreFields.*.quantity' => 'required', 'moreFields.*.price' => 'required'
         ]);
-
+        $couleurs = Couleur::all();
         foreach ($request->moreFields as  $key => $value) {
-            $variant = $variant->create(['nom' =>  $value['nom'], 'price' => $value['price'], 'quantity' =>  $value['quantity'], 'couleur_id' => $value['couleur_id'], 'taille_id' => $value['taille_id'], 'produit_id' => $produit_id]);
+            $variant = $variant->create(['nom' =>  $value['nom'], 'price' => $value['price'], 'quantity' =>  $value['quantity'], 'couleur_id' => $request->couleur, 'taille_id' => $request->couleur, 'produit_id' => $produit_id]);
         }
         if ($variant->save()) {
             if ($request->hasFile('images')) {
@@ -71,12 +72,22 @@ class ProductController extends Controller
     public function ModifierProduit(Request $request)
     {
         $produit = Produit::findOrFail($request->id);
-        //edit 
+
         if ($produit->update($request->all())) {
-            return redirect()->back()->with('edit', 'Le Produit est modifiée avec succés');
+            if ($request->images) {
+                $produit_id = $produit->id;
+                $this->AjouterVariant($request, $produit_id);
+            }
+            return redirect('/admin/produits')->with('edit', 'Le Produit est modifiée avec succés');
         } else {
             return 'failed to edit produit';
         }
+    }
+    public function EditPageProduit(Request $request)
+    {
+        $produit = Produit::findOrFail($request->id);
+        $categories = Categorie::all();
+        return view('admin.produit.edit')->with('categories', $categories)->with('produit', $produit);
     }
     public function SupprimerProduit(Request $request)
     {

@@ -66,9 +66,9 @@
                                     <th scope="col">Nom</th>
                                     <th scope="col">Prix</th>
                                     <th scope="col">Quantité</th>
-                                    <th scope="col">Images</th>
                                     <th scope="col">Couleur</th>
                                     <th scope="col">Taille</th>
+                                    <th scope="col">Images</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
@@ -77,9 +77,10 @@
                                     <tr>
                                         <th scope="row">{{ $variant->id }}</th>
                                         <td>{{ $variant->nom }}</td>
-                                        <td>{{ $variant->description }}</td>
                                         <td>{{ $variant->price }}</td>
-                                        <td>{{ $variant->stock }}</td>
+                                        <td>{{ $variant->quantity }}</td>
+                                        <td>{{ $variant->couleur->nom }}</td>
+                                        <td>{{ $variant->taille_id }}</td>
                                         <td>
                                             @if (count($variant->images))
                                                 @foreach ($variant->images as $img)

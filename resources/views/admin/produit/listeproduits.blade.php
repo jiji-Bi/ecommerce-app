@@ -82,9 +82,8 @@
 
                                         <td>
                                             {{-- Bouton Modifier --}}
-                                            <button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#editProduit{{ $produit->id }}"> <span
-                                                    class="fa fa-edit"></span></button>
+                                            <a href="{{ url('/admin/produit/' . $produit->id . '/edit') }}"
+                                                class="btn btn-primary"> <span class="fa fa-edit"></span></a>
 
                                             {{-- Bouton Supprimer --}}
                                             <button class="btn btn-primary" data-bs-toggle="modal"
@@ -139,98 +138,7 @@
                                                 @endforeach
                                             @endif
 
-                                            {{-- POPUP EDIT --}}
-                                            <div class="modal fade" id="editProduit{{ $produit->id }}" tabindex="-1"
-                                                aria-labelledby="editCategoryLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="editCategoryLabel">
-                                                                Modifier Produit
-                                                                <button class="btn p-1" type="button"
-                                                                    data-bs-dismiss="modal" aria-label="Close"><span
-                                                                        class="fas fa-times fs--1"></span>
-                                                                </button>
-                                                        </div>
-                                                        <form method="POST" action="/admin/produit/edit"
-                                                            enctype="multipart/form-data">
-                                                            @csrf
-                                                            <div class="modal-body">
 
-                                                                <div class="mb-3">
-                                                                    <label class="form-label"
-                                                                        for="exampleFormControlInput1">Nom
-                                                                        produit </label>
-
-                                                                    <input class="form-control" value="{{ $produit->nom }}"
-                                                                        id="exampleFormControlInput1" type="text"
-                                                                        placeholder="name@example.com" name="nom">
-
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label"
-                                                                        for="exampleFormControlInput1">Catégorie
-                                                                    </label>
-                                                                    <select
-                                                                        name="categorie"class="form-select form-select-sm"
-                                                                        aria-label="form-select-sm example">
-                                                                        @foreach ($categories as $categorie)
-                                                                            <option value="{{ $categorie->id }}">
-                                                                                {{ $categorie->nom }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="mb-0">
-                                                                    <label class="form-label" for="exampleTextarea">
-                                                                        Description produit
-                                                                    </label>
-                                                                    <textarea name="description" class="form-control" id="exampleTextarea" rows="3">{{ $produit->description }}</textarea>
-
-                                                                </div>
-                                                                <br>
-
-
-                                                                <div class="mb-3">
-                                                                    <label class="form-label"
-                                                                        for="exampleFormControlInput1">Stock
-                                                                        produit </label>
-
-                                                                    <input class="form-control"
-                                                                        value="{{ $produit->stock }}"
-                                                                        id="exampleFormControlInput1" type="number"
-                                                                        placeholder="name@example.com" name="stock">
-                                                                    @error('stock')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label"
-                                                                        for="exampleFormControlInput1">Tarification
-                                                                        produit </label>
-
-                                                                    <input class="form-control"
-                                                                        value="{{ $produit->price }}"
-                                                                        id="exampleFormControlInput1" type="number"
-                                                                        step="0.01" placeholder="name@example.com"
-                                                                        name="price">
-                                                                    @error('price')
-                                                                        <span class="text-danger">{{ $message }}</span>
-                                                                    @enderror
-                                                                </div>
-                                                                <input type="hidden" id="exampleFormControlInput1"
-                                                                    name="id" value="{{ $produit->id }}">
-
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button class="btn btn-primary"
-                                                                    type="submit">Confirmer</button><button
-                                                                    class="btn btn-outline-primary" type="button"
-                                                                    data-bs-dismiss="modal">Annuler</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                         </td>
                                     </tr>

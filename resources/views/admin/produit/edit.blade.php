@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-header ">Gestion des produits
+                        <h2 class="card-header ">Modifier vos produits
                         </h2>
 
                     </div>
@@ -23,7 +23,8 @@
                             </li>
 
                         </ul>
-                        <form method="POST" action="/admin/produit/add" enctype="multipart/form-data">
+                        <form method="POST" action="{{ url('/admin/produit/' . $produit->id) }}"
+                            enctype="multipart/form-data">
                             @csrf
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-details" role="tabpanel"
@@ -32,7 +33,7 @@
                                         <label class="form-label" for="exampleFormControlInput1">Nom
                                             produit </label>
 
-                                        <input class="form-control" value="{{ @old('nom') }}"
+                                        <input class="form-control" value="{{ $produit->nom }}"
                                             id="exampleFormControlInput1" type="text" placeholder="name@example.com"
                                             name="nom">
                                         @error('nom')
@@ -44,7 +45,9 @@
                                         <select name="categorie"class="form-select form-select-sm"
                                             aria-label="form-select-sm example">
                                             @foreach ($categories as $categorie)
-                                                <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                                                <option
+                                                    value="{{ $categorie->id }}"{{ $categorie->id == $produit->categorie_id ? 'selected' : '' }}>
+                                                    {{ $categorie->nom }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -52,7 +55,7 @@
                                         <label class="form-label" for="exampleTextarea">
                                             Description produit
                                         </label>
-                                        <textarea name="description" class="form-control" id="exampleTextarea" rows="3">{{ @old('description') }}</textarea>
+                                        <textarea name="description" class="form-control" id="exampleTextarea" rows="3">{{ $produit->description }}</textarea>
                                         @error('description')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
@@ -62,7 +65,7 @@
                                         <label class="form-label" for="exampleFormControlInput1">Stock
                                             produit </label>
 
-                                        <input class="form-control" value="{{ @old('stock') }}"
+                                        <input class="form-control" value="{{ $produit->stock }}"
                                             id="exampleFormControlInput1" type="number" placeholder="name@example.com"
                                             name="stock">
                                         @error('stock')
@@ -73,7 +76,7 @@
                                         <label class="form-label" for="exampleFormControlInput1">Tarification
                                             produit </label>
 
-                                        <input class="form-control" value="{{ @old('price') }}"
+                                        <input class="form-control" value="{{ $produit->price }}"
                                             id="exampleFormControlInput1" type="number" step="0.01"
                                             placeholder="name@example.com" name="price">
                                         @error('price')
@@ -87,7 +90,7 @@
                                         <div class="container">
                                             <div class="card mt-3">
                                                 <div class="card-header">
-
+                                                    <h5>Ajoutez d'autres variants </h5>
                                                 </div>
                                                 <div class="card-body">
 

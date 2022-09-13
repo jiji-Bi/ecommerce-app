@@ -12,7 +12,18 @@ use Illuminate\Support\Facades\File;
 
 class VariantController extends Controller
 {
-
+    public function UploadImage($imagefile)
+    {
+        //Upload product image
+        $destinationPath = 'uploads';
+        $imagename = uniqid();
+        $imagename .= "." . $imagefile->getClientOriginalExtension();
+        if ($imagefile->move($destinationPath, $imagename)) {
+            return $imagename;
+        } else {
+            return 'failed to upload product image';
+        }
+    }
 
     public function index()
     {
@@ -67,8 +78,9 @@ class VariantController extends Controller
             return 'failed to edit variant';
         }
     }
-    public function listevariants()
+    public function listevariants(Request $request)
     {
-        return view('admin.variant.listevariants', ['variants' => Variant::all()]);
+        $couleur = Couleur::with('couleur')->where('couleur_id', $request->couleur_id);
+        return view('admin.variant.listevariants', ['couleur' => $couleur, 'variants' => Variant::all()]);
     }
 }

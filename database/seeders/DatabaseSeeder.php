@@ -23,6 +23,5 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
         ]);
-        \App\Models\Produit::factory(10)->create();
     }
 }

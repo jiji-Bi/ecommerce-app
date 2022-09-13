@@ -55,7 +55,8 @@ Route::get('/admin/produit', [ProductController::class, 'index'])->middleware('a
 Route::get('/admin/produits', [ProductController::class, 'listeproduits'])->name('gestion-produits')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/produit/add', [ProductController::class, 'AjouterProduit'])->name('produits-add')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/produit/delete/{id}', [ProductController::class, 'SupprimerProduit'])->name('produits-delete')->middleware('auth', 'revalidate', 'admin');
-Route::post('/admin/produit/edit', [ProductController::class, 'ModifierProduit'])->name('produits-edit')->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/produit/{id}/edit', [ProductController::class, 'EditPageProduit'])->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/produit/{id}', [ProductController::class, 'ModifierProduit'])->name('produits-edit')->middleware('auth', 'revalidate', 'admin');
 
 //Admin variants routes 
 Route::get('/admin/variants', [VariantController::class, 'listevariants'])->middleware('auth', 'revalidate', 'admin');
