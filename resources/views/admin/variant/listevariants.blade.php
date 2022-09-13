@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-header ">Liste des produits
+                        <h2 class="card-header ">Liste des variants
                         </h2>
                     </div>
                     @if ($message = Session::get('ajout'))
@@ -65,37 +65,45 @@
                                 <tr>
                                     <th scope="col">ref</th>
                                     <th scope="col">Nom</th>
-                                    <th scope="col">Description</th>
                                     <th scope="col">Prix</th>
-                                    <th scope="col">Stock</th>
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Images</th>
+                                    <th scope="col">Couleur</th>
+                                    <th scope="col">Taille</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-
-
-
-                                @foreach ($produits as $produit)
+                                @foreach ($variants as $variant)
                                     <tr>
-                                        <th scope="row">{{ $produit->id }}</th>
-                                        <td>{{ $produit->nom }}</td>
-                                        <td>{{ $produit->description }}</td>
-                                        <td>{{ $produit->price }}</td>
-                                        <td>{{ $produit->stock }}</td>
+                                        <th scope="row">{{ $variant->id }}</th>
+                                        <td>{{ $variant->nom }}</td>
+                                        <td>{{ $variant->description }}</td>
+                                        <td>{{ $variant->price }}</td>
+                                        <td>{{ $variant->stock }}</td>
+                                        <td>
 
+                                            @if (count($variant->images))
+                                                @foreach ($variant->images as $img)
+                                                    <img src="{{ asset('uploads') }}/{{ $img->image }}" width="100">
+                                                @endforeach
+                                            @else
+                                                <h5>pas d'images ajoutés</h5>
+                                            @endif
+                                        </td>
                                         <td>
                                             {{-- Bouton Modifier --}}
                                             <button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#editProduit{{ $produit->id }}"> <span
+                                                data-bs-target="#editVariant{{ $variant->id }}"> <span
                                                     class="fa fa-edit"></span></button>
 
                                             {{-- Bouton Supprimer --}}
                                             <button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop{{ $produit->id }}"> <span
+                                                data-bs-target="#staticBackdrop{{ $variant->id }}"> <span
                                                     class="fa fa-trash"></span></button>
 
                                             {{-- POPUP SUPPRIMER --}}
-                                            <div class="modal fade" id="staticBackdrop{{ $produit->id }}" tabindex="-1"
+                                            <div class="modal fade" id="staticBackdrop{{ $variant->id }}" tabindex="-1"
                                                 data-bs-backdrop="static" aria-labelledby="staticBackdropLabel"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -107,11 +115,11 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <p class="text-700 lh-lg mb-0">Voulez vous supprimer
-                                                                le produit {{ $produit->nom }}
+                                                                le variant {{ $variant->nom }}
                                                             </p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <a href="/admin/produit/delete/{{ $produit->id }}"
+                                                            <a href="/admin/variant/delete/{{ $variant->id }}"
                                                                 type="button" class="btn btn-primary">
                                                                 Confirmer
                                                             </a>
@@ -125,12 +133,12 @@
 
                                             @if (Session::get('error_code') && Session::get('error_code') == 5)
                                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                                @foreach ($produit->images as $img)
-                                                    @if ($img->produit_id == $produit->id)
+                                                @foreach ($variant->images as $img)
+                                                    @if ($img->variant_id == $variant->id)
                                                         <script>
-                                                            var id = "{{ Js::from($produit->id) }}";
+                                                            var id = "{{ Js::from($variant->id) }}";
                                                             $(document).ready(function() {
-                                                                $('#editProduit' + id).modal('show');
+                                                                $('#editVariant' + id).modal('show');
                                                             });
                                                         </script>
                                                     @endif
@@ -138,19 +146,19 @@
                                             @endif
 
                                             {{-- POPUP EDIT --}}
-                                            <div class="modal fade" id="editProduit{{ $produit->id }}" tabindex="-1"
-                                                aria-labelledby="editCategoryLabel" aria-hidden="true">
+                                            <div class="modal fade" id="editVariant{{ $variant->id }}" tabindex="-1"
+                                                aria-labelledby="editVariantLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="editCategoryLabel">
-                                                                Modifier Produit
+                                                            <h5 class="modal-title" id="editVariantLabel">
+                                                                Modifier Variant
                                                                 <button class="btn p-1" type="button"
                                                                     data-bs-dismiss="modal" aria-label="Close"><span
                                                                         class="fas fa-times fs--1"></span>
                                                                 </button>
                                                         </div>
-                                                        <form method="POST" action="/admin/produit/edit"
+                                                        <form method="POST" action="/admin/variant/edit"
                                                             enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="modal-body">
@@ -158,45 +166,52 @@
                                                                 <div class="mb-3">
                                                                     <label class="form-label"
                                                                         for="exampleFormControlInput1">Nom
-                                                                        produit </label>
+                                                                        variant </label>
 
-                                                                    <input class="form-control" value="{{ $produit->nom }}"
+                                                                    <input class="form-control" value="{{ $variant->nom }}"
                                                                         id="exampleFormControlInput1" type="text"
                                                                         placeholder="name@example.com" name="nom">
 
                                                                 </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label"
-                                                                        for="exampleFormControlInput1">Catégorie
-                                                                    </label>
-                                                                    <select
-                                                                        name="categorie"class="form-select form-select-sm"
-                                                                        aria-label="form-select-sm example">
-                                                                        @foreach ($categories as $categorie)
-                                                                            <option value="{{ $categorie->id }}">
-                                                                                {{ $categorie->nom }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div class="mb-0">
-                                                                    <label class="form-label" for="exampleTextarea">
-                                                                        Description produit
-                                                                    </label>
-                                                                    <textarea name="description" class="form-control" id="exampleTextarea" rows="3">{{ $produit->description }}</textarea>
 
-                                                                </div>
                                                                 <br>
+                                                                <div class="mb-3">
+                                                                    <label class="form-label"
+                                                                        for="exampleFormControlInput1">Images
+                                                                        variant </label>
+                                                                    <br>
+                                                                    <input class="form-control"
+                                                                        id="exampleFormControlInput1" multiple
+                                                                        type="file" placeholder="name@example.com"
+                                                                        name="images[]">
+                                                                    <br>
+                                                                    @if (count($variant->images))
+                                                                        <center>
+                                                                            @foreach ($variant->images as $img)
+                                                                                <div class="photos-container">
+                                                                                    <img src="{{ asset('uploads') }}/{{ $img->image }}"
+                                                                                        style="width: 80px;height:80px"
+                                                                                        class="me-4 border">
+                                                                                    <a class="photo"
+                                                                                        href="{{ url('/admin/variant-image') . '/' . $img->id . '/delete' }}">Remove</a>
 
+                                                                                </div>
+                                                                            @endforeach
+                                                                            <center />
+                                                                        @else
+                                                                            <h5> pas d'images ajoutés </h5>
+                                                                    @endif
+                                                                </div>
 
                                                                 <div class="mb-3">
                                                                     <label class="form-label"
-                                                                        for="exampleFormControlInput1">Stock
-                                                                        produit </label>
+                                                                        for="exampleFormControlInput1">Quantité
+                                                                        variant </label>
 
                                                                     <input class="form-control"
-                                                                        value="{{ $produit->stock }}"
+                                                                        value="{{ $variant->quantity }}"
                                                                         id="exampleFormControlInput1" type="number"
-                                                                        placeholder="name@example.com" name="stock">
+                                                                        placeholder="name@example.com" name="quantity">
                                                                     @error('stock')
                                                                         <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
@@ -207,7 +222,7 @@
                                                                         produit </label>
 
                                                                     <input class="form-control"
-                                                                        value="{{ $produit->price }}"
+                                                                        value="{{ $variant->price }}"
                                                                         id="exampleFormControlInput1" type="number"
                                                                         step="0.01" placeholder="name@example.com"
                                                                         name="price">
@@ -216,8 +231,9 @@
                                                                     @enderror
                                                                 </div>
                                                                 <input type="hidden" id="exampleFormControlInput1"
-                                                                    name="id" value="{{ $produit->id }}">
-
+                                                                    name="id" value="{{ $variant->id }}">
+                                                                <input type="hidden" id="exampleFormControlInput1"
+                                                                    name="images[]" value="{{ $variant->images }}">
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-primary"

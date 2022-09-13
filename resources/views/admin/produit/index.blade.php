@@ -19,18 +19,9 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-image-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-image" type="button" role="tab" aria-controls="pills-image"
-                                    aria-selected="false">Images produit</button>
+                                    aria-selected="false">Déclinaisons produit</button>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-colors-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-colors" type="button" role="tab"
-                                    aria-controls="pills-colors" aria-selected="false">Couleurs produit</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-sizes-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-sizes" type="button" role="tab" aria-controls="pills-sizes"
-                                    aria-selected="false">Tailles produit</button>
-                            </li>
+
                         </ul>
                         <form method="POST" action="/admin/produit/add" enctype="multipart/form-data">
                             @csrf
@@ -93,75 +84,136 @@
                                 <div class="tab-pane fade" id="pills-image" role="tabpanel"
                                     aria-labelledby="pills-image-tab" tabindex="0">
                                     <div class="mb-3">
-                                        <label class="form-label" for="exampleFormControlInput1">
-                                            Sélectionnez les images de votre produit
-                                        </label>
-
-                                        <input class="form-control" id="exampleFormControlInput1" multiple type="file"
-                                            placeholder="name@example.com" name="images[]">
-
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="pills-colors" role="tabpanel"
-                                    aria-labelledby="pills-colors-tab" tabindex="0">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="exampleFormControlInput1">
-                                            Cochez les tailles de votre produit
-                                        </label> <br>
-
-                                        <div class="row">
-                                            @forelse ($couleurs as $couleur)
-                                                <div class="col-md-3">
-                                                    <div class="p-2 border mb-3">
-
-                                                        Couleur: <input type="checkbox" value="{{ $couleur->id }}"
-                                                            name="colors[{{ $couleur->id }}]" />
-                                                        {{ $couleur->nom }}
-                                                        <br>
-                                                        Quantité: <input type="number"
-                                                            name="quantity[{{ $couleur->id }}]"
-                                                            style="width:50px; border:1px solid" />
-                                                    </div>
-
+                                        <div class="container">
+                                            <div class="card mt-3">
+                                                <div class="card-header">
 
                                                 </div>
-                                            @empty
-                                                <div class="col-md-12">
-                                                    <h1>Aucune couleur ajouté</h1>
+                                                <div class="card-body">
+
+                                                    @if ($errors->any())
+                                                        <div class="alert alert-danger">
+                                                            <ul>
+                                                                @foreach ($errors->all() as $error)
+                                                                    <li>{{ $error }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
+
+                                                    @if (Session::has('success'))
+                                                        <div class="alert alert-success text-center">
+                                                            <a href="#" class="close" data-dismiss="alert"
+                                                                aria-label="close">×</a>
+                                                            <p>{{ Session::get('success') }}</p>
+                                                        </div>
+                                                    @endif
+                                                    <table class="table table-bordered" id="dynamicAddRemove">
+                                                        <tr>
+                                                            <th>Nom</th>
+                                                            <th>Price</th>
+                                                            <th>Quantity</th>
+                                                            <th>Couleur</th>
+                                                            <th>Taille</th>
+                                                            <th>Images</th>
+                                                            <th> </th>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td><input type="text" name="moreFields[0][nom]"
+                                                                    placeholder="Enter title" class="form-control" />
+                                                                @error('nom')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </td>
+                                                            <td><input type="number" step="0.01"
+                                                                    name="moreFields[0][price]" placeholder="Enter title"
+                                                                    class="form-control" />
+                                                                @error('price')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </td>
+                                                            <td><input type="number" name="moreFields[0][quantity]"
+                                                                    placeholder="Enter title" class="form-control" />
+
+                                                            </td>
+                                                            <td><input type="number" name="moreFields[0][couleur_id]"
+                                                                    placeholder="Enter title" class="form-control" />
+                                                                @error('couleur_id')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </td>
+                                                            <td><input type="number" name="moreFields[0][taille_id]"
+                                                                    placeholder="Enter title" class="form-control" />
+                                                                @error('taille_id')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                            </td>
+                                                            <td>
+                                                                <input class="form-control" id="exampleFormControlInput1"
+                                                                    multiple type="file" placeholder="name@example.com"
+                                                                    name="images[]">
+                                                            </td>
+                                                            <td><button type="button" name="add" id="add-btn"
+                                                                    class="btn btn-primary">Add More</button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
                                                 </div>
-                                            @endforelse
+                                            </div>
                                         </div>
+                                        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+                                        <script type="text/javascript">
+                                            var i = 0;
+                                            $("#add-btn").click(function() {
+                                                ++i;
+                                                $("#dynamicAddRemove").append('<tr><td><input type="text" name="moreFields[' + i +
+                                                    '][nom]" placeholder="Enter your Name" class="form-control" /></td><td><input type="number" step="0.01" name="moreFields[' +
+                                                    i +
+                                                    '][price]" placeholder="Enter your Qty" class="form-control" /></td><td><input type="number"  name="moreFields[' +
+                                                    i +
+                                                    '][quantity]" placeholder="Enter your Price" class="form-control" /></td><td><input type="number" name="moreFields[' +
+                                                    i +
+                                                    '][couleur_id]" placeholder="Enter your color" class="form-control" /></td> <td><input type="number" name="moreFields[' +
+                                                    i +
+                                                    '][taille_id]" placeholder="Enter your size" class="form-control" /></td>     <td><input multiple type="file" class="form-control" id="exampleFormControlInput1" name = "images[]"></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>'
+                                                );
+                                            });
+                                            $(document).on('click', '.remove-tr', function() {
+                                                $(this).parents('tr').remove();
+                                            });
+                                        </script>
                                     </div>
 
                                 </div>
-                                <div class="tab-pane fade" id="pills-sizes" role="tabpanel"
-                                    aria-labelledby="pills-sizes-tab" tabindex="0">
 
-                                </div>
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary detail">Submit</button>
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
-            <footer class="footer">
-                <div class="row g-0 justify-content-between align-items-center h-100 mb-3">
-                    <div class="col-12 col-sm-auto text-center">
-                        <p class="mb-0 text-900">Thank you for creating with phoenix<span
-                                class="d-none d-sm-inline-block"></span><span class="mx-1">|</span><br
-                                class="d-sm-none">2022
-                            &copy; <a href="https://themewagon.com">Themewagon</a>
-                        </p>
-                    </div>
-                    <div class="col-12 col-sm-auto text-center">
-                        <p class="mb-0 text-600">v1.1.0</p>
-                    </div>
-                </div>
-            </footer>
         </div>
+    </div>
+
+    <footer class="footer">
+        <div class="row g-0 justify-content-between align-items-center h-100 mb-3">
+            <div class="col-12 col-sm-auto text-center">
+                <p class="mb-0 text-900">Thank you for creating with phoenix<span
+                        class="d-none d-sm-inline-block"></span><span class="mx-1">|</span><br class="d-sm-none">2022
+                    &copy; <a href="https://themewagon.com">Themewagon</a>
+                </p>
+            </div>
+            <div class="col-12 col-sm-auto text-center">
+                <p class="mb-0 text-600">v1.1.0</p>
+            </div>
+        </div>
+    </footer>
+    </div>
     </div>
     </div>
 @endsection

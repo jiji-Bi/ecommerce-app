@@ -9,9 +9,8 @@ class Variant extends Model
 {
     use HasFactory;
 
-    use HasFactory;
     protected $table = "variants";
-    protected $fillable = ['nom', 'color_id', 'size_id', 'stock', 'price'];
+    protected $fillable = ['nom', 'price', 'quantity', 'couleur_id', 'taille_id', 'produit_id'];
 
     public function images()
     {
@@ -24,5 +23,9 @@ class Variant extends Model
     public function taille()
     {
         return $this->belongsTo(Taille::class);
+    }
+    public function produit()
+    {
+        return $this->belongsTo(Produit::class);
     }
 }

@@ -28,18 +28,7 @@ class VariantController extends Controller
         }
         VariantImages::where('variant_id', $variant->id)->delete();
     }
-    public function UploadImage($imagefile)
-    {
-        //Upload product image
-        $destinationPath = 'uploads';
-        $imagename = uniqid();
-        $imagename .= "." . $imagefile->getClientOriginalExtension();
-        if ($imagefile->move($destinationPath, $imagename)) {
-            return $imagename;
-        } else {
-            return 'failed to upload product image';
-        }
-    }
+
     public function SupprimerImageRecord(int $image_id)
     { //find the image to remove 
         $variant_image = VariantImages::findOrFail($image_id);
@@ -61,27 +50,6 @@ class VariantController extends Controller
             return 'failed to delete variant';
         }
     }
-    public function AjouterVariant(Request $request)
-    {
-        $request->validate(['nom' => 'required', 'description' => 'required',  'stock' => 'required', 'price' => 'required']);
-        $variant = new Variant();
-        $variant->nom = $request->nom;
-        // $produit->image = $this->UploadImage($request);
-        $variant->price = $request->price;
-        $variant->quantity = $request->quantity;
-        $variant->couleur_id = $request->couleur;
-        $variant->taille_id = $request->taille;
-
-        if ($variant->save()) {
-            if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $imagefile) {
-
-                    $variant->images()->create(['variant_id' => $variant->id, 'image' => $this->UploadImage($imagefile)]);
-                }
-            }
-        }
-        return redirect('/admin/variants')->with('ajout', 'Le Variant est ajoutée avec succés');
-    }
     public function ModifierVariant(Request $request)
     {
         $variant = Variant::findOrFail($request->id);
@@ -101,6 +69,6 @@ class VariantController extends Controller
     }
     public function listevariants()
     {
-        return view('admin.produit.listeproduits', ['categories' => Categorie::all(), 'variants' => Variant::all()]);
+        return view('admin.variant.listevariants', ['variants' => Variant::all()]);
     }
 }
