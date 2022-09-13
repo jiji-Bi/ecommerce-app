@@ -11,7 +11,6 @@
                     @if ($message = Session::get('ajout'))
                         {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
                         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
                         <script type="text/javascript">
                             var message = {{ Js::from($message) }};
                             new swal({
@@ -82,7 +81,6 @@
                                         <td>{{ $variant->price }}</td>
                                         <td>{{ $variant->stock }}</td>
                                         <td>
-
                                             @if (count($variant->images))
                                                 @foreach ($variant->images as $img)
                                                     <img src="{{ asset('uploads') }}/{{ $img->image }}" width="100">
