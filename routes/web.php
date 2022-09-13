@@ -2,16 +2,19 @@
 
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
+
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\VariantController;
+use App\Http\Controllers\ColorController;
+
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\ColorController;
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +56,13 @@ Route::get('/admin/produits', [ProductController::class, 'listeproduits'])->name
 Route::post('/admin/produit/add', [ProductController::class, 'AjouterProduit'])->name('produits-add')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/produit/delete/{id}', [ProductController::class, 'SupprimerProduit'])->name('produits-delete')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/produit/edit', [ProductController::class, 'ModifierProduit'])->name('produits-edit')->middleware('auth', 'revalidate', 'admin');
-Route::get('/admin/produit-image/{image_id}/delete', [ProductController::class, 'SupprimerImageRecord'])->name('records-delete')->middleware('auth', 'revalidate', 'admin');
+
+//Admin variants routes 
+Route::get('/admin/variants', [VariantController::class, 'listevariants'])->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/variant/add', [VariantController::class, 'AjouterVariant'])->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/variant/delete/{id}', [VariantController::class, 'SupprimerVariant'])->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/variant/edit', [VariantController::class, 'ModifierVariant'])->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/variant-image/{image_id}/delete', [VariantController::class, 'SupprimerImageRecord'])->middleware('auth', 'revalidate', 'admin');
 
 //Admin couleurs routes 
 Route::get('/admin/couleur', [ColorController::class, 'index'])->middleware('auth', 'revalidate', 'admin');
