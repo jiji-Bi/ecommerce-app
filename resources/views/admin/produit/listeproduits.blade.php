@@ -72,9 +72,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
-
-
                                 @foreach ($produits as $produit)
                                     <tr>
                                         <th scope="row">{{ $produit->id }}</th>
@@ -93,6 +90,11 @@
                                             <button class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop{{ $produit->id }}"> <span
                                                     class="fa fa-trash"></span></button>
+
+
+                                            {{-- Bouton Lister --}}
+                                            <a href="{{ url('/admin/variants') }}" class="btn btn-primary"><span
+                                                    class="fa fa-list"></span></a>
 
                                             {{-- POPUP SUPPRIMER --}}
                                             <div class="modal fade" id="staticBackdrop{{ $produit->id }}" tabindex="-1"
