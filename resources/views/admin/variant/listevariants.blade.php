@@ -11,19 +11,20 @@
                     @if ($message = Session::get('ajout'))
                         {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
                         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
                         <script type="text/javascript">
                             var message = {{ Js::from($message) }};
                             new swal({
                                 icon: 'success',
-                                confirmButtonColor: "#3874ff",
                                 title: '',
                                 text: message,
+                                confirmButtonColor: "#3874ff",
                                 timer: 5000
                             }).then((value) => {
                                 //location.reload();
                             }).catch(swal.noop);
                         </script>
-                    @endif
+                        @endif
                     @if ($message = Session::get('edit'))
                         {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
                         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -76,8 +77,8 @@
                                 @foreach ($variants as $variant)
                                     <tr>
                                         <th scope="row">{{ $variant->id }}</th>
-                                        <td>{{ $variant->nom }}</td>
-                                        <td>{{ $variant->price }}</td>
+                                        <td>{{ $variant->name }}</td>
+                                        <td>{{ $variant->prix }}</td>
                                         <td>{{ $variant->quantity }}</td>
                                         <td>{{ $variant->couleur->nom }}</td>
                                         <td>{{ $variant->taille_id }}</td>
@@ -199,7 +200,10 @@
                                                                             <center />
                                                                         @else
                                                                             <h5> pas d'images ajoutés </h5>
-                                                                    @endif
+                                                                    @endif   
+                                                                    @error('images[]')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
                                                                 </div>
 
                                                                 <div class="mb-3">
@@ -211,7 +215,7 @@
                                                                         value="{{ $variant->quantity }}"
                                                                         id="exampleFormControlInput1" type="number"
                                                                         placeholder="name@example.com" name="quantity">
-                                                                    @error('stock')
+                                                                    @error('quantity')
                                                                         <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>

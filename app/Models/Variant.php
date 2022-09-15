@@ -10,7 +10,7 @@ class Variant extends Model
     use HasFactory;
 
     protected $table = "variants";
-    protected $fillable = ['nom', 'price', 'quantity', 'couleur_id', 'taille_id', 'produit_id'];
+    protected $fillable = ['name', 'prix', 'quantity', 'couleur_id', 'taille_id', 'produit_id'];
 
     public function images()
     {

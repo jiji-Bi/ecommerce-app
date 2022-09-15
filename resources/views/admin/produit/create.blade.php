@@ -73,23 +73,6 @@
                                     <div class="container">
                                         <div class="card mt-3">
                                             <div class="card-body">
-
-                                                @if ($errors->any())
-                                                <div class="alert alert-danger">
-                                                    <ul>
-                                                        @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                                @endif
-
-                                                @if (Session::has('success'))
-                                                <div class="alert alert-success text-center">
-                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                                                    <p>{{ Session::get('success') }}</p>
-                                                </div>
-                                                @endif
                                                 <table class="table table-bordered" id="dynamicAddRemove">
                                                     <tr>
                                                         <th>Nom</th>
@@ -99,22 +82,30 @@
                                                         <th>Taille</th>
                                                         <th>Images</th>
                                                         <th> </th>
-
                                                     </tr>
                                                     <tr>
-                                                        <td><input type="text" name="moreFields[0][nom]" placeholder="Enter title" class="form-control" />
-                                                            @error('nom')
-                                                            <span class="text-danger">{{ $message }}</span>
+                                                        <td>
+                                                                <input id="name" type="text" class="form-control{{  $errors->has('moreFields.0.name') ? ' is-invalid' : '' }}" 
+                                                                name="moreFields[0][name]" />
+                                                                @error('moreFields.0.name')
+                                                                <span class="text-danger">{{ substr($message,17);}}</span>
                                                             @enderror
                                                         </td>
-                                                        <td><input type="number" step="0.01" name="moreFields[0][price]" placeholder="Enter title" class="form-control" />
-                                                            @error('price')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </td>
-                                                        <td><input type="number" name="moreFields[0][quantity]" placeholder="Enter title" class="form-control" />
+                                                        <td>
 
+                                                            <input id="prix" type="number" step="0.01" class="form-control{{ $errors->has('moreFields.0.prix') ? ' is-invalid' : '' }}" 
+                                                            name="moreFields[0][prix]"/>
+                                                            @error('moreFields.0.prix')
+                                                            <span class="text-danger">{{ substr($message,17);}}</span>
+                                                        @enderror
                                                         </td>
+                                                         <td>  
+                                                            <input id="quantity" type="number" class="form-control{{  $errors->has('moreFields.0.quantity') ? ' is-invalid' : '' }}" 
+                                                                name="moreFields[0][quantity]"/>
+                                                                @error('moreFields.0.quantity')
+                                                                <span class="text-danger">{{ substr($message,17);}}</span>
+                                                            @enderror
+                                                      </td>
                                                         <td>
                                                             <select name="couleur" class="form-select form-select-sm" aria-label="form-select-sm example">
                                                                 @foreach ($couleurs as $couleur)
@@ -123,7 +114,7 @@
                                                                 </option>
                                                                 @endforeach
                                                             </select>
-                                                            @error('couleur_id')
+                                                            @error('couleur')
                                                             <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </td>
@@ -135,15 +126,22 @@
                                                                 </option>
                                                                 @endforeach
                                                             </select>
-
-                                                            @error('taille_id')
+                                                            @error('taille')
                                                             <span class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </td>
+                                                    
                                                         <td>
-                                                            <input class="form-control" id="exampleFormControlInput1" multiple type="file" placeholder="name@example.com" name="images[]">
+                                                            <input class="form-control" id="exampleFormControlInput1"
+                                                            multiple type="file" placeholder="name@example.com"
+                                                            name="images[0][]">
+                                                            @error('images[0][]')
+                                                            <span class="text-danger">{{ $message}}</span>
+                                                            @enderror
+                                                                
                                                         </td>
-                                                        <td><button type="button" name="add" id="add-btn" class="btn btn-primary">Add More</button>
+                                                        <td><button type="button" name="add" id="add-btn"
+                                                                class="btn btn-primary">Add More</button>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -155,7 +153,7 @@
                             </div>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary detail">Submit</button>
+                                <button type="submit" class="btn btn-primary detail">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -174,13 +172,13 @@
         html += '<tr>';
         html +=
             '<td><input type="text" name="moreFields[' + i +
-            '][nom]" placeholder="Enter your Name" class="form-control" /></td>';
+            '][name]" placeholder="Enter your Name" class="form-control" /></td>';
         html +=
             '<td><input type="text" name="moreFields[' + i +
             '][quantity]" placeholder="Enter your Name" class="form-control" /></td>';
         html +=
             '<td><input type="text" name="moreFields[' + i +
-            '][price]" placeholder="Enter your Name" class="form-control" /></td>';
+            '][prix]" placeholder="Enter your Name" class="form-control" /></td>';
         
         html +=
         '<td><select name="couleur" class="form-select form-select-sm" aria-label="form-select-sm example"> @foreach ($couleurs as $couleur)<option value="{{ $couleur->id }}">{{ $couleur->nom }}</option>@endforeach</select></td>'
@@ -188,7 +186,7 @@
         html +=
             '<td><select name="taille" class="form-select form-select-sm" aria-label="form-select-sm example"> @foreach ($tailles as $taille)<option value="{{ $taille->id }}">{{ $taille->nom }}</option>@endforeach</select></td>'
         html +=
-        '<td><input multiple type="file" class="form-control" id="exampleFormControlInput1" name = "images[]"></td>';
+        '<td><input multiple type="file" class="form-control" id="exampleFormControlInput1" name = "images['+i+'][]"></td>';
         html +=
         '<td><button type="button" name="remove" class="btn btn-danger remove-tr"><span class="glyphicon glyphicon-minus">Remove</span></button></td></tr>';
             $("#dynamicAddRemove").append(html)

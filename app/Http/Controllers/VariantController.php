@@ -25,11 +25,6 @@ class VariantController extends Controller
         }
     }
 
-    public function index()
-    {
-        return view('admin.produit.index', ['categories' => Categorie::all(), 'produits' => Variant::all(), 'couleurs' => Couleur::where('status', '0')->get()]);
-    }
-
     public function SupprimerImage($variant)
     {
         $images = VariantImages::where('variant_id', $variant->id)->get();
@@ -63,10 +58,13 @@ class VariantController extends Controller
     }
     public function ModifierVariant(Request $request)
     {
-        $variant = Variant::findOrFail($request->id);
 
+        $request->validate([
+            'nom' => 'required', 'price' => 'required', 'quantity' => 'required',  'couleur' => 'required', 'taille' => 'required'
+        ]);
+        $variant = Variant::findOrFail($request->id);
         //edit 
-        if ($variant->update(Arr::except($request->all(), ['images']))) {
+        if ($variant->update($request->all())) {
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $imagefile) {
 

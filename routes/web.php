@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VariantController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\TailleController;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -60,17 +61,21 @@ Route::post('/admin/produit/{id}', [ProductController::class, 'ModifierProduit']
 
 //Admin variants routes 
 Route::get('/admin/variants', [VariantController::class, 'listevariants'])->middleware('auth', 'revalidate', 'admin');
-Route::post('/admin/variant/add', [VariantController::class, 'AjouterVariant'])->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/variant/delete/{id}', [VariantController::class, 'SupprimerVariant'])->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/variant/edit', [VariantController::class, 'ModifierVariant'])->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/variant-image/{image_id}/delete', [VariantController::class, 'SupprimerImageRecord'])->middleware('auth', 'revalidate', 'admin');
 
 //Admin couleurs routes 
-Route::get('/admin/couleur', [ColorController::class, 'index'])->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/couleurs', [ColorController::class, 'listecouleurs'])->name('couleurs-liste')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/couleur/add', [ColorController::class, 'AjouterCouleur'])->name('couleurs-ajouter')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/couleur/delete/{id}', [ColorController::class, 'SupprimerCouleur'])->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/couleur/edit', [ColorController::class, 'ModifierCouleur'])->middleware('auth', 'revalidate', 'admin');
+
+//Admin tailles routes 
+Route::get('/admin/tailles', [TailleController::class, 'listetailles'])->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/taille/add', [TailleController::class, 'AjouterTaille'])->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/taille/delete/{id}', [TailleController::class, 'SupprimerTaille'])->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/taille/edit', [TailleController::class, 'ModifierTaille'])->middleware('auth', 'revalidate', 'admin');
 
 //Admin categories routes 
 Route::get('/admin/categories', [CategoryController::class, 'index'])->name('gestion-categories')->middleware('auth', 'revalidate', 'admin');

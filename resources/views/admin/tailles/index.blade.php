@@ -1,21 +1,27 @@
 @extends('admin.composants.layout')
+@include('admin.notifications.ajout')
+@include('admin.notifications.edit')
+@include('admin.notifications.delete')
+
 @section('content')
     <div class="content">
         <div class="pb-5">
             <div class="row">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-header ">Liste des couleurs
+                        <h2 class="card-header ">Liste des Tailles
                         </h2>
                         <div class=" mb-3 mt-3"><a data-bs-toggle="modal" data-bs-target="#exampleModal"
                                 class="btn btn-primary detail ">
-                                Ajouter couleur
+                                Ajouter Taille
                             </a>
                         </div>
                     </div>
 
                     <div class="card-body">
-
+                                @yield('ajout')
+                                @yield('edit')
+                                @yield('delete')
                         <table class="table">
                             <thead>
                                 <tr>
@@ -27,29 +33,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($message = Session::get('alerte'))
-                                    <div class="alert alert-success">{{ $message }}</div>
-                                @endif
-                                @foreach ($couleurs as $couleur)
+                                @foreach ($tailles as $taille)
                                     <tr>
-                                        <th scope="row">{{ $couleur->id }}</th>
-                                        <td>{{ $couleur->nom }}</td>
-                                        <td>{{ $couleur->code }}</td>
-                                        <td>{{ $couleur->status }}</td>
+                                        <th scope="row">{{ $taille->id }}</th>
+                                        <td>{{ $taille->nom }}</td>
+                                        <td>{{ $taille->code }}</td>
+                                        <td>{{ $taille->status }}</td>
 
                                         <td>
                                             {{-- Bouton Modifier --}}
                                             <button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#editCouleur{{ $couleur->id }}"> <span
+                                                data-bs-target="#editTaille{{ $taille->id }}"> <span
                                                     class="fa fa-edit"></span></button>
 
                                             {{-- Bouton Supprimer --}}
                                             <button class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop{{ $couleur->id }}"> <span
+                                                data-bs-target="#staticBackdrop{{ $taille->id }}"> <span
                                                     class="fa fa-trash"></span></button>
 
                                             {{-- POPUP SUPPRIMER --}}
-                                            <div class="modal fade" id="staticBackdrop{{ $couleur->id }}" tabindex="-1"
+                                            <div class="modal fade" id="staticBackdrop{{ $taille->id }}" tabindex="-1"
                                                 data-bs-backdrop="static" aria-labelledby="staticBackdropLabel"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog">
@@ -61,11 +64,11 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <p class="text-700 lh-lg mb-0">Voulez vous supprimer
-                                                                la couleur {{ $couleur->nom }}
+                                                                la taille {{ $taille->nom }}
                                                             </p>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <a href="/admin/couleur/delete/{{ $couleur->id }}"
+                                                            <a href="/admin/taille/delete/{{ $taille->id }}"
                                                                 type="button" class="btn btn-primary">
                                                                 Confirmer
                                                             </a>
@@ -77,26 +80,26 @@
                                             </div>
 
                                             {{-- POPUP EDIT --}}
-                                            <div class="modal fade" id="editCouleur{{ $couleur->id }}" tabindex="-1"
-                                                aria-labelledby="editCouleurLabel" aria-hidden="true">
+                                            <div class="modal fade" id="editTaille{{ $taille->id }}" tabindex="-1"
+                                                aria-labelledby="editTailleLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="editCouleurLabel">
-                                                                Modifier Couleur {{ $couleur->nom }}
+                                                            <h5 class="modal-title" id="editTailleLabel">
+                                                                Modifier Taille {{ $taille->nom }}
                                                                 <button class="btn p-1" type="button"
                                                                     data-bs-dismiss="modal" aria-label="Close"><span
                                                                         class="fas fa-times fs--1"></span></button>
                                                         </div>
-                                                        <form method="POST" action="/admin/couleur/edit">
+                                                        <form method="POST" action="/admin/taille/edit">
                                                             @csrf
                                                             <div class="modal-body">
                                                                 <div class="mb-3">
                                                                     <label class="form-label"
                                                                         for="exampleFormControlInput1">Nom
-                                                                        couleur </label>
+                                                                        taille </label>
 
-                                                                    <input class="form-control" value="{{ $couleur->nom }}"
+                                                                    <input class="form-control" value="{{ $taille->nom }}"
                                                                         id="exampleFormControlInput1" type="text"
                                                                         placeholder="name@example.com" name="nom">
 
@@ -104,24 +107,24 @@
 
                                                                 <div class="mb-0">
                                                                     <label class="form-label" for="exampleTextarea">
-                                                                        Code couleur
+                                                                        Code taille
                                                                     </label>
-                                                                    <textarea name="code" class="form-control" id="exampleTextarea" rows="3">{{ $couleur->code }}</textarea>
+                                                                    <textarea name="code" class="form-control" id="exampleTextarea" rows="3">{{ $taille->code }}</textarea>
 
                                                                 </div>
 
                                                                 <div class="mb-3">
 
                                                                     <label class="form-label" for="exampleTextarea">
-                                                                        Visibilité couleur </label>
+                                                                        Visibilité taille </label>
                                                                     <input class="form-control"
-                                                                        value="{{ $couleur->status }}"
+                                                                        value="{{ $taille->status }}"
                                                                         id="exampleFormControlInput1" type="number"
                                                                         placeholder="status" name="status">
                                                                 </div>
 
                                                                 <input type="hidden" id="exampleFormControlInput1"
-                                                                    name="id" value="{{ $couleur->id }}">
+                                                                    name="id" value="{{ $taille->id }}">
 
                                                                 <div class="modal-footer">
                                                                     <button class="btn btn-primary" type="submit">Confirmer
@@ -148,16 +151,16 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Ajouter
-                                        couleur</h5>
+                                        taille</h5>
                                     <button class="btn p-1" type="button" data-bs-dismiss="modal"
                                         aria-label="Close"><span class="fas fa-times fs--1"></span></button>
                                 </div>
-                                <form method="POST" action="/admin/couleur/add">
+                                <form method="POST" action="/admin/taille/add">
                                     @csrf
                                     <div class="modal-body">
                                         <div class="mb-3">
                                             <label class="form-label" for="exampleFormControlInput1">Nom
-                                                couleur </label>
+                                                taille </label>
                                             <input class="form-control" value="{{ @old('nom') }}"
                                                 id="exampleFormControlInput1" type="text"
                                                 placeholder="name@example.com" name="nom">
@@ -168,7 +171,7 @@
 
                                         <div class="mb-0">
                                             <label class="form-label" for="exampleTextarea">
-                                                Code couleur </label>
+                                                Code taille </label>
                                             <textarea name="code" class="form-control" id="exampleTextarea" rows="3">{{ @old('code') }}</textarea>
                                             @error('code')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -176,7 +179,7 @@
                                         </div>
                                         <div class="mb-0">
                                             <label class="form-label" for="exampleTextarea">
-                                                Visibilité couleur </label>
+                                                Visibilité taille </label>
                                             <input class="form-control" value="{{ @old('$couleur->status ') }}"
                                                 id="exampleFormControlInput1" type="number" placeholder="Statut"
                                                 name="status">

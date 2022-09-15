@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('variants', function (Blueprint $table) {
             $table->id();
-            $table->string('nom')->nullable();
-            $table->double('price')->nullable();
-            $table->integer('quantity')->nullable();
+            $table->string('name');
+            $table->double('prix');
+            $table->integer('quantity');
             $table->foreignId('couleur_id')->onDelete('cascade');
             $table->foreignId('taille_id')->onDelete('cascade');
             $table->foreignId('produit_id')->onDelete('cascade');

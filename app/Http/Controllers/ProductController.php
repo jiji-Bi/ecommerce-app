@@ -32,20 +32,19 @@ class ProductController extends Controller
     }
     public function AjouterVariant(Request $request, $produit_id)
     {
-        $variant = new Variant();
-
         $request->validate([
-            'moreFields.*.nom' => 'required', 'moreFields.*.quantity' => 'required', 'moreFields.*.price' => 'required'
+            'moreFields.*.name' => 'required', 'moreFields.*.quantity' => 'required', 'moreFields.*.prix' => 'required'
         ]);
-        $couleurs = Couleur::all();
-        foreach ($request->moreFields as  $key => $value) {
-            $variant = $variant->create(['nom' =>  $value['nom'], 'price' => $value['price'], 'quantity' =>  $value['quantity'], 'couleur_id' => $request->couleur, 'taille_id' => $request->couleur, 'produit_id' => $produit_id]);
-        }
-        if ($variant->save()) {
-            if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $imagefile) {
-
-                    $variant->images()->create(['variant_id' => $variant->id, 'image' => $this->UploadImage($imagefile)]);
+        foreach ($request->moreFields as $k => $input) {
+            $variant = Variant::create(['name' =>  $input['name'], 'prix' => $input['prix'], 'quantity' =>  $input['quantity'], 'couleur_id' => $request->couleur, 'taille_id' => $request->couleur, 'produit_id' => $produit_id]);
+            $currentv = $variant->id;
+            if ($request->images) {
+                foreach ($request->images as $i => $image) {
+                    if ($i == $k) {
+                        foreach ($image as $imagefile) {
+                            $variant->images()->create(['variant_id' => $currentv, 'image' => $this->UploadImage($imagefile)]);
+                        }
+                    }
                 }
             }
         }
@@ -60,34 +59,36 @@ class ProductController extends Controller
         $produit->stock = $request->stock;
         $produit->price = $request->price;
         $produit->categorie_id = $request->categorie;
-        //Variant controller  
         if ($produit->save()) {
-            if ($request->images) {
-                $produit_id = $produit->id;
-                $this->AjouterVariant($request, $produit_id);
+            foreach ($request->moreFields as $key => $value) {
+                if ($value['name'] == null || $value['prix'] == null || $value['quantity'] == null) {
+                    return redirect('/admin/produits')->with('edit', 'Le Produit est ajoutée avec succés');
+                }
             }
-            return redirect('/admin/produits')->with('ajout', 'Le Produit est ajoutée avec succés');
         }
+        $produit_id = $produit->id;
+        $this->AjouterVariant($request, $produit_id);
+        return redirect('/admin/variants')->with('edit', 'Le Variant est ajoutée avec succés');
     }
     public function ModifierProduit(Request $request)
     {
         $produit = Produit::findOrFail($request->id);
-
         if ($produit->update($request->all())) {
-            if ($request->images) {
-                $produit_id = $produit->id;
-                $this->AjouterVariant($request, $produit_id);
+            foreach ($request->moreFields as $key => $value) {
+                if ($value['name'] == null || $value['prix'] == null || $value['quantity'] == null) {
+                    return redirect('/admin/produits')->with('edit', 'Le Produit est modifiée avec succés');
+                }
             }
-            return redirect('/admin/produits')->with('edit', 'Le Produit est modifiée avec succés');
-        } else {
-            return 'failed to edit produit';
         }
+        $produit_id = $produit->id;
+        $this->AjouterVariant($request, $produit_id);
+        return redirect('/admin/variants')->with('ajout', 'Le Variant est ajoutée avec succés');
     }
     public function EditPageProduit(Request $request)
     {
         $produit = Produit::findOrFail($request->id);
         $categories = Categorie::all();
-        return view('admin.produit.edit')->with('categories', $categories)->with('produit', $produit);
+        return view('admin.produit.edit')->with('categories', $categories)->with('produit', $produit)->with('couleurs', Couleur::all())->with('tailles', Taille::all());
     }
     public function SupprimerProduit(Request $request)
     {
