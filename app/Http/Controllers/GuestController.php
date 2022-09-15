@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorie;
+use App\Models\Couleur;
 use App\Models\Produit;
+use App\Models\Taille;
+use App\Models\Variant;
 use Illuminate\Http\Request;
 
 class GuestController extends Controller
@@ -17,13 +20,22 @@ class GuestController extends Controller
     {
         $categories = Categorie::all();
         $produits = Produit::all();
-        return view('guest.index', ['categories' => $categories, 'produits' => $produits]);
+        $variants = Variant::all();
+        $couleurs = Couleur::all();
+        return view('guest.index', ['categories' => $categories, 'couleurs' => $couleurs, 'variants' => $variants, 'produits' => $produits]);
     }
-    public function productDetails($id)
+    public function productDetails($id, Request $request)
     {
+        $couleurs = Couleur::all();
+        $tailles = Taille::all();
+
         $produit = Produit::find($id);
-        $produits = Produit::where('id', '!=', $id)->get();
+        $variant = Variant::find($id);
+
+        $related = Produit::where('id', '!=', $id)->get();
         $categories = Categorie::all();
-        return view('guest.product-detail', ['produit' => $produit, 'produits' => $produits, 'categories' => $categories]);
+        $variants = Variant::all();
+        $product = Produit::with('produit')->where('produit_id', $request->produit_id);
+        return view('guest.product-detail', ['tailles' => $tailles, 'couleurs' => $couleurs, 'product' => $product, 'variant' =>  $variant, 'produit' => $produit, 'variants' => $variants, 'related' => $related, 'categories' => $categories]);
     }
 }

@@ -1,13 +1,13 @@
 @section('products')
     <div class="row isotope-grid">
         @foreach ($produits as $produit)
-            @if (count($produit->images))
+        <input type="hidden" value="{{ $variant = $produit->variants->first() }}"> 
+          <input type="hidden" value="{{ $element = $variant->images->first() }}">
+            @if (count($variant->images))
                 <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
                     <!-- Block2 -->
-                    <div class="block2">
+                   <div class="block2">
                         <div class="block2-pic hov-img0 label-new" data-label="New">
-
-                            <input type="hidden" value="{{ $element = $produit->images->first() }}">
                             <img style="width: 200px;height:190px" src="{{ asset('uploads') }}/{{ $element->image }}"
                                 alt="IMG-PRODUCT">
                             <a href="#"

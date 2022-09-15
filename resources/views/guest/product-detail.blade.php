@@ -127,7 +127,7 @@
                                 <div class="wrap-slick3-dots"></div>
                                 <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
                                 <div class="slick3 gallery-lb">
-                                    @foreach ($produit->images as $img)
+                                    @foreach ($variant->images as $img)
                                         <div class="item-slick3"
                                             data-thumb="{{ asset('uploads') }}/{{ $img->image }}"width="100">
                                             <div
@@ -161,19 +161,18 @@
 
                             <!--  -->
                             <div class="p-t-33">
-                                <div class="flex-w flex-r-m p-b-10">
+                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-203 flex-c-m respon6">
-                                        Size
+                                        Taille
                                     </div>
-
                                     <div class="size-204 respon6-next">
                                         <div class="rs1-select2 bor8 bg0">
-                                            <select class="js-select2" name="time">
-                                                <option>Choose an option</option>
-                                                <option>Size S</option>
-                                                <option>Size M</option>
-                                                <option>Size L</option>
-                                                <option>Size XL</option>
+                                            <select class="js-select2" name="couleur" aria-label="form-select-sm example">
+                                                @foreach ($couleurs as $couleur)
+                                                    <option value="{{ $couleur->id }}">
+                                                        {{ $couleur->nom }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                             <div class="dropDownSelect2"></div>
                                         </div>
@@ -182,17 +181,16 @@
 
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-203 flex-c-m respon6">
-                                        Color
+                                        Couleur
                                     </div>
-
                                     <div class="size-204 respon6-next">
                                         <div class="rs1-select2 bor8 bg0">
-                                            <select class="js-select2" name="time">
-                                                <option>Choose an option</option>
-                                                <option>Red</option>
-                                                <option>Blue</option>
-                                                <option>White</option>
-                                                <option>Grey</option>
+                                            <select class="js-select2" name="taille" aria-label="form-select-sm example">
+                                                @foreach ($tailles as $taille)
+                                                    <option value="{{ $taille->id }}">
+                                                        {{ $taille->nom }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                             <div class="dropDownSelect2"></div>
                                         </div>
@@ -463,12 +461,14 @@
                 <!-- Slide2 -->
                 <div class="wrap-slick2">
                     <div class="slick2">
-                        @foreach ($produits as $prod)
+                        @foreach ($related as $prod)
+                        <input type="hidden" value="{{ $variant = $prod->variants->first() }}"> 
+                        <input type="hidden" value="{{ $element = $variant->images->first() }}">
                             <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
                                 <!-- Block2 -->
                                 <div class="block2">
                                     <div class="block2-pic hov-img0">
-                                        <img src="images/product-02.jpg" alt="IMG-PRODUCT">
+                                        <img src="{{ asset('uploads') }}/{{ $element->image }}" alt="IMG-PRODUCT">
 
                                         <a href="#"
                                             class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
@@ -480,20 +480,20 @@
                                         <div class="block2-txt-child1 flex-col-l ">
                                             <a href="product-detail.html"
                                                 class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                                Herschel supply
+                                                {{ $prod->nom }}
                                             </a>
 
                                             <span class="stext-105 cl3">
-                                                $35.31
-                                            </span>
+                                                {{ $prod->price }}                                           
+                                             </span>
                                         </div>
 
                                         <div class="block2-txt-child2 flex-r p-t-3">
                                             <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
                                                 <img class="icon-heart1 dis-block trans-04"
-                                                    src="images/icons/icon-heart-01.png" alt="ICON">
+                                                src="{{ asset('Client-assets/images/icons/icon-heart-01.png') }}" alt="ICON">
                                                 <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                                    src="images/icons/icon-heart-02.png" alt="ICON">
+                                                src="{{ asset('Client-assets/images/icons/icon-heart-02.png') }}" alt="ICON">
                                             </a>
                                         </div>
                                     </div>
