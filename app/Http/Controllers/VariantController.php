@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produit;
 use App\Models\Categorie;
 use App\Models\Couleur;
+use App\Models\Taille;
 use App\Models\VariantImages;
 use App\Models\Variant;
 use Illuminate\Http\Request;
@@ -58,17 +60,14 @@ class VariantController extends Controller
     }
     public function ModifierVariant(Request $request)
     {
-
-        $request->validate([
-            'nom' => 'required', 'price' => 'required', 'quantity' => 'required',  'couleur' => 'required', 'taille' => 'required'
-        ]);
-        $variant = Variant::findOrFail($request->id);
-        //edit 
-        if ($variant->update($request->all())) {
+        $variant = Variant::findOrFail($request->variantid);
+        $variant->couleur_id = $request->categorie;
+        $variant->taille_id = $request->taille;
+        if ($variant->update(Arr::except($request->all(), ['images[]', 'taille', 'couleur']))) {
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $imagefile) {
 
-                    $variant->images()->create(['variant_id' => $variant->id, 'image' => $this->UploadImage($imagefile)]);;
+                    $variant->images()->create(['variant_id' => $variant->id, 'image' => $this->UploadImage($imagefile)]);
                 }
             }
             return redirect()->back()->with('edit', 'Le Variant est modifiée avec succés');
@@ -76,9 +75,11 @@ class VariantController extends Controller
             return 'failed to edit variant';
         }
     }
-    public function listevariants(Request $request)
+    public function listevariants(Request $request, $id)
     {
-        $couleur = Couleur::with('couleur')->where('couleur_id', $request->couleur_id);
-        return view('admin.variant.listevariants', ['couleur' => $couleur, 'variants' => Variant::all()]);
+        $produit = Produit::findOrFail($id);
+        // $couleur = Couleur::with('couleur')->where('couleur_id', $request->couleur_id);
+        $variants = $produit->variants;
+        return view('admin.variant.listevariants', ['couleurs' => Couleur::all(), 'tailles' => Taille::all(), 'variants' => $variants]);
     }
 }

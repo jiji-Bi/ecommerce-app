@@ -66,6 +66,7 @@
                                     <th scope="col">ref</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Description</th>
+                                    <th scope="col">Catégorie</th>
                                     <th scope="col">Prix</th>
                                     <th scope="col">Stock</th>
                                     <th scope="col">Actions</th>
@@ -77,6 +78,7 @@
                                         <th scope="row">{{ $produit->id }}</th>
                                         <td>{{ $produit->nom }}</td>
                                         <td>{{ $produit->description }}</td>
+                                        <td>{{ $produit->category->nom }}</td>
                                         <td>{{ $produit->price }}</td>
                                         <td>{{ $produit->stock }}</td>
 
@@ -92,7 +94,7 @@
 
 
                                             {{-- Bouton Lister --}}
-                                            <a href="{{ url('/admin/variants') }}" class="btn btn-primary"><span
+                                            <a href="{{ url('/admin/variants/'.$produit->id) }}" class="btn btn-primary"><span
                                                     class="fa fa-list"></span></a>
 
                                             {{-- POPUP SUPPRIMER --}}

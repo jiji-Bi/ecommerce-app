@@ -22,7 +22,7 @@ class Variant extends Model
     }
     public function taille()
     {
-        return $this->belongsTo(Taille::class);
+        return $this->belongsTo(Taille::class, 'taille_id', 'id');
     }
     public function produit()
     {

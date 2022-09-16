@@ -1,6 +1,9 @@
 .detail {
     float: right;
 }
+.detail-list {
+    display: flex;
+}
 .head-liste {
     color: rgb(5, 28, 49);
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",

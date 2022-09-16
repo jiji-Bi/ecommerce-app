@@ -58,12 +58,11 @@ Route::post('/admin/produit/add', [ProductController::class, 'AjouterProduit'])-
 Route::get('/admin/produit/delete/{id}', [ProductController::class, 'SupprimerProduit'])->name('produits-delete')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/produit/{id}/edit', [ProductController::class, 'EditPageProduit'])->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/produit/{id}', [ProductController::class, 'ModifierProduit'])->name('produits-edit')->middleware('auth', 'revalidate', 'admin');
-
 //Admin variants routes 
-Route::get('/admin/variants', [VariantController::class, 'listevariants'])->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/variants/{id}', [VariantController::class, 'listevariants'])->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/variant/delete/{id}', [VariantController::class, 'SupprimerVariant'])->middleware('auth', 'revalidate', 'admin');
-Route::post('/admin/variant/edit', [VariantController::class, 'ModifierVariant'])->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/variant-image/{image_id}/delete', [VariantController::class, 'SupprimerImageRecord'])->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/variants/{id}/edit', [VariantController::class, 'ModifierVariant'])->middleware('auth', 'revalidate', 'admin');
 
 //Admin couleurs routes 
 Route::get('/admin/couleurs', [ColorController::class, 'listecouleurs'])->name('couleurs-liste')->middleware('auth', 'revalidate', 'admin');

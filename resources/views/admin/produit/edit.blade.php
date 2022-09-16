@@ -46,7 +46,7 @@
                                             aria-label="form-select-sm example">
                                             @foreach ($categories as $categorie)
                                                 <option
-                                                    value="{{ $categorie->id }}"{{ $categorie->id == $produit->categorie_id ? 'selected' : '' }}>
+                                                    value="{{ $categorie->id }}"{{ $categorie->id == $produit->category->id ? 'selected' : '' }}>
                                                     {{ $categorie->nom }}</option>
                                             @endforeach
                                         </select>

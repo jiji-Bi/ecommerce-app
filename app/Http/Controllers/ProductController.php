@@ -73,7 +73,8 @@ class ProductController extends Controller
     public function ModifierProduit(Request $request)
     {
         $produit = Produit::findOrFail($request->id);
-        if ($produit->update($request->all())) {
+        $produit->categorie_id = $request->categorie;
+        if ($produit->update(Arr::except($request->all(), ['categorie', 'images[]']))) {
             foreach ($request->moreFields as $key => $value) {
                 if ($value['name'] == null || $value['prix'] == null || $value['quantity'] == null) {
                     return redirect('/admin/produits')->with('edit', 'Le Produit est modifiée avec succés');
@@ -99,8 +100,8 @@ class ProductController extends Controller
             return 'failed to delete category';
         }
     }
-    public function listeproduits()
+    public function listeproduits(Request $request)
     {
-        return view('admin.produit.listeproduits', ['categories' => Categorie::all(), 'produits' => Produit::all()]);
+        return view('admin.produit.listeproduits', ['categories' => Categorie::all(), 'produits' => Produit::with('category')->get()]);
     }
 }

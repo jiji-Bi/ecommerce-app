@@ -91,14 +91,14 @@
                                                 <h5>pas d'images ajoutés</h5>
                                             @endif
                                         </td>
+
                                         <td>
                                             {{-- Bouton Modifier --}}
-                                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                            <button class="btn btn-primary detail-list " data-bs-toggle="modal"
                                                 data-bs-target="#editVariant{{ $variant->id }}"> <span
                                                     class="fa fa-edit"></span></button>
-
                                             {{-- Bouton Supprimer --}}
-                                            <button class="btn btn-primary" data-bs-toggle="modal"
+                                            <button class="btn btn-primary detail-list mt-1" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop{{ $variant->id }}"> <span
                                                     class="fa fa-trash"></span></button>
 
@@ -130,21 +130,6 @@
                                                 </div>
                                             </div>
 
-
-                                            @if (Session::get('error_code') && Session::get('error_code') == 5)
-                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                                @foreach ($variant->images as $img)
-                                                    @if ($img->variant_id == $variant->id)
-                                                        <script>
-                                                            var id = "{{ Js::from($variant->id) }}";
-                                                            $(document).ready(function() {
-                                                                $('#editVariant' + id).modal('show');
-                                                            });
-                                                        </script>
-                                                    @endif
-                                                @endforeach
-                                            @endif
-
                                             {{-- POPUP EDIT --}}
                                             <div class="modal fade" id="editVariant{{ $variant->id }}" tabindex="-1"
                                                 aria-labelledby="editVariantLabel" aria-hidden="true">
@@ -158,20 +143,21 @@
                                                                         class="fas fa-times fs--1"></span>
                                                                 </button>
                                                         </div>
-                                                        <form method="POST" action="/admin/variant/edit"
+                                                        <form method="POST" action="{{ url('/admin/variants/'.$variant->id .'/edit') }}"
                                                             enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="modal-body">
-
                                                                 <div class="mb-3">
                                                                     <label class="form-label"
                                                                         for="exampleFormControlInput1">Nom
                                                                         variant </label>
 
-                                                                    <input class="form-control" value="{{ $variant->nom }}"
+                                                                    <input class="form-control" value="{{ $variant->name }}"
                                                                         id="exampleFormControlInput1" type="text"
-                                                                        placeholder="name@example.com" name="nom">
-
+                                                                        placeholder="name@example.com" name="name">
+                                                                        @error('name')
+                                                                        <span class="text-danger">{{ $message }}</span>
+                                                                        @enderror
                                                                 </div>
 
                                                                 <br>
@@ -220,21 +206,46 @@
                                                                     @enderror
                                                                 </div>
                                                                 <div class="mb-3">
+                                                                    <select name="couleur" class="form-select form-select-sm" aria-label="form-select-sm example">
+                                                                        @foreach ($couleurs as $couleur)
+                                                                        <option value="{{ $couleur->id }}" {{ $couleur->id == $variant->couleur_id ? 'selected' : '' }}>
+                                                                            {{ $couleur->nom }}
+                                                                        </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @error('couleur')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                             
+                                                                <div class="mb-3">
+                                                                    <select name="taille" class="form-select form-select-sm" aria-label="form-select-sm example">
+                                                                        @foreach ($tailles as $taille)
+                                                                        <option value="{{ $taille->id }}">
+                                                                            {{ $taille->nom }}
+                                                                        </option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                    @error('taille')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="mb-3">
                                                                     <label class="form-label"
                                                                         for="exampleFormControlInput1">Tarification
                                                                         produit </label>
 
                                                                     <input class="form-control"
-                                                                        value="{{ $variant->price }}"
+                                                                        value="{{ $variant->prix }}"
                                                                         id="exampleFormControlInput1" type="number"
                                                                         step="0.01" placeholder="name@example.com"
-                                                                        name="price">
-                                                                    @error('price')
+                                                                        name="prix">
+                                                                    @error('prix')
                                                                         <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>
                                                                 <input type="hidden" id="exampleFormControlInput1"
-                                                                    name="id" value="{{ $variant->id }}">
+                                                                    name="variantid" value="{{ $variant->id }}">
                                                                 <input type="hidden" id="exampleFormControlInput1"
                                                                     name="images[]" value="{{ $variant->images }}">
                                                             </div>
@@ -248,6 +259,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @if (Session::get('error_code') && Session::get('error_code') == 5)
+                                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                                @foreach ($variant->images as $img)
+                                                    @if ($img->variant_id == $variant->id)
+                                                        <script>
+                                                            var id = "{{ Js::from($variant->id) }}";
+                                                            $(document).ready(function() {
+                                                                $('#editVariant' + id).modal('show');
+                                                            });
+                                                        </script>
+                                                    @endif
+                                                @endforeach
+                                            @endif
 
                                         </td>
                                     </tr>
