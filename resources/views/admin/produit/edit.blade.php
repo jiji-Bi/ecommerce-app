@@ -64,7 +64,6 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="exampleFormControlInput1">Stock
                                             produit </label>
-
                                         <input class="form-control" value="{{ $produit->stock }}"
                                             id="exampleFormControlInput1" type="number" placeholder="name@example.com"
                                             name="stock">
@@ -160,7 +159,7 @@
                                                                 <input name="images[0][]" class="form-control" id=""
                                                                 multiple type="file" placeholder="name@example.com"
                                                                 >
-                                                                @error('images[0][]')
+                                                                @error('images')
                                                                 <span class="text-danger">{{ $message}}</span>
                                                                 @enderror
                                                                     

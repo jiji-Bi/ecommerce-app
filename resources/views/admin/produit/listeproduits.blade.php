@@ -94,7 +94,7 @@
 
 
                                             {{-- Bouton Lister --}}
-                                            <a href="{{ url('/admin/variants/'.$produit->id) }}" class="btn btn-primary"><span
+                                            <a href="{{ url('/admin/produit/' .  $produit->id.'/variants') }}" class="btn btn-primary"><span
                                                     class="fa fa-list"></span></a>
 
                                             {{-- POPUP SUPPRIMER --}}

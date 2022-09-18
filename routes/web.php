@@ -33,6 +33,7 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/', [GuestController::class, 'welcomepage']);
 Route::get('/welcome', [GuestController::class, 'index']);
 Route::get('/product/details/{id}', [GuestController::class, 'productDetails']);
+Route::get('/product/{category}/list', [GuestController::class, 'categoryProducts']);
 
 //Scaffolded authentification routes 
 // Authentication Routes...
@@ -59,10 +60,10 @@ Route::get('/admin/produit/delete/{id}', [ProductController::class, 'SupprimerPr
 Route::get('/admin/produit/{id}/edit', [ProductController::class, 'EditPageProduit'])->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/produit/{id}', [ProductController::class, 'ModifierProduit'])->name('produits-edit')->middleware('auth', 'revalidate', 'admin');
 //Admin variants routes 
-Route::get('/admin/variants/{id}', [VariantController::class, 'listevariants'])->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/produit/{id}/variants/', [VariantController::class, 'listevariants'])->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/variant/delete/{id}', [VariantController::class, 'SupprimerVariant'])->middleware('auth', 'revalidate', 'admin');
-Route::get('/admin/variant-image/{image_id}/delete', [VariantController::class, 'SupprimerImageRecord'])->middleware('auth', 'revalidate', 'admin');
-Route::post('/admin/variants/{id}/edit', [VariantController::class, 'ModifierVariant'])->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/variant-image/{id}/delete', [VariantController::class, 'SupprimerImageRecord'])->middleware('auth', 'revalidate', 'admin');
+Route::post('/admin/variants/edit', [VariantController::class, 'ModifierVariant'])->middleware('auth', 'revalidate', 'admin');
 
 //Admin couleurs routes 
 Route::get('/admin/couleurs', [ColorController::class, 'listecouleurs'])->name('couleurs-liste')->middleware('auth', 'revalidate', 'admin');

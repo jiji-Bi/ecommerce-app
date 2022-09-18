@@ -33,10 +33,10 @@ class ProductController extends Controller
     public function AjouterVariant(Request $request, $produit_id)
     {
         $request->validate([
-            'moreFields.*.name' => 'required', 'moreFields.*.quantity' => 'required', 'moreFields.*.prix' => 'required'
+            'moreFields.*.name' => 'required', 'moreFields.*.quantity' => 'required', 'moreFields.*.prix' => 'required', 'images' => 'required'
         ]);
         foreach ($request->moreFields as $k => $input) {
-            $variant = Variant::create(['name' =>  $input['name'], 'prix' => $input['prix'], 'quantity' =>  $input['quantity'], 'couleur_id' => $request->couleur, 'taille_id' => $request->couleur, 'produit_id' => $produit_id]);
+            $variant = Variant::create(['name' =>  $input['name'], 'prix' => $input['prix'], 'quantity' =>  $input['quantity'], 'couleur_id' => $request->couleur, 'taille_id' => $request->taille, 'produit_id' => $produit_id]);
             $currentv = $variant->id;
             if ($request->images) {
                 foreach ($request->images as $i => $image) {
@@ -52,6 +52,7 @@ class ProductController extends Controller
     public function AjouterProduit(Request $request)
     {
         $request->validate(['nom' => 'required', 'description' => 'required',  'stock' => 'required', 'price' => 'required']);
+
         $produit = new Produit();
         $produit->nom = $request->nom;
         $produit->description = $request->description;
@@ -60,30 +61,32 @@ class ProductController extends Controller
         $produit->price = $request->price;
         $produit->categorie_id = $request->categorie;
         if ($produit->save()) {
+            $produit_id = $produit->id;
             foreach ($request->moreFields as $key => $value) {
-                if ($value['name'] == null || $value['prix'] == null || $value['quantity'] == null) {
-                    return redirect('/admin/produits')->with('edit', 'Le Produit est ajoutée avec succés');
+                if (filled($value['name']) || filled($value['prix']) || filled($value['quantity']) || filled($request->images)) {
+                    $this->AjouterVariant($request, $produit_id);
+                    return redirect('/admin/produit/' . $produit_id . '/variants')->with('ajout', 'Le Variant est ajoutée avec succés');
+                } else {
+                    return redirect('/admin/produits')->with('edit', 'Le Produit est ajouté avec succée');
                 }
             }
         }
-        $produit_id = $produit->id;
-        $this->AjouterVariant($request, $produit_id);
-        return redirect('/admin/variants')->with('edit', 'Le Variant est ajoutée avec succés');
     }
     public function ModifierProduit(Request $request)
     {
         $produit = Produit::findOrFail($request->id);
         $produit->categorie_id = $request->categorie;
+        $produit_id = $produit->id;
         if ($produit->update(Arr::except($request->all(), ['categorie', 'images[]']))) {
             foreach ($request->moreFields as $key => $value) {
-                if ($value['name'] == null || $value['prix'] == null || $value['quantity'] == null) {
+                if (filled($value['name']) || filled($value['prix']) || filled($value['quantity']) || filled($request->images)) {
+                    $this->AjouterVariant($request, $produit_id);
+                    return redirect('/admin/produit/' . $produit_id . '/variants')->with('ajout', 'Le Variant est ajoutée avec succés');
+                } else {
                     return redirect('/admin/produits')->with('edit', 'Le Produit est modifiée avec succés');
                 }
             }
         }
-        $produit_id = $produit->id;
-        $this->AjouterVariant($request, $produit_id);
-        return redirect('/admin/variants')->with('ajout', 'Le Variant est ajoutée avec succés');
     }
     public function EditPageProduit(Request $request)
     {

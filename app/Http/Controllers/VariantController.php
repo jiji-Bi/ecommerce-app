@@ -37,9 +37,10 @@ class VariantController extends Controller
         VariantImages::where('variant_id', $variant->id)->delete();
     }
 
-    public function SupprimerImageRecord(int $image_id)
+    public function SupprimerImageRecord(Request $request)
     { //find the image to remove 
-        $variant_image = VariantImages::findOrFail($image_id);
+        $variant_image = VariantImages::findOrFail($request->id);
+
         $path = public_path()  . '/uploads/' . $variant_image->image;
         unlink($path);
 
@@ -53,7 +54,7 @@ class VariantController extends Controller
         $variant = Variant::find($request->id);
         $this->SupprimerImage($variant);
         if ($variant->delete()) {
-            return redirect('/admin/variants')->with('delete', 'Le variant est supprimée avec succés');
+            return redirect()->back()->with('delete', 'Le variant est supprimée avec succés');
         } else {
             return 'failed to delete variant';
         }
@@ -61,12 +62,11 @@ class VariantController extends Controller
     public function ModifierVariant(Request $request)
     {
         $variant = Variant::findOrFail($request->variantid);
-        $variant->couleur_id = $request->categorie;
         $variant->taille_id = $request->taille;
+        $variant->couleur_id = $request->couleur;
         if ($variant->update(Arr::except($request->all(), ['images[]', 'taille', 'couleur']))) {
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $imagefile) {
-
                     $variant->images()->create(['variant_id' => $variant->id, 'image' => $this->UploadImage($imagefile)]);
                 }
             }
@@ -75,10 +75,11 @@ class VariantController extends Controller
             return 'failed to edit variant';
         }
     }
-    public function listevariants(Request $request, $id)
+    public function listevariants($id, Request $request)
     {
         $produit = Produit::findOrFail($id);
         // $couleur = Couleur::with('couleur')->where('couleur_id', $request->couleur_id);
+        // $taille = Taille::with('taille')->where('taille_id', $request->taille_id);
         $variants = $produit->variants;
         return view('admin.variant.listevariants', ['couleurs' => Couleur::all(), 'tailles' => Taille::all(), 'variants' => $variants]);
     }

@@ -67,8 +67,8 @@
                                     <th scope="col">Nom</th>
                                     <th scope="col">Prix</th>
                                     <th scope="col">Quantité</th>
+                                    <th scope="col">Taille</th>                 
                                     <th scope="col">Couleur</th>
-                                    <th scope="col">Taille</th>
                                     <th scope="col">Images</th>
                                     <th scope="col">Actions</th>
                                 </tr>
@@ -79,9 +79,9 @@
                                         <th scope="row">{{ $variant->id }}</th>
                                         <td>{{ $variant->name }}</td>
                                         <td>{{ $variant->prix }}</td>
-                                        <td>{{ $variant->quantity }}</td>
+                                        <td>{{ $variant->quantity }}</td>                                        
+                                        <td>{{ $variant->taille->nom }}</td>
                                         <td>{{ $variant->couleur->nom }}</td>
-                                        <td>{{ $variant->taille_id }}</td>
                                         <td>
                                             @if (count($variant->images))
                                                 @foreach ($variant->images as $img)
@@ -91,7 +91,6 @@
                                                 <h5>pas d'images ajoutés</h5>
                                             @endif
                                         </td>
-
                                         <td>
                                             {{-- Bouton Modifier --}}
                                             <button class="btn btn-primary detail-list " data-bs-toggle="modal"
@@ -143,7 +142,7 @@
                                                                         class="fas fa-times fs--1"></span>
                                                                 </button>
                                                         </div>
-                                                        <form method="POST" action="{{ url('/admin/variants/'.$variant->id .'/edit') }}"
+                                                        <form method="POST" action="{{ url('/admin/variants/edit') }}"
                                                             enctype="multipart/form-data">
                                                             @csrf
                                                             <div class="modal-body">
