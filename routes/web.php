@@ -34,6 +34,7 @@ Route::get('/', [GuestController::class, 'welcomepage']);
 Route::get('/welcome', [GuestController::class, 'index']);
 Route::get('/product/details/{id}', [GuestController::class, 'productDetails']);
 Route::get('/product/{category}/list', [GuestController::class, 'categoryProducts']);
+Route::post('/client/review/add', [ClientController::class, 'addReview'])->middleware('auth', 'client');
 
 //Scaffolded authentification routes 
 // Authentication Routes...
@@ -50,7 +51,7 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 //Admin routes 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard')->middleware('auth', 'revalidate', 'admin');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard')->middleware('auth', 'revalidate');
 
 //Admin produits routes 
 Route::get('/admin/produit', [ProductController::class, 'index'])->middleware('auth', 'revalidate', 'admin');

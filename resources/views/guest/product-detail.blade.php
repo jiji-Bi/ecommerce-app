@@ -171,8 +171,14 @@
                         <div class="p-r-50 p-t-5 p-lr-0-lg">
                             <h4 class="mtext-105 cl2 js-name-detail p-b-14">
                                 {{ $produit->nom }}
+                                @if ($produit->stock > 0)
+                                    <label class="btn-sm py-1 mt-2 text-white bg-success" style="display: inline">In
+                                        Stock</label>
+                                @else<label class="btn-sm py-1 mt-2 text-white bg-danger" style="display: inline">
+                                        Out of
+                                        Stock</label>
+                                @endif
                             </h4>
-
                             <span class="mtext-106 cl2">
                                 {{ $produit->price }}
                             </span>
@@ -306,7 +312,8 @@
                             </li>
 
                             <li class="nav-item p-b-10">
-                                <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews (1)</a>
+                                <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews
+                                    ({{ count($produit->reviews) }})</a>
                             </li>
                         </ul>
 
@@ -399,46 +406,72 @@
                                     <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                                         <div class="p-b-30 m-lr-15-sm">
                                             <!-- Review -->
-                                            <div class="flex-w flex-t p-b-68">
-                                                <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                                                    <img src="images/avatar-01.jpg" alt="AVATAR">
-                                                </div>
-
-                                                <div class="size-207">
-                                                    <div class="flex-w flex-sb-m p-b-17">
-                                                        <span class="mtext-107 cl2 p-r-20">
-                                                            Ariana Grande
-                                                        </span>
-
-                                                        <span class="fs-18 cl11">
-                                                            <i class="zmdi zmdi-star"></i>
-                                                            <i class="zmdi zmdi-star"></i>
-                                                            <i class="zmdi zmdi-star"></i>
-                                                            <i class="zmdi zmdi-star"></i>
-                                                            <i class="zmdi zmdi-star-half"></i>
-                                                        </span>
+                                            @foreach ($produit->reviews as $review)
+                                                <div class="flex-w flex-t p-b-68">
+                                                    <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+                                                        <img src="{{ asset('Client-assets/images/avatar-01.jpg') }}"
+                                                            alt="AVATAR">
                                                     </div>
 
-                                                    <p class="stext-102 cl6">
-                                                        Quod autem in homine praestantissimum atque optimum est, id
-                                                        deseruit. Apud ceteros autem philosophos
-                                                    </p>
-                                                </div>
-                                            </div>
+                                                    <div class="size-207">
+                                                        <div class="flex-w flex-sb-m p-b-17">
+                                                            <span class="mtext-107 cl2 p-r-20">
+                                                                {{ $review->user->name }}
+                                                                <small><i>{{ $review->created_at }}</i></small>
+                                                            </span>
+                                                            <input type="hidden"
+                                                                value="{{ $rating = $review->rating }}">
+                                                            <span class="fs-18 cl11">
 
+                                                                @while ($rating > 0)
+                                                                    @if ($rating > 0.5)
+                                                                        <i class="zmdi zmdi-star"></i>
+                                                                    @else
+                                                                        <i class="zmdi zmdi-star-half"></i>
+                                                                    @endif
+                                                                    @php $rating=$rating-1; @endphp
+                                                                @endwhile
+                                                            </span>
+                                                        </div>
+
+                                                        <p class="stext-102 cl6">
+                                                            {{ $review->review }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+
+                                            {{-- Notification --}}
+                                            @if ($message = Session::get('ajout'))
+                                                {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
+                                                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                                                <script type="text/javascript">
+                                                    var message = {{ Js::from($message) }};
+                                                    new swal({
+                                                        icon: 'success',
+                                                        confirmButtonColor: "#3874ff",
+                                                        title: '',
+                                                        text: message,
+                                                        timer: 5000
+                                                    }).then((value) => {
+                                                        //location.reload();
+                                                    }).catch(swal.noop);
+                                                </script>
+                                            @endif
                                             <!-- Add review -->
-                                            <form class="w-full">
+                                            <form action="/client/review/add" method="POST">
+                                                @csrf
                                                 <h5 class="mtext-108 cl2 p-b-7">
                                                     Add a review
                                                 </h5>
-
                                                 <p class="stext-102 cl6">
                                                     Your email address will not be published. Required fields are marked
                                                     *
                                                 </p>
 
                                                 <label class="rating-label pointer">
-                                                    <input class="rating" max="5"
+                                                    <input class="rating" max="5" name="valueAsNumber"
                                                         oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)"
                                                         step="0.5" style="--value:2.5" type="range"
                                                         value="2.5">
@@ -449,23 +482,11 @@
                                                     <div class="col-12 p-b-5">
                                                         <label class="stext-102 cl3" for="review">Your
                                                             review</label>
-                                                        <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
-                                                    </div>
-
-                                                    <div class="col-sm-6 p-b-5">
-                                                        <label class="stext-102 cl3" for="name">Name</label>
-                                                        <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name"
-                                                            type="text" name="name">
-                                                    </div>
-
-                                                    <div class="col-sm-6 p-b-5">
-                                                        <label class="stext-102 cl3" for="email">Email</label>
-                                                        <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email"
-                                                            type="text" name="email">
+                                                        <textarea name="content" class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
                                                     </div>
                                                 </div>
-
-                                                <button
+                                                <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                                                <button type="submit"
                                                     class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
                                                     Submit
                                                 </button>

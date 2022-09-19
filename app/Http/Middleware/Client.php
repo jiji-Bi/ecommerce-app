@@ -19,8 +19,8 @@ class Client
     {
         if (Auth::user()->role == 'client') {
             return $next($request);
-        } else {
-            return redirect('/');
         }
+
+        abort(403);
     }
 }
