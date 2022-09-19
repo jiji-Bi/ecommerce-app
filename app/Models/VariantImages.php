@@ -14,4 +14,14 @@ class VariantImages extends Model
     {
         return $this->belongsTo(Variant::class);
     }
+    public function scopefilter($query, array $filters) // Variant::newQuery()->filter()
+    {
+        $query->when(
+            $filters['picture'] ?? false,
+            function ($query, $picture) {
+                $query
+                    ->where('variant_id', $picture);
+            }
+        );
+    }
 }

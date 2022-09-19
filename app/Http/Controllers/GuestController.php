@@ -7,7 +7,9 @@ use App\Models\Couleur;
 use App\Models\Produit;
 use App\Models\Taille;
 use App\Models\Variant;
+use App\Models\VariantImages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GuestController extends Controller
 {
@@ -31,16 +33,21 @@ class GuestController extends Controller
         $produit = Produit::find($id);
         $related = Produit::where('id', '!=', $id)->get();
         $categories = Categorie::all();
-        $couleur = $request->couleur;
-        $variants = Variant::all();
-        $variations = Variant::latest()->filter(request(['couleur']));
-        $product = Produit::with('produit')->where('produit_id', $request->produit_id);
+        $variants = $produit->variants;
+        $images = VariantImages::filter(request(['picture']))->get();
+        $couleur = DB::table('couleurs')
+            ->join('variants', function ($join) {
+                $join->on('couleurs.id', '=', 'variants.couleur_id')
+                    ->where('variants.id', request(['picture']));
+            })->select('couleurs.nom')->get();
+            
+        //$product = Produit::with('produit')->where('produit_id', $request->produit_id);
         return view('guest.product-detail', [
-            'variations' => $variations,
-            'couleur' => $couleur, 'tailles' => $tailles, 'couleurs' => $couleurs,
-            'product' => $product, 'produit' => $produit, 'variants' => $variants,
+            'images' => $images,
+            'tailles' => $tailles, 'couleurs' => $couleurs,
+            'produit' => $produit, 'variants' => $variants,
             'related' => $related, 'categories' => $categories,
-            'currentCouleur' => Couleur::firstWhere('nom', request('couleur'))
+            'currentCouleur' => $couleur,
         ]);
     }
     public function categoryProducts($category)

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Home 03</title>
     <meta charset="UTF-8">
@@ -38,9 +39,9 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('Client-assets/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('Client-assets/css/main.css') }}">
+
     <!--===============================================================================================-->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="animsition">
@@ -88,6 +89,8 @@
             });
         });
     </script>
+
+
     <!--===============================================================================================-->
     <script src="{{ asset('Client-assets/vendor/isotope/isotope.pkgd.min.js') }}"></script>
     <!--===============================================================================================-->
