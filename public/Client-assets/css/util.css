@@ -15524,3 +15524,14 @@ iframe {
     cursor: pointer;
     position: relative;
 }
+.product-section-thumbnail :hover {
+    display: flex;
+    align-items: center;
+    min-height: 66px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #ccc;
+}
+.font {
+    font-style: bold;
+}

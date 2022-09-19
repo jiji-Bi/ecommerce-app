@@ -201,18 +201,25 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="product-section-images ">
-                                    <div class="flex-w flex-r-m p-b-10">
-                                        <div class="size-203 flex-c-m respon6 "style="display: inline-flex ">
+                                <br>
+                                <div class="flex-w flex-r-m p-b-10">
+                                    <div class="size-203 flex-c-m respon6">
+                                        Couleur:
+                                    </div>
+                                    <div class="size-204 respon6-next">
+                                        <div class="rs1-select2 bor0 bg0">
                                             <input type="hidden"
                                                 value="{{ $couleurdefault = $variants->first()->couleur->nom }}">
-                                            Couleur :
-                                            {{ $currentCouleur != null ? $currentCouleur : $couleurdefault }}
+                                            <strong>
+                                                {{ Request::has('picture') ? $currentCouleur[0]->nom : $couleurdefault }}
+                                            </strong>
 
+                                            <div class="dropDownSelect2"></div>
                                         </div>
                                     </div>
+                                </div>
 
+                                <div class="product-section-images ">
                                     @if (isset($variants))
                                         @foreach ($variants as $variant)
                                             <div class="product-section-thumbnail">
@@ -228,9 +235,9 @@
                                         @endforeach
                                     @endif
                                 </div>
-
-
-
+                                <br>
+                                <br>
+                                <br>
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-204 flex-w flex-m respon6-next">
                                         <div class="wrap-num-product flex-w m-r-20 m-tb-10">
