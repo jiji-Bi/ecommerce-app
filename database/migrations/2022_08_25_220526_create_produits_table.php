@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->integer('stock');
             $table->double('price');
-            $table->foreignId('categorie_id')->onDelete('cascade');
+            $table->foreignId('categorie_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

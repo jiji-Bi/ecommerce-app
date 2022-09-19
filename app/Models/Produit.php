@@ -17,6 +17,10 @@ class Produit extends Model
     }
     public function variants()
     {
-        return $this->hasMany(Variant::class);
+        return $this->hasMany(Variant::class, 'produit_id', 'id');
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'produit_id', 'id');
     }
 }

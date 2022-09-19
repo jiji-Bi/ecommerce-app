@@ -14,7 +14,7 @@ class Variant extends Model
 
     public function images()
     {
-        return $this->hasMany(VariantImages::class);
+        return $this->hasMany(VariantImages::class, 'variant_id', 'id');
     }
     public function couleur()
     {

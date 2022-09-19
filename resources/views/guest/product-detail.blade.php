@@ -437,20 +437,13 @@
                                                     *
                                                 </p>
 
-                                                <div class="flex-w flex-m p-t-50 p-b-23">
-                                                    <span class="stext-102 cl3 m-r-16">
-                                                        Your Rating
-                                                    </span>
+                                                <label class="rating-label pointer">
+                                                    <input class="rating" max="5"
+                                                        oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)"
+                                                        step="0.5" style="--value:2.5" type="range"
+                                                        value="2.5">
+                                                </label>
 
-                                                    <span class="wrap-rating fs-18 cl11 pointer">
-                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                        <i class="item-rating pointer zmdi zmdi-star-outline"></i>
-                                                        <input class="dis-none" type="number" name="rating">
-                                                    </span>
-                                                </div>
 
                                                 <div class="row p-b-25">
                                                     <div class="col-12 p-b-5">

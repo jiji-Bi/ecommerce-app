@@ -9,12 +9,14 @@ class VariantImages extends Model
 {
     use HasFactory;
     protected $table = "images";
-    protected $fillable = ['variant_id', 'image'];
+    protected $fillable = ['image'];
+
     public function variant()
     {
-        return $this->belongsTo(Variant::class);
+        return $this->belongsTo(Variant::class, 'variant_id', 'id');
     }
-    public function scopefilter($query, array $filters) // Variant::newQuery()->filter()
+
+    public function scopefilter($query, array $filters) // VariantImages::newQuery()->filter()
     {
         $query->when(
             $filters['picture'] ?? false,

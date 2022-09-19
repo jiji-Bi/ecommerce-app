@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('variants', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->double('prix');
-            $table->integer('quantity');
-            $table->foreignId('couleur_id')->references('id')->on('couleurs')->onDelete('cascade');
-            $table->foreignId('taille_id')->references('id')->on('tailles')->onDelete('cascade');
+            $table->integer('rating');
+            $table->float('review');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('produit_id')->references('id')->on('produits')->onDelete('cascade');
             $table->timestamps();
         });
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('variants');
+        Schema::dropIfExists('table_reviews');
     }
 };
