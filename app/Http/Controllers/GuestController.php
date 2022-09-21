@@ -28,26 +28,45 @@ class GuestController extends Controller
     }
     public function productDetails($id, Request $request)
     {
+        $produit = Produit::find($id);
+
+        $variant_id = $request->query('picture');
+        $variant = Variant::find($variant_id);
+
         $couleurs = Couleur::all();
         $tailles = Taille::all();
-        $produit = Produit::find($id);
+
         $related = Produit::where('id', '!=', $id)->get();
         $categories = Categorie::all();
+
         $variants = $produit->variants;
+        // $distinct_variants = Variant::select('variants')
+        //     ->groupBy(['couleur_id', 'produit_id'])->select('couleur_id', 'produit_id')
+        //     ->get();
+
+        $distinct_variants =  Variant::groupBy(['couleur_id', 'produit_id'])->select('couleur_id', 'produit_id', DB::raw('count(*) as total'))->get();
+        // select couleur_id ,produit_id,count(*) from variants GROUP BY produit_id, couleur_id;
+
+        foreach ($distinct_variants as $key => $value1) {
+            if ($value1['total'] > 1)
+                $firstvalues[] = Variant::where('couleur_id', '=', $value1['couleur_id'])->where('produit_id', '=', $value1['produit_id'])->get();
+        }
         $images = VariantImages::filter(request(['picture']))->get();
+
         $couleur = DB::table('couleurs')
             ->join('variants', function ($join) {
                 $join->on('couleurs.id', '=', 'variants.couleur_id')
                     ->where('variants.id', request(['picture']));
             })->select('couleurs.nom')->get();
-            
+
         //$product = Produit::with('produit')->where('produit_id', $request->produit_id);
         return view('guest.product-detail', [
             'images' => $images,
             'tailles' => $tailles, 'couleurs' => $couleurs,
-            'produit' => $produit, 'variants' => $variants,
+            'produit' => $produit, 'variants' => $variants, 'distinct_variants' => $distinct_variants,
             'related' => $related, 'categories' => $categories,
-            'currentCouleur' => $couleur,
+            'currentCouleur' => $couleur, 'firstvalues' => $firstvalues,
+            'variant' => $variant, response()->json(['success' => $request->sizeselected])
         ]);
     }
     public function categoryProducts($category)

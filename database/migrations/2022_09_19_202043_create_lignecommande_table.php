@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('commandes', function (Blueprint $table) {
+        Schema::create('lignecommande', function (Blueprint $table) {
             $table->id();
-            $table->enum('etat', ['en cours', 'payee'])->default('en cours');
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('variant_id')->references('id')->on('variants')->onDelete('cascade');
+            $table->foreignId('commande_id')->references('id')->on('commandes')->onDelete('cascade');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commandes');
+        Schema::dropIfExists('lignecommande');
     }
 };

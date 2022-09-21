@@ -15617,3 +15617,6 @@ iframe {
 [dir="rtl"] .rating--nojs::-webkit-slider-thumb {
     box-shadow: var(--w) 0 0 var(--w) var(--fill);
 }
+.dropdown-content {
+    right: 0;
+}

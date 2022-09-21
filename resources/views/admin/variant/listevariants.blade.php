@@ -24,7 +24,7 @@
                                 //location.reload();
                             }).catch(swal.noop);
                         </script>
-                        @endif
+                    @endif
                     @if ($message = Session::get('edit'))
                         {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
                         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -67,7 +67,7 @@
                                     <th scope="col">Nom</th>
                                     <th scope="col">Prix</th>
                                     <th scope="col">Quantité</th>
-                                    <th scope="col">Taille</th>                 
+                                    <th scope="col">Taille</th>
                                     <th scope="col">Couleur</th>
                                     <th scope="col">Images</th>
                                     <th scope="col">Actions</th>
@@ -79,7 +79,7 @@
                                         <th scope="row">{{ $variant->id }}</th>
                                         <td>{{ $variant->name }}</td>
                                         <td>{{ $variant->prix }}</td>
-                                        <td>{{ $variant->quantity }}</td>                                        
+                                        <td>{{ $variant->quantity }}</td>
                                         <td>{{ $variant->taille->nom }}</td>
                                         <td>{{ $variant->couleur->nom }}</td>
                                         <td>
@@ -151,12 +151,13 @@
                                                                         for="exampleFormControlInput1">Nom
                                                                         variant </label>
 
-                                                                    <input class="form-control" value="{{ $variant->name }}"
+                                                                    <input class="form-control"
+                                                                        value="{{ $variant->name }}"
                                                                         id="exampleFormControlInput1" type="text"
                                                                         placeholder="name@example.com" name="name">
-                                                                        @error('name')
+                                                                    @error('name')
                                                                         <span class="text-danger">{{ $message }}</span>
-                                                                        @enderror
+                                                                    @enderror
                                                                 </div>
 
                                                                 <br>
@@ -185,9 +186,9 @@
                                                                             <center />
                                                                         @else
                                                                             <h5> pas d'images ajoutés </h5>
-                                                                    @endif   
+                                                                    @endif
                                                                     @error('images[]')
-                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                        <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>
 
@@ -205,28 +206,33 @@
                                                                     @enderror
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                    <select name="couleur" class="form-select form-select-sm" aria-label="form-select-sm example">
+                                                                    <select name="couleur"
+                                                                        class="form-select form-select-sm"
+                                                                        aria-label="form-select-sm example">
                                                                         @foreach ($couleurs as $couleur)
-                                                                        <option value="{{ $couleur->id }}" {{ $couleur->id == $variant->couleur_id ? 'selected' : '' }}>
-                                                                            {{ $couleur->nom }}
-                                                                        </option>
+                                                                            <option value="{{ $couleur->id }}"
+                                                                                {{ $couleur->id == $variant->couleur_id ? 'selected' : '' }}>
+                                                                                {{ $couleur->nom }}
+                                                                            </option>
                                                                         @endforeach
                                                                     </select>
                                                                     @error('couleur')
-                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                        <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>
-                                                             
+
                                                                 <div class="mb-3">
-                                                                    <select name="taille" class="form-select form-select-sm" aria-label="form-select-sm example">
+                                                                    <select name="taille"
+                                                                        class="form-select form-select-sm"
+                                                                        aria-label="form-select-sm example">
                                                                         @foreach ($tailles as $taille)
-                                                                        <option value="{{ $taille->id }}">
-                                                                            {{ $taille->nom }}
-                                                                        </option>
+                                                                            <option value="{{ $taille->id }}">
+                                                                                {{ $taille->nom }}
+                                                                            </option>
                                                                         @endforeach
                                                                     </select>
                                                                     @error('taille')
-                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                        <span class="text-danger">{{ $message }}</span>
                                                                     @enderror
                                                                 </div>
                                                                 <div class="mb-3">

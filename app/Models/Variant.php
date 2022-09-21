@@ -12,6 +12,7 @@ class Variant extends Model
     protected $table = "variants";
     protected $fillable = ['name', 'prix', 'quantity', 'couleur_id', 'taille_id', 'produit_id'];
 
+
     public function images()
     {
         return $this->hasMany(VariantImages::class, 'variant_id', 'id');
@@ -28,6 +29,11 @@ class Variant extends Model
     {
         return $this->belongsTo(Produit::class, 'produit_id', 'id');
     }
+    public function items()
+    {
+        return $this->belongsTo(LigneCommande::class, 'variant_id', 'id');
+    }
+
     //   query scope 
     public function scopefilter($query, array $filters) // Variant::newQuery()->filter()
     {
