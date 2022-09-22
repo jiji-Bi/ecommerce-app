@@ -214,12 +214,24 @@
                                         </form>
                                     </div>
                                 </div>
+                                {{-- solution numero2 --}}
+                                @foreach ($firstvalues as $key1 => $values1)
+                                    @foreach ($values1 as $value1)
+                                        @if ($firstvalues[$key1][$value1]->id == $variant->id)
+                                            <input type="text"
+                                                value="{{ $othersize[] = $firstvalues[$key1][$value1 + 1] }}">
+                                            {{ $i++ }}
+                                        @endif
+                                    @endforeach
+                                @endforeach
                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                 <script>
                                     $(function() {
                                         $('#sizeselector').on('change', function() {
                                             let formData = document.getElementById('sizeselector').value;
                                             var taille = "{{ Js::from($variantdefault->taille_id) }}";
+                                            var othertaille = "{{ Js::from($othersize->taille_id) }}";
+
                                             // let formData = $("#myForm").serialize();
                                             var ident = "{{ Js::from($produit->id) }}";
                                             $.ajaxSetup({
@@ -234,14 +246,18 @@
                                                     taille: formData,
                                                 },
                                                 success: function(formData) {
-
-                                                    if (formData != taille && formData != ) {
-                                                        document.getElementById('VerifDispo').disabled =
-                                                            true;
-
-                                                    } else {
-                                                        document.getElementById('VerifDispo').disabled =
-                                                            false;
+                                                    console.log(othertaille)
+                                                    console.log(taille)
+                                                    formData = document.getElementById('sizeselector').value;
+                                                    if (formData == taille || formData == othertaille) {
+                                                        document.getElementById('VerifDispo').disabled = false;
+                                                        console.log('hi');
+                                                    }
+                                                    formData = document.getElementById('sizeselector').value;
+                                                    if (formData != taille || formData: != othertaille) {
+                                                        document.getElementById('VerifDispo').disabled = true;
+                                                        console.log('hi');
+                                                        console.log('bye');
                                                     }
 
                                                 }
@@ -307,48 +323,11 @@
                                 </div>
                                 <br>
                                 <br>
-                                {{-- solution numero2 --}}
+
 
                                 <br>
                                 <br>
-                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                                <script>
-                                    $(function() {
-                                        $('#sizeselector').on('change', function() {
-                                            let formData = document.getElementById('sizeselector').value;
-                                            var taille = "{{ Js::from($variantdefault->taille_id) }}";
-                                            // let formData = $("#myForm").serialize();
-                                            var ident = "{{ Js::from($produit->id) }}";
-                                            $.ajaxSetup({
-                                                headers: {
-                                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                                                }
-                                            });
-                                            $.ajax({
-                                                url: '/product/details/'.ident,
-                                                method: 'POST',
-                                                data: {
-                                                    taille: formData,
-                                                },
-                                                success: function(formData) {
 
-                                                    if (formData != taille) {
-                                                        document.getElementById('VerifDispo').disabled =
-                                                            true;
-
-                                                    }
-                                                    formData = document.getElementById('sizeselector').value;
-
-                                                    if (formData == taille) {
-                                                        document.getElementById('VerifDispo').disabled =
-                                                            false;
-                                                    }
-
-                                                }
-                                            });
-                                        });
-                                    });
-                                </script>
                                 <form action="get">
                                     <div class="flex-w flex-r-m p-b-10">
                                         <div class="size-204 flex-w flex-m respon6-next">
