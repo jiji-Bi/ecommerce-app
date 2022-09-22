@@ -32,7 +32,6 @@ Route::get('/home', [HomeController::class, 'index']);
 //This route '/' always gives a redirection to the welcomepage
 Route::get('/', [GuestController::class, 'welcomepage']);
 Route::get('/welcome', [GuestController::class, 'index']);
-Route::get('/product/details/{id}', [GuestController::class, 'productDetails']);
 Route::get('/product/{category}/list', [GuestController::class, 'categoryProducts']);
 Route::post('/client/review/add', [ClientController::class, 'addReview'])->middleware('auth', 'client');
 
@@ -87,3 +86,7 @@ Route::post('/admin/categorie/edit', [CategoryController::class, 'ModifierCatego
 
 //Client routes 
 Route::get('/client/dashboard', [ClientController::class, 'dashboard'])->name('client-dashboard')->middleware('auth', 'client');
+
+
+//Specific Route (post request(ajax) and http request get)
+Route::any('/product/details/{id}', [GuestController::class, 'productDetails']);

@@ -217,23 +217,33 @@
                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                 <script>
                                     $(function() {
-                                        // when select changes
                                         $('#sizeselector').on('change', function() {
-
-                                            // create data from form input(s)
-                                            let formData = $('#myForm').serialize();
-                                            var id = "{{ Js::from($produit->id) }}";
-
-                                            // send data to your endpoint
+                                            let formData = document.getElementById('sizeselector').value;
+                                            var taille = "{{ Js::from($variantdefault->taille_id) }}";
+                                            // let formData = $("#myForm").serialize();
+                                            var ident = "{{ Js::from($produit->id) }}";
+                                            $.ajaxSetup({
+                                                headers: {
+                                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                }
+                                            });
                                             $.ajax({
-                                                url: '/product/details/'.id,
-                                                method: 'get',
-                                                data: formData,
-                                                dataType: 'json', // we expect a json response
-                                                success: function(response) {
-                                                    var data = JSON.parse(response);
-                                                    alert(data);
-                                                    // 
+                                                url: '/product/details/'.ident,
+                                                method: 'POST',
+                                                data: {
+                                                    taille: formData,
+                                                },
+                                                success: function(formData) {
+
+                                                    if (formData != taille && formData != ) {
+                                                        document.getElementById('VerifDispo').disabled =
+                                                            true;
+
+                                                    } else {
+                                                        document.getElementById('VerifDispo').disabled =
+                                                            false;
+                                                    }
+
                                                 }
                                             });
                                         });
@@ -297,8 +307,49 @@
                                 </div>
                                 <br>
                                 <br>
+                                {{-- solution numero2 --}}
+
                                 <br>
-                                <form action="">
+                                <br>
+                                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                <script>
+                                    $(function() {
+                                        $('#sizeselector').on('change', function() {
+                                            let formData = document.getElementById('sizeselector').value;
+                                            var taille = "{{ Js::from($variantdefault->taille_id) }}";
+                                            // let formData = $("#myForm").serialize();
+                                            var ident = "{{ Js::from($produit->id) }}";
+                                            $.ajaxSetup({
+                                                headers: {
+                                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                                }
+                                            });
+                                            $.ajax({
+                                                url: '/product/details/'.ident,
+                                                method: 'POST',
+                                                data: {
+                                                    taille: formData,
+                                                },
+                                                success: function(formData) {
+
+                                                    if (formData != taille) {
+                                                        document.getElementById('VerifDispo').disabled =
+                                                            true;
+
+                                                    }
+                                                    formData = document.getElementById('sizeselector').value;
+
+                                                    if (formData == taille) {
+                                                        document.getElementById('VerifDispo').disabled =
+                                                            false;
+                                                    }
+
+                                                }
+                                            });
+                                        });
+                                    });
+                                </script>
+                                <form action="get">
                                     <div class="flex-w flex-r-m p-b-10">
                                         <div class="size-204 flex-w flex-m respon6-next">
                                             <div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -313,22 +364,17 @@
                                                     <i class="fs-16 zmdi zmdi-plus"></i>
                                                 </div>
                                             </div>
-                                            @if (isset($variant))
-                                                <button
-                                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Add to cart
-                                                </button>
-                                            @else
-                                                <button
-                                                    class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Add to cart
-                                                </button>
-                                            @endif
-
+                                            <button id="VerifDispo"
+                                                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                                Add to cart
+                                            </button>
                                         </div>
                                 </form>
                             </div>
                         </div>
+                        <!--  -->
+                        <br>
+                        <br>
 
                         <!--  -->
                         <div class="flex-w flex-m p-l-100 p-t-40 respon7">
