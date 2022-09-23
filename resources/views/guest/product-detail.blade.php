@@ -215,25 +215,34 @@
                                     </div>
                                 </div>
                                 {{-- solution numero2 --}}
+
                                 @foreach ($firstvalues as $key1 => $values1)
+                                    <input type="hidden" value="{{ $i = 0 }}">
                                     @foreach ($values1 as $value1)
-                                        @if ($firstvalues[$key1][$value1]->id == $variant->id)
-                                            <input type="text"
-                                                value="{{ $othersize[] = $firstvalues[$key1][$value1 + 1] }}">
-                                            {{ $i++ }}
+                                        @if (isset($i))
+                                            @if ($variantdefault->id == $values1[$i]->id)
+                                                <input type="text" value="{{ $values1 }}">
+                                            @endif
+                                            <input type="hidden" value="  {{ $i++ }} ">
                                         @endif
                                     @endforeach
                                 @endforeach
+                                {{-- solution  2 ne permet pas d'avoir le tableau dans l'itération en cours   --}}
+
+                                {{--  var taille = "{{ Js::from($variantdefault->taille_id) }}";
+                                 var othertaille = "{{ Js::from($othersize->taille_id) }}";
+                                 let formData = $("#myForm").serialize(); --}}
+
                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                 <script>
                                     $(function() {
                                         $('#sizeselector').on('change', function() {
                                             let formData = document.getElementById('sizeselector').value;
-                                            var taille = "{{ Js::from($variantdefault->taille_id) }}";
-                                            var othertaille = "{{ Js::from($othersize->taille_id) }}";
-
-                                            // let formData = $("#myForm").serialize();
+                                            var othersize = @json($values1);
                                             var ident = "{{ Js::from($produit->id) }}";
+                                            var sizevar = "{{ Js::from($variantdefault->taille_id) }}";
+                                            var visible = true;
+
                                             $.ajaxSetup({
                                                 headers: {
                                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -246,18 +255,16 @@
                                                     taille: formData,
                                                 },
                                                 success: function(formData) {
-                                                    console.log(othertaille)
-                                                    console.log(taille)
                                                     formData = document.getElementById('sizeselector').value;
-                                                    if (formData == taille || formData == othertaille) {
-                                                        document.getElementById('VerifDispo').disabled = false;
-                                                        console.log('hi');
-                                                    }
-                                                    formData = document.getElementById('sizeselector').value;
-                                                    if (formData != taille || formData: != othertaille) {
-                                                        document.getElementById('VerifDispo').disabled = true;
-                                                        console.log('hi');
-                                                        console.log('bye');
+
+                                                    for (var item in othersize) {}
+                                                    if (formData == othersize[item].taille_id) {
+
+                                                        visible = true;
+
+                                                    } else if (formData != othersize[item].taille_id) {
+
+                                                        visible = false;
                                                     }
 
                                                 }
@@ -343,8 +350,9 @@
                                                     <i class="fs-16 zmdi zmdi-plus"></i>
                                                 </div>
                                             </div>
-                                            <button id="VerifDispo"
-                                                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                                            <button
+                                                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
+                                                id="VerifDispo" style="visibility: visible">
                                                 Add to cart
                                             </button>
                                         </div>

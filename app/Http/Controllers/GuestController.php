@@ -43,7 +43,6 @@ class GuestController extends Controller
         // $distinct_variants = Variant::select('variants')
         //     ->groupBy(['couleur_id', 'produit_id'])->select('couleur_id', 'produit_id')
         //     ->get();
-
         $distinct_variants =  Variant::groupBy(['couleur_id', 'produit_id'])->select('couleur_id', 'produit_id', DB::raw('count(*) as total'))->get();
         // select couleur_id ,produit_id,count(*) from variants GROUP BY produit_id, couleur_id;
 
