@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CommandeController;
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
@@ -34,6 +35,7 @@ Route::get('/', [GuestController::class, 'welcomepage']);
 Route::get('/welcome', [GuestController::class, 'index']);
 Route::get('/product/{category}/list', [GuestController::class, 'categoryProducts']);
 Route::post('/client/review/add', [ClientController::class, 'addReview'])->middleware('auth', 'client');
+Route::post('/client/order/add', [CommandeController::class, 'addCommande'])->middleware('auth', 'client');
 
 //Scaffolded authentification routes 
 // Authentication Routes...

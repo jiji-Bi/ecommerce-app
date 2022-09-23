@@ -125,12 +125,12 @@
 
         /*---------------------------------------------*/
 
-        $('.js-addcart-detail').each(function() {
-            var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-            $(this).on('click', function() {
-                swal(nameProduct, "is added to cart !", "success");
-            });
-        });
+        // $('.js-addcart-detail').each(function() {
+        //     var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+        //     $(this).on('click', function() {
+        //         swal(nameProduct, "is added to cart !", "success");
+        //     });
+        // });
     </script>
     <!--===============================================================================================-->
     <script src="{{ asset('Client-assets/vendor/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
