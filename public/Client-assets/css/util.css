@@ -15620,3 +15620,9 @@ iframe {
 .dropdown-content {
     right: 0;
 }
+
+.img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}

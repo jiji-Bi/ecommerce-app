@@ -36,7 +36,6 @@ Route::get('/welcome', [GuestController::class, 'index']);
 Route::get('/product/{category}/list', [GuestController::class, 'categoryProducts']);
 Route::post('/client/review/add', [ClientController::class, 'addReview'])->middleware('auth', 'client');
 Route::post('/client/order/add', [CommandeController::class, 'addCommande'])->middleware('auth', 'client');
-Route::get('/client/cart', [ClientController::class, 'indexCart'])->middleware('auth', 'client');
 
 //Scaffolded authentification routes 
 // Authentication Routes...
@@ -93,3 +92,4 @@ Route::get('/client/dashboard', [ClientController::class, 'dashboard'])->name('c
 
 //Specific Route (post request(ajax) and http request get)
 Route::any('/product/details/{id}', [GuestController::class, 'productDetails']);
+Route::any('/client/cart', [ClientController::class, 'indexCart'])->middleware('auth', 'client');

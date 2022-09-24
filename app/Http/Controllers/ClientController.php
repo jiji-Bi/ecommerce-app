@@ -32,8 +32,7 @@ class ClientController extends Controller
     }
     public function indexCart(Request $request)
     {
-        $commande = Commande::where('user_id', '=', Auth::user()->id)->where('etat', '=', 'en cours')->get();
-
-        return view('guest.components.shoppingcart');
+        $commande = Commande::where('user_id', '=', Auth::user()->id)->where('etat', '=', 'en cours')->first();
+        return view('guest.components.shoppingcart')->with('commande', $commande);
     }
 }

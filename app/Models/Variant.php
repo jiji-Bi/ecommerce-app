@@ -31,7 +31,7 @@ class Variant extends Model
     }
     public function items()
     {
-        return $this->belongsTo(LigneCommande::class, 'variant_id', 'id');
+        return $this->hasMany(LigneCommande::class, 'variant_id', 'id');
     }
 
     //   query scope 

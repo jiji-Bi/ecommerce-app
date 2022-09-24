@@ -18,6 +18,6 @@ class LigneCommande extends Model
     //ligne de commande a obligatoirement un et un seul produit 
     public function variant()
     {
-        return $this->hasOne(Variant::class, 'variant_id', 'id');
+        return $this->belongsTo(Variant::class, 'variant_id', 'id');
     }
 }

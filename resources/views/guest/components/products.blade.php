@@ -6,10 +6,11 @@
                 <input type="hidden" value="{{ $variant = $produit->variants->first() }}">
                 <input type="hidden" value="{{ $element = $variant->images->first() }}">
                 @if (count($variant->images))
-                    <div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                    <div class="col-sm-6 col-md-4 col-lg-3 isotope-item lg:grid">
                         <!-- Block2 -->
                         <div class="block2">
-                            <div class="block2-pic hov-img0 label-new" data-label="New">
+
+                            <div class="img block2-pic hov-img0 label-new" data-label="New">
                                 <img src="{{ asset('uploads') }}/{{ $element->image }}" alt="IMG-PRODUCT">
                                 <a href="#"
                                     class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
