@@ -28,6 +28,11 @@ class GuestController extends Controller
     }
     public function productDetails($id, Request $request)
     {
+
+
+        // dd(isset($_POST["taille"]) ? $_POST["taille"] : "");
+        // {
+        //     exit,;        }
         $produit = Produit::find($id);
 
         $variant_id = $request->query('picture');

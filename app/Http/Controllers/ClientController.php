@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Review;
+use App\Models\Commande;
 use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
@@ -20,7 +21,6 @@ class ClientController extends Controller
     }
     public function addReview(Request $request)
     {
-
         $review = new Review();
         $review->rating = $request->valueAsNumber;
         $review->review = $request->content;
@@ -29,5 +29,11 @@ class ClientController extends Controller
         if ($review->save()) {
             return redirect()->back()->with('ajout', 'Merci pour votre évalaution');
         }
+    }
+    public function indexCart(Request $request)
+    {
+        $commande = Commande::where('user_id', '=', Auth::user()->id)->where('etat', '=', 'en cours')->get();
+
+        return view('guest.components.shoppingcart');
     }
 }
