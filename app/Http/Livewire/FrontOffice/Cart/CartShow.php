@@ -2,33 +2,53 @@
 
 namespace app\Http\Livewire\FrontOffice\Cart;
 
+use App\Models\Commande;
 use App\Models\LigneCommande;
+use GuzzleHttp\Psr7\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
 class CartShow extends Component
 {
-
+    protected $listeners = [
+        'reviewSectionRefresh' => '$refresh',
+    ];
     public $commande;
 
     public function decrementQuantity(int $itemId)
     {
-        $itemData = LigneCommande::where('id', $itemId)->first();
 
+        $itemData = LigneCommande::where('id', '=', $itemId)->first();
         if ($itemData) {
             $itemData->decrement('quantity');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Quantity Updated',
+                'type' => 'success',
+                'status' => 200
+            ]);
         }
     }
 
     public function incrementQuantity(int $itemId)
     {
-        $itemData = LigneCommande::where('id', $itemId)->first();
+        $itemData = LigneCommande::where('id', '=', $itemId)->get();
         if ($itemData) {
-            $itemData->increment('quantity');
+            $itemData[0]->increment('quantity');
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Quantity Updated',
+                'type' => 'success',
+                'status' => 200
+            ]);
         }
     }
+    public function RemoveCartItem(int $itemId)
+    {
+        LigneCommande::where('commande_id', $this->commande->id)->where('id', $itemId)->delete();
+    }
+
     public function render()
-    { //$this->commande just like useState() in RHooks
+    {
+        $this->commande = Commande::where('user_id', '=', Auth::user()->id)->where('etat', '=', 'en cours')->first();
         return view('livewire.front-office.cart.cart-show', ['commande' => $this->commande]);
     }
 }
