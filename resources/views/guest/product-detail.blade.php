@@ -253,29 +253,36 @@
                                                             othersizes = firstvalues[first];
                                                             for (othersize in othersizes) {
                                                                 if (othersizes[othersize].taille_id === formData) {
-                                                                    return document.getElementById('VerifDispo')
+                                                                    document.getElementById('VerifDispo')
                                                                         .disabled = false;
+                                                                    document.getElementById('VerifDispo')
+                                                                        .style.cursor = "pointer";
                                                                 }
                                                             }
                                                             for (othersize in othersizes) {
                                                                 if (othersizes[othersize].taille_id !== formData) {
-                                                                    return document.getElementById('VerifDispo')
+                                                                    document.getElementById('VerifDispo')
                                                                         .disabled = true;
+                                                                    document.getElementById('VerifDispo')
+                                                                        .style.cursor = "not-allowed";
                                                                 }
                                                             }
                                                         }
                                                     }
                                                     if (variantsize == formData) {
-
-                                                        return document.getElementById('VerifDispo')
+                                                        document.getElementById('VerifDispo')
                                                             .disabled = false;
+                                                        document.getElementById('VerifDispo')
+                                                            .style.cursor = "pointer";
+
+
                                                     }
                                                     //formData = parseInt(document.getElementById('sizeselector').value);
                                                     if (variantsize != formData) {
-
                                                         document.getElementById('VerifDispo')
                                                             .disabled = true;
-
+                                                        document.getElementById('VerifDispo')
+                                                            .style.cursor = "not-allowed";
                                                     }
 
                                                 }
@@ -364,8 +371,8 @@
                                             </div>
                                         </div>
                                         <button
-                                            class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail"
-                                            id="VerifDispo">
+                                            class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail pointer"
+                                            id="VerifDispo" style="cursor: pointer;">
                                             Add to cart
                                         </button>
                                     </div>

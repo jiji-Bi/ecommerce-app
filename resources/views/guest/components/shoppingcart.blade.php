@@ -111,9 +111,7 @@
             </div>
         </div>
 
-
-        
-
+        <livewire:front-office.cart.cart-show :commande="$commande" />
 
         <!-- Footer -->
         @include('guest.components.footer')

@@ -45,7 +45,6 @@
     <!--===============================================================================================-->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @livewireStyles
-
 </head>
 
 <body class="animsition">
@@ -154,7 +153,6 @@
     <!--===============================================================================================-->
     <script src="{{ asset('Client-assets/js/main.js') }}"></script>
     @livewireScripts
-
 </body>
 
 </html>

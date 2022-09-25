@@ -1811,8 +1811,7 @@ button.mfp-close {
     overflow: hidden;
 }
 
-.btn-num-product-up,
-.btn-num-product-down {
+.increase {
     width: 45px;
     height: 100%;
     cursor: pointer;
