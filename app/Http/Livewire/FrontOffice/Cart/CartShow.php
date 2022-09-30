@@ -4,7 +4,6 @@ namespace app\Http\Livewire\FrontOffice\Cart;
 
 use App\Models\Commande;
 use App\Models\LigneCommande;
-use GuzzleHttp\Psr7\Request;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
