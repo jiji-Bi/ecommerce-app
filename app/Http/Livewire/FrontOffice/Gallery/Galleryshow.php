@@ -13,21 +13,17 @@ use Illuminate\Support\Facades\DB;
 class Galleryshow extends Component
 {
     protected $listeners = [
-        'EventChanged' => 'render'
+        'EventChanged' => 'fire', 'refre' => '$refresh'
     ];
 
-    public $variant;
-    public $variants;
 
+    public function fire()
+    {
+        $this->emitSelf('refre');
+    }
     public function render()
     {
-
-        return view('livewire.front-office.gallery.galleryshow', ['images' => $this->images]);
-    }
-    public function mount($variant, $variants, $images)
-    {
-        $this->variant = $variant;
-        $this->variants = $variants;
-        $this->images = $images;
+        $images = VariantImages::filter(request(['picture']))->get();
+        return view('livewire.front-office.gallery.galleryshow', ['images' => $images]);
     }
 }

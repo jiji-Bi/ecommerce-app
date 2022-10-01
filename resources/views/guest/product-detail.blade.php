@@ -1,5 +1,6 @@
 @extends('guest.layout')
 @section('content')
+
     <!-- Header -->
     <header class="header-v4">
         <!-- Header desktop -->
@@ -131,7 +132,7 @@
                                                 data-thumb="{{ asset('uploads') }}/{{ $img->image }}"width="100">
                                                 <div
                                                     class="wrap-pic-w
-                                                        pos-relative">
+                                                    pos-relative">
                                                     <img src="{{ asset('uploads') }}/{{ $img->image }}" alt="IMG-PRODUCT">
                                                     <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
                                                         href="{{ asset('uploads') }}/{{ $img->image }}">
@@ -149,7 +150,7 @@
                                                 data-thumb="{{ asset('uploads') }}/{{ $img->image }}"width="100">
                                                 <div
                                                     class="wrap-pic-w
-                                                        pos-relative">
+                                                    pos-relative">
                                                     <img src="{{ asset('uploads') }}/{{ $img->image }}"
                                                         alt="IMG-PRODUCT">
                                                     <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
@@ -212,7 +213,7 @@
 
                                     </div>
                                 </div>
-
+                                {{-- solution numero2 --}}
                                 @foreach ($firstvalues as $key1 => $values1)
                                     <input type="hidden" value="{{ $i = 0 }}">
                                     @foreach ($values1 as $value1)
@@ -273,8 +274,6 @@
                                                             .disabled = false;
                                                         document.getElementById('VerifDispo')
                                                             .style.cursor = "pointer";
-
-
                                                     }
                                                     //formData = parseInt(document.getElementById('sizeselector').value);
                                                     if (variantsize != formData) {
@@ -283,7 +282,6 @@
                                                         document.getElementById('VerifDispo')
                                                             .style.cursor = "not-allowed";
                                                     }
-
                                                 }
                                             });
                                         });
@@ -318,8 +316,11 @@
                                                                 value="{{ $variant_f_image = $variant->images->first() }}">
                                                             <input name="picture" type="hidden"
                                                                 value="{{ $variant->id }}">
-                                                            <livewire:front-office.gallery.galleryclick :variants="$variants"
-                                                                :variant="$variant" />
+                                                            <a
+                                                                href="{{ request()->fullUrlWithQuery(['picture' => $variant->id]) }}">
+                                                                <img src="{{ asset('uploads') }}/{{ $variant_f_image->image }}"
+                                                                    width="50" alt="IMG-PRODUCT">
+                                                            </a>
                                                         </div>
                                                     @endif
                                                 @endforeach
@@ -331,8 +332,11 @@
                                                     <div class="product-section-thumbnail">
                                                         <input type="hidden"
                                                             value="{{ $variant_f_image = $variant->images->first() }}">
-                                                        <livewire:front-office.gallery.galleryclick :variants="$variants"
-                                                            :variant="$variant" />
+                                                        <a
+                                                            href="{{ request()->fullUrlWithQuery(['picture' => $variant->id]) }}">
+                                                            <img src="{{ asset('uploads') }}/{{ $variant_f_image->image }}"
+                                                                width="50" alt="IMG-PRODUCT">
+                                                        </a>
                                                     </div>
                                                 @endif
                                             @endforeach
@@ -342,18 +346,7 @@
                                 <br>
                                 <br>
 
-                                <script type="text/javascript">
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                        // listen for the event
-                                        window.livewire.on('urlChanged', param => {
-                                            // pushing on the history by passing the current url with the param appended
-                                            history.pushState(null, null, `${document.location.pathname}?${param}`);
 
-                                        });
-
-                                        document.getElementById('images').
-                                    });
-                                </script>
                                 <br>
                                 <br>
                                 <div class="flex-w flex-r-m p-b-10">
@@ -418,202 +411,200 @@
                 </div>
 
                 <div class="bor10 m-t-50 p-t-43 p-b-40">
-                    <div class="bor10 m-t-50 p-t-43 p-b-40">
-                        <!-- Tab01 -->
-                        <div class="tab01">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li class="nav-item p-b-10">
-                                    <a class="nav-link active" data-toggle="tab" href="#description"
-                                        role="tab">Description</a>
-                                </li>
+                    <!-- Tab01 -->
+                    <div class="tab01">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item p-b-10">
+                                <a class="nav-link active" data-toggle="tab" href="#description"
+                                    role="tab">Description</a>
+                            </li>
 
-                                <li class="nav-item p-b-10">
-                                    <a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional
-                                        information</a>
-                                </li>
+                            <li class="nav-item p-b-10">
+                                <a class="nav-link" data-toggle="tab" href="#information" role="tab">Additional
+                                    information</a>
+                            </li>
 
-                                <li class="nav-item p-b-10">
-                                    <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews
-                                        ({{ count($produit->reviews) }})</a>
-                                </li>
-                            </ul>
+                            <li class="nav-item p-b-10">
+                                <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews
+                                    ({{ count($produit->reviews) }})</a>
+                            </li>
+                        </ul>
 
-                            <!-- Tab panes -->
-                            <div class="tab-content p-t-43">
-                                <!-- - -->
-                                <div class="tab-pane fade show active" id="description" role="tabpanel">
-                                    <div class="how-pos2 p-lr-15-md">
-                                        <p class="stext-102 cl6">
-                                            Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc
-                                            fringilla
-                                            sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit
-                                            lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus
-                                            enim,
-                                            cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat
-                                            interdum
-                                            in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean
-                                            tempor
-                                            sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc
-                                            nec
-                                            laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum.
-                                            Cras
-                                            in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
-                                        </p>
+                        <!-- Tab panes -->
+                        <div class="tab-content p-t-43">
+                            <!-- - -->
+                            <div class="tab-pane fade show active" id="description" role="tabpanel">
+                                <div class="how-pos2 p-lr-15-md">
+                                    <p class="stext-102 cl6">
+                                        Aenean sit amet gravida nisi. Nam fermentum est felis, quis feugiat nunc
+                                        fringilla
+                                        sit amet. Ut in blandit ipsum. Quisque luctus dui at ante aliquet, in hendrerit
+                                        lectus interdum. Morbi elementum sapien rhoncus pretium maximus. Nulla lectus
+                                        enim,
+                                        cursus et elementum sed, sodales vitae eros. Ut ex quam, porta consequat
+                                        interdum
+                                        in, faucibus eu velit. Quisque rhoncus ex ac libero varius molestie. Aenean
+                                        tempor
+                                        sit amet orci nec iaculis. Cras sit amet nulla libero. Curabitur dignissim, nunc
+                                        nec
+                                        laoreet consequat, purus nunc porta lacus, vel efficitur tellus augue in ipsum.
+                                        Cras
+                                        in arcu sed metus rutrum iaculis. Nulla non tempor erat. Duis in egestas nunc.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- - -->
+                            <div class="tab-pane fade" id="information" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                        <ul class="p-lr-28 p-lr-15-sm">
+                                            <li class="flex-w flex-t p-b-7">
+                                                <span class="stext-102 cl3 size-205">
+                                                    Weight
+                                                </span>
+
+                                                <span class="stext-102 cl6 size-206">
+                                                    0.79 kg
+                                                </span>
+                                            </li>
+
+                                            <li class="flex-w flex-t p-b-7">
+                                                <span class="stext-102 cl3 size-205">
+                                                    Dimensions
+                                                </span>
+
+                                                <span class="stext-102 cl6 size-206">
+                                                    110 x 33 x 100 cm
+                                                </span>
+                                            </li>
+
+                                            <li class="flex-w flex-t p-b-7">
+                                                <span class="stext-102 cl3 size-205">
+                                                    Materials
+                                                </span>
+
+                                                <span class="stext-102 cl6 size-206">
+                                                    60% cotton
+                                                </span>
+                                            </li>
+
+                                            <li class="flex-w flex-t p-b-7">
+                                                <span class="stext-102 cl3 size-205">
+                                                    Color
+                                                </span>
+
+                                                <span class="stext-102 cl6 size-206">
+                                                    Black, Blue, Grey, Green, Red, White
+                                                </span>
+                                            </li>
+
+                                            <li class="flex-w flex-t p-b-7">
+                                                <span class="stext-102 cl3 size-205">
+                                                    Size
+                                                </span>
+
+                                                <span class="stext-102 cl6 size-206">
+                                                    XL, L, M, S
+                                                </span>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- - -->
-                                <div class="tab-pane fade" id="information" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-                                            <ul class="p-lr-28 p-lr-15-sm">
-                                                <li class="flex-w flex-t p-b-7">
-                                                    <span class="stext-102 cl3 size-205">
-                                                        Weight
-                                                    </span>
-
-                                                    <span class="stext-102 cl6 size-206">
-                                                        0.79 kg
-                                                    </span>
-                                                </li>
-
-                                                <li class="flex-w flex-t p-b-7">
-                                                    <span class="stext-102 cl3 size-205">
-                                                        Dimensions
-                                                    </span>
-
-                                                    <span class="stext-102 cl6 size-206">
-                                                        110 x 33 x 100 cm
-                                                    </span>
-                                                </li>
-
-                                                <li class="flex-w flex-t p-b-7">
-                                                    <span class="stext-102 cl3 size-205">
-                                                        Materials
-                                                    </span>
-
-                                                    <span class="stext-102 cl6 size-206">
-                                                        60% cotton
-                                                    </span>
-                                                </li>
-
-                                                <li class="flex-w flex-t p-b-7">
-                                                    <span class="stext-102 cl3 size-205">
-                                                        Color
-                                                    </span>
-
-                                                    <span class="stext-102 cl6 size-206">
-                                                        Black, Blue, Grey, Green, Red, White
-                                                    </span>
-                                                </li>
-
-                                                <li class="flex-w flex-t p-b-7">
-                                                    <span class="stext-102 cl3 size-205">
-                                                        Size
-                                                    </span>
-
-                                                    <span class="stext-102 cl6 size-206">
-                                                        XL, L, M, S
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- - -->
-                                <div class="tab-pane fade" id="reviews" role="tabpanel">
-                                    <div class="row">
-                                        <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
-                                            <div class="p-b-30 m-lr-15-sm">
-                                                <!-- Review -->
-                                                @foreach ($produit->reviews as $review)
-                                                    <div class="flex-w flex-t p-b-68">
-                                                        <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-                                                            <img src="{{ asset('Client-assets/images/avatar-01.jpg') }}"
-                                                                alt="AVATAR">
-                                                        </div>
-
-                                                        <div class="size-207">
-                                                            <div class="flex-w flex-sb-m p-b-17">
-                                                                <span class="mtext-107 cl2 p-r-20">
-                                                                    {{ $review->user->name }}
-                                                                    <small><i>{{ $review->created_at }}</i></small>
-                                                                </span>
-                                                                <input type="hidden"
-                                                                    value="{{ $rating = $review->rating }}">
-                                                                <span class="fs-18 cl11">
-
-                                                                    @while ($rating > 0)
-                                                                        @if ($rating > 0.5)
-                                                                            <i class="zmdi zmdi-star"></i>
-                                                                        @else
-                                                                            <i class="zmdi zmdi-star-half"></i>
-                                                                        @endif
-                                                                        @php $rating=$rating-1; @endphp
-                                                                    @endwhile
-                                                                </span>
-                                                            </div>
-
-                                                            <p class="stext-102 cl6">
-                                                                {{ $review->review }}
-                                                            </p>
-                                                        </div>
+                            <!-- - -->
+                            <div class="tab-pane fade" id="reviews" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                        <div class="p-b-30 m-lr-15-sm">
+                                            <!-- Review -->
+                                            @foreach ($produit->reviews as $review)
+                                                <div class="flex-w flex-t p-b-68">
+                                                    <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+                                                        <img src="{{ asset('Client-assets/images/avatar-01.jpg') }}"
+                                                            alt="AVATAR">
                                                     </div>
-                                                @endforeach
 
-                                                {{-- Notification --}}
-                                                @if ($message = Session::get('ajout'))
-                                                    {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
-                                                    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                                    <div class="size-207">
+                                                        <div class="flex-w flex-sb-m p-b-17">
+                                                            <span class="mtext-107 cl2 p-r-20">
+                                                                {{ $review->user->name }}
+                                                                <small><i>{{ $review->created_at }}</i></small>
+                                                            </span>
+                                                            <input type="hidden"
+                                                                value="{{ $rating = $review->rating }}">
+                                                            <span class="fs-18 cl11">
 
-                                                    <script type="text/javascript">
-                                                        var message = {{ Js::from($message) }};
-                                                        new swal({
-                                                            icon: 'success',
-                                                            confirmButtonColor: "#3874ff",
-                                                            title: '',
-                                                            text: message,
-                                                            timer: 5000
-                                                        }).then((value) => {
-                                                            //location.reload();
-                                                        }).catch(swal.noop);
-                                                    </script>
-                                                @endif
-                                                <!-- Add review -->
-                                                <form action="/client/review/add" method="POST">
-                                                    @csrf
-                                                    <h5 class="mtext-108 cl2 p-b-7">
-                                                        Add a review
-                                                    </h5>
-                                                    <p class="stext-102 cl6">
-                                                        Your email address will not be published. Required fields are marked
-                                                        *
-                                                    </p>
-
-                                                    <label class="rating-label pointer">
-                                                        <input class="rating" max="5" name="valueAsNumber"
-                                                            oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)"
-                                                            step="0.5" style="--value:2.5" type="range"
-                                                            value="2.5">
-                                                    </label>
-
-
-                                                    <div class="row p-b-25">
-                                                        <div class="col-12 p-b-5">
-                                                            <label class="stext-102 cl3" for="review">Your
-                                                                review</label>
-                                                            <textarea name="content" class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
+                                                                @while ($rating > 0)
+                                                                    @if ($rating > 0.5)
+                                                                        <i class="zmdi zmdi-star"></i>
+                                                                    @else
+                                                                        <i class="zmdi zmdi-star-half"></i>
+                                                                    @endif
+                                                                    @php $rating=$rating-1; @endphp
+                                                                @endwhile
+                                                            </span>
                                                         </div>
+
+                                                        <p class="stext-102 cl6">
+                                                            {{ $review->review }}
+                                                        </p>
                                                     </div>
-                                                    <input type="hidden" name="produit_id" value="{{ $produit->id }}">
-                                                    <button type="submit"
-                                                        class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-                                                        Submit
-                                                    </button>
-                                                </form>
-                                            </div>
+                                                </div>
+                                            @endforeach
+
+                                            {{-- Notification --}}
+                                            @if ($message = Session::get('ajout'))
+                                                {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
+                                                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                                                <script type="text/javascript">
+                                                    var message = {{ Js::from($message) }};
+                                                    new swal({
+                                                        icon: 'success',
+                                                        confirmButtonColor: "#3874ff",
+                                                        title: '',
+                                                        text: message,
+                                                        timer: 5000
+                                                    }).then((value) => {
+                                                        //location.reload();
+                                                    }).catch(swal.noop);
+                                                </script>
+                                            @endif
+                                            <!-- Add review -->
+                                            <form action="/client/review/add" method="POST">
+                                                @csrf
+                                                <h5 class="mtext-108 cl2 p-b-7">
+                                                    Add a review
+                                                </h5>
+                                                <p class="stext-102 cl6">
+                                                    Your email address will not be published. Required fields are marked
+                                                    *
+                                                </p>
+
+                                                <label class="rating-label pointer">
+                                                    <input class="rating" max="5" name="valueAsNumber"
+                                                        oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)"
+                                                        step="0.5" style="--value:2.5" type="range"
+                                                        value="2.5">
+                                                </label>
+
+
+                                                <div class="row p-b-25">
+                                                    <div class="col-12 p-b-5">
+                                                        <label class="stext-102 cl3" for="review">Your
+                                                            review</label>
+                                                        <textarea name="content" class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="produit_id" value="{{ $produit->id }}">
+                                                <button type="submit"
+                                                    class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+                                                    Submit
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -621,16 +612,17 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
-                    <span class="stext-107 cl6 p-lr-25">
-                        SKU: JAK-01
-                    </span>
+            <div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
+                <span class="stext-107 cl6 p-lr-25">
+                    SKU: JAK-01
+                </span>
 
-                    <span class="stext-107 cl6 p-lr-25">
-                        Categories: Jacket, Men
-                    </span>
-                </div>
+                <span class="stext-107 cl6 p-lr-25">
+                    Categories: Jacket, Men
+                </span>
+            </div>
         </section>
 
 
