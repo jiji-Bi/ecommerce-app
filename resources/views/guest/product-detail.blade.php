@@ -279,7 +279,7 @@
                                                     if (variantsize != formData) {
                                                         document.getElementById('VerifDispo')
                                                             .disabled = true;
-                                                        document.getElementById('VerifDispo')
+                                                        return document.getElementById('VerifDispo')
                                                             .style.cursor = "not-allowed";
                                                     }
                                                 }
