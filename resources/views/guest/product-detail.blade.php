@@ -169,13 +169,22 @@
                         <div class="p-r-50 p-t-5 p-lr-0-lg">
                             <h4 class="mtext-105 cl2 js-name-detail p-b-14">
                                 {{ $produit->nom }}
-                                @if ($produit->stock > 0)
-                                    <label class="btn-sm py-1 mt-2 text-white bg-success" style="display: inline">In
-                                        Stock</label>
-                                @else<label class="btn-sm py-1 mt-2 text-white bg-danger" style="display: inline">
-                                        Out of
-                                        Stock</label>
+                                @if (isset($variant))
+                                    <input type="hidden" value="{{ $variantdefault = $variant }}">
+                                @else
+                                    <input type="hidden" value="{{ $variantdefault = $variants->first() }}">
+                                @endif                                <div >
+                                @if($variantdefault->quantity>0)
+                                    <label id="backgroundsd" class="btn-sm py-1 mt-2 text-white bg-success"
+                                    style="display: inline">In
+                                    Stock</label>
+                                @else
+                                    <label id="backgroundsd" class="btn-sm py-1 mt-2 text-white bg-danger"
+                                    style="display: inline">Out of Stock
+                                    </label>
                                 @endif
+                                </div>
+                                            
                             </h4>
                             <span class="mtext-106 cl2">
                                 {{ $produit->price }}
@@ -226,6 +235,7 @@
                                     @endforeach
                                 @endforeach
 
+
                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                                 <script>
                                     $(function() {
@@ -233,6 +243,7 @@
                                             var formData = parseInt(document.getElementById('sizeselector').value);
                                             var ident = "{{ Js::from($produit->id) }}";
                                             var variant = "{{ Js::from($variantdefault->id) }}";
+                                            var quantity = "{{ Js::from($variantdefault->quantity) }}";
                                             var variantsize = "{{ Js::from($variantdefault->taille_id) }}";
                                             var firstvalues = @json($firstvalues);
                                             var values1 = @json($values1);
@@ -253,14 +264,58 @@
                                                             othersizes = firstvalues[first];
                                                             for (othersize in othersizes) {
                                                                 if (othersizes[othersize].taille_id === formData) {
-                                                                    document.getElementById('VerifDispo')
+                                                                    if (othersizes[othersize].quantity>0) {
+                                                                            const bgsuccess = document.getElementById(
+                                                                            'backgroundsd'); 
+                                                                            if (bgsuccess.classList.contains("bg-danger"))
+                                                                          {
+                                                                            bgsuccess.classList.replace("bg-danger", "bg-success");
+                                                                            bgsuccess.innerHTML="In Stock"
+                                                                          } 
+                                                                          else{
+                                                                            bgsuccess.classList.replace("bg-success", "bg-success");
+                                                                            bgsuccess.innerHTML="In Stock"
+                                                                          }
+                                                                          document.getElementById('VerifDispo')
                                                                         .disabled = false;
-                                                                    return document.getElementById('VerifDispo')
-                                                                        .style.cursor = "pointer";
+                                                                        return document.getElementById('VerifDispo')
+                                                                        .style.cursor = "pointer";     
+                                                                    }       
+
+                                                                else{
+                                                                        const bgsuccess = document.getElementById(
+                                                                            'backgroundsd'); 
+                                                                        if (bgsuccess.classList.contains("bg-success")) 
+                                                                        {
+                                                                            bgsuccess.classList.replace("bg-success", "bg-danger");
+                                                                            bgsuccess.innerHTML="Out of Stock"
+
+                                                                        }   
+                                                                        else{
+                                                                            bgsuccess.classList.replace("bg-danger", "bg-danger");
+                                                                            bgsuccess.innerHTML="Out of Stock"
+                                                                            console.log('wooooooooh')
+                                                                        }
+                                                                        document.getElementById('VerifDispo')
+                                                                        .disabled = true;
+                                                                        return document.getElementById('VerifDispo')
+                                                                        .style.cursor = "not-allowed";  
+                                                                    }
+                                                                   
                                                                 }
                                                             }
                                                             for (othersize in othersizes) {
                                                                 if (othersizes[othersize].taille_id !== formData) {
+                                                                    const bgsuccess = document.getElementById(
+                                                                            'backgroundsd'); 
+                                                                            if (bgsuccess.classList.contains("bg-success"))
+                                                                          {
+                                                                            bgsuccess.classList.replace("bg-success", "bg-danger");
+                                                                            bgsuccess.innerHTML="Size not available"
+                                                                          } 
+                                                                          else{
+                                                                            bgsuccess.innerHTML="Size not available"
+                                                                          }
                                                                     document.getElementById('VerifDispo')
                                                                         .disabled = true;
                                                                     return document.getElementById('VerifDispo')
@@ -270,24 +325,66 @@
                                                         }
                                                     }
                                                     if (variantsize == formData) {
-                                                        document.getElementById('VerifDispo')
+                                                        const bgsuccess = document.getElementById(
+                                                        'backgroundsd'); 
+                                                        if (bgsuccess.classList.contains("bg-danger"))
+                                                        {
+                                                            if(quantity>0)
+                                                            {
+                                                            bgsuccess.classList.replace("bg-danger", "bg-success");
+                                                            bgsuccess.innerHTML="In Stock"
+                                                            document.getElementById('VerifDispo')
                                                             .disabled = false;
-                                                        return document.getElementById('VerifDispo')
+                                                            return document.getElementById('VerifDispo')
                                                             .style.cursor = "pointer";
+                                                            }
+                                                            else
+                                                            {
+                                                            bgsuccess.classList.replace("bg-danger", "bg-danger");
+                                                            bgsuccess.innerHTML="Out of Stock"
+                                                            document.getElementById('VerifDispo')
+                                                            .disabled = true;
+                                                             return document.getElementById('VerifDispo')
+                                                            .style.cursor = "not-allowed";
+                                                            }
+                                                        } 
+                                                        
                                                     }
                                                     //formData = parseInt(document.getElementById('sizeselector').value);
                                                     if (variantsize != formData) {
+                                                        const bgsuccess = document.getElementById(
+                                                        'backgroundsd'); 
+                                                        if (bgsuccess.classList.contains("bg-success"))
+                                                        {
+                                                        bgsuccess.classList.replace("bg-success", "bg-danger");
+                                                        bgsuccess.innerHTML="Size not available"
+                                                        } 
+                                                        else{
+                                                        bgsuccess.innerHTML="Size not available"
+                                                        }
                                                         document.getElementById('VerifDispo')
                                                             .disabled = true;
                                                         return document.getElementById('VerifDispo')
                                                             .style.cursor = "not-allowed";
+
                                                     }
                                                 }
                                             });
                                         });
                                     });
                                 </script>
-
+                                <script> 
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    const bgsuccess = document.getElementById('backgroundsd');
+                                    if (bgsuccess.classList.contains("bg-danger") && (bgsuccess.innerHTML.includes("Out of Stock")))
+                                    { 
+                                      document.getElementById('VerifDispo').disabled = true;
+                                      return document.getElementById('VerifDispo').style.cursor = "not-allowed";
+                                                            
+                                    } 
+                                });
+                                   
+                                </script> 
                                 <br>
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-203 flex-c-m respon6">
@@ -367,12 +464,14 @@
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>
                                             </div>
+
                                         </div>
-                                        <button
+                                        <button  
                                             class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail pointer"
                                             id="VerifDispo" style="cursor: pointer;">
                                             Add to cart
                                         </button>
+                                        
                                     </div>
                                 </div>
                                 </form>
