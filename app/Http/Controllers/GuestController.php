@@ -67,7 +67,7 @@ class GuestController extends Controller
             'produit' => $produit, 'variants' => $variants, 'distinct_variants' => $distinct_variants,
             'related' => $related, 'categories' => $categories,
             'currentCouleur' => $couleur, 'firstvalues' => $firstvalues,
-            'variant' => $variant, response()->json(['success' => $request->sizeselected])
+            'variant' => $variant
         ]);
     }
     public function categoryProducts($category)

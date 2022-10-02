@@ -255,7 +255,7 @@
                                                                 if (othersizes[othersize].taille_id === formData) {
                                                                     document.getElementById('VerifDispo')
                                                                         .disabled = false;
-                                                                    document.getElementById('VerifDispo')
+                                                                    return document.getElementById('VerifDispo')
                                                                         .style.cursor = "pointer";
                                                                 }
                                                             }
@@ -263,7 +263,7 @@
                                                                 if (othersizes[othersize].taille_id !== formData) {
                                                                     document.getElementById('VerifDispo')
                                                                         .disabled = true;
-                                                                    document.getElementById('VerifDispo')
+                                                                    return document.getElementById('VerifDispo')
                                                                         .style.cursor = "not-allowed";
                                                                 }
                                                             }
@@ -272,7 +272,7 @@
                                                     if (variantsize == formData) {
                                                         document.getElementById('VerifDispo')
                                                             .disabled = false;
-                                                        document.getElementById('VerifDispo')
+                                                        return document.getElementById('VerifDispo')
                                                             .style.cursor = "pointer";
                                                     }
                                                     //formData = parseInt(document.getElementById('sizeselector').value);
@@ -287,6 +287,7 @@
                                         });
                                     });
                                 </script>
+
                                 <br>
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-203 flex-c-m respon6">
