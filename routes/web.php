@@ -36,6 +36,8 @@ Route::get('/home', [HomeController::class, 'index']);
 //This route '/' always gives a redirection to the welcomepage
 Route::get('/', [GuestController::class, 'welcomepage']);
 Route::get('/welcome', [GuestController::class, 'index']);
+Route::get('/contact', [GuestController::class, 'contacts']);
+Route::get('/client/commandes', [ClientController::class, 'commandes']);
 Route::get('/product/{category}/list', [GuestController::class, 'categoryProducts']);
 Route::post('/client/review/add', [ClientController::class, 'addReview'])->middleware('auth', 'client');
 Route::post('/client/order/add', [CommandeController::class, 'addCommande'])->middleware('auth', 'client');
@@ -56,7 +58,7 @@ Route::get('password/reset/{token}', [ResetPasswordController::class, 'showReset
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 //Admin routes 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard')->middleware('auth', 'revalidate');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard')->middleware('auth', 'revalidate', 'admin');
 
 //Admin produits routes 
 Route::get('/admin/produit', [ProductController::class, 'index'])->middleware('auth', 'revalidate', 'admin');

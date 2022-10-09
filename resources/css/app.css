@@ -83,16 +83,12 @@ p {
 .form-check-input {
     margin-top: 8px !important;
 }
-.btn-primary {
-    background: linear-gradient(
-        135deg,
-        rgba(176, 106, 252, 1) 39%,
-        rgba(116, 17, 255, 1) 101%
-    );
+.btn .btn-primary {
+    background: #717fe0;
     border: none;
     border-radius: 50px;
 }
-.btn-primary:focus {
+.btn .btn-primary:focus {
     box-shadow: none;
     border: none;
 }

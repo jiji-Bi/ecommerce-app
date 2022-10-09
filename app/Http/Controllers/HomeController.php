@@ -22,7 +22,7 @@ class HomeController extends Controller
         if (Auth::user()->role == 'admin') {
             return redirect(route('admin-dashboard'));
         } else if (Auth::user()->role == 'client') {
-            return redirect('/');
+            return redirect('/client/dashboard');
         }
     }
 }

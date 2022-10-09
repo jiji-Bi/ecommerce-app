@@ -26,6 +26,11 @@ class GuestController extends Controller
         $couleurs = Couleur::all();
         return view('guest.index', ['categories' => $categories, 'couleurs' => $couleurs, 'variants' => $variants, 'produits' => $produits/*->Simplepaginate('6')*/]);
     }
+    public function contacts()
+    {
+        return view('guest.components.contacts');
+    }
+
     public function productDetails($id, Request $request)
     {
 

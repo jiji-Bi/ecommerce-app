@@ -1,10 +1,69 @@
 
 @extends('layouts.app')
-
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<!-- Header -->
+<header class="header-v4">
+    <!-- Header desktop -->
+    <div class="container-menu-desktop">
+        <!-- Topbar -->
+        <div class="top-bar">
+            <div class="content-topbar flex-sb-m h-full container">
+                <div class="left-top-bar">
+                    Free shipping for standard order over $100
+                </div>
+
+                <div class="right-top-bar flex-w h-full">
+                    <a href="#" class="flex-c-m trans-04 p-lr-25">
+                        Help & FAQs
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrap-menu-desktop how-shadow1">
+            <nav class="limiter-menu-desktop container">
+
+                <!-- Logo desktop -->
+                <a href="/" class="logo">
+                    <img src="{{ asset('Client-assets/images/icons/chez-jiji-noir.png') }}"
+                        width="130"alt="IMG-LOGO">
+                </a>
+
+                <!-- Menu desktop -->
+                <div class="menu-desktop">
+                    <ul class="main-menu">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+
+                        <li>
+                            <a href="">Blog</a>
+                        </li>
+
+                        <li>
+                            <a href="">About</a>
+                        </li>
+
+                        <li>
+                            <a href="">Contact</a>
+                        </li>
+                     
+                            <li >
+                                <a href="/login">Login</a>
+                            </li>        
+                            <li>
+                                <a href="/register">Register</a>
+                            </li>                  
+ 
+                    </ul>
+                </div>
+
+                <!-- Icon header -->
+                
+            </nav>
+        </div>
+    </div>
+</header>
 
             <div class="container">
                 <div class="row d-flex justify-content-center mt-5">
@@ -13,13 +72,13 @@
                             <p class="text-center mb-3 mt-2">SE CONNECTER AVEC</p>
                             <div class="row mx-auto ">
                                 <div class="col-4">
-                                    <i class="fab fa-twitter"></i>
+                                    <i class="fa fa-twitter"></i>
                                 </div>
                                 <div class="col-4">
-                                    <i class="fab fa-facebook"></i>
+                                    <i class="fa fa-facebook"></i>
                                 </div>
                                 <div class="col-4">
-                                    <i class="fab fa-google"></i>
+                                    <i class="fa fa-google"></i>
                                 </div>
                             </div>
                             <div class="division">
@@ -93,7 +152,5 @@
             </div>
                
       
-        </div>
-    </div>
-</div>
+      
 @endsection

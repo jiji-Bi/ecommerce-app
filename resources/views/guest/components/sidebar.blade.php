@@ -12,40 +12,30 @@
             <div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
                 <ul class="sidebar-link w-full">
                     <li class="p-b-13">
-                        <a href="index.html" class="stext-102 cl2 hov-cl1 trans-04">
+                        <a href="/" class="stext-102 cl2 hov-cl1 trans-04">
                             Home
                         </a>
                     </li>
 
                     <li class="p-b-13">
-                        <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                            My Wishlist
+                        <a href="/client/favoris" class="stext-102 cl2 hov-cl1 trans-04">
+                            Mes Favoris
                         </a>
                     </li>
 
                     <li class="p-b-13">
-                        <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                            My Account
+                        <a href="/client/dashboard" class="stext-102 cl2 hov-cl1 trans-04">
+                            Mon compte
                         </a>
                     </li>
 
                     <li class="p-b-13">
-                        <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                            Track Oder
+                        <a href="/client/commandes" class="stext-102 cl2 hov-cl1 trans-04">
+                            Mes commandes
                         </a>
                     </li>
 
-                    <li class="p-b-13">
-                        <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                            Refunds
-                        </a>
-                    </li>
-
-                    <li class="p-b-13">
-                        <a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-                            Help & FAQs
-                        </a>
-                    </li>
+                  
                 </ul>
 
                 <div class="sidebar-gallery w-full p-tb-30">
@@ -56,59 +46,59 @@
                     <div class="flex-w flex-sb p-t-36 gallery-lb">
                         <!-- item gallery sidebar -->
                         <div class="wrap-item-gallery m-b-10">
-                            <a class="item-gallery bg-img1" href="{{ asset('CLient-assets/images/gallery-01.jpg') }}"
-                                data-lightbox="gallery" style="background-image: url('images/gallery-01.jpg');"></a>
+                            <a class="item-gallery bg-img1" href="{{ asset('Client-assets/images/gallery-01.jpg') }}"
+                                data-lightbox="gallery" style="background-image: url('Client-assets/images/gallery-01.jpg');"></a>
                         </div>
 
                         <!-- item gallery sidebar -->
                         <div class="wrap-item-gallery m-b-10">
-                            <a class="item-gallery bg-img1" href="{{ asset('CLient-assets/images/gallery-02.jpg') }}"
-                                data-lightbox="gallery" style="background-image: url('images/gallery-02.jpg');"></a>
+                            <a class="item-gallery bg-img1" href="{{ asset('Client-assets/images/gallery-02.jpg') }}"
+                                data-lightbox="gallery" style="background-image: url('Client-assets/images/gallery-02.jpg');"></a>
                         </div>
 
                         <!-- item gallery sidebar -->
                         <div class="wrap-item-gallery m-b-10">
-                            <a class="item-gallery bg-img1" href="{{ asset('CLient-assets/images/gallery-03.jpg') }}"
-                                data-lightbox="gallery" style="background-image: url('images/gallery-03.jpg');"></a>
+                            <a class="item-gallery bg-img1" href="{{ asset('Client-assets/images/gallery-03.jpg') }}"
+                                data-lightbox="gallery" style="background-image: url('Client-assets/images/gallery-03.jpg');"></a>
                         </div>
 
                         <!-- item gallery sidebar -->
                         <div class="wrap-item-gallery m-b-10">
-                            <a class="item-gallery bg-img1" href="{{ asset('CLient-assets/images/gallery-04.jpg') }}"
-                                data-lightbox="gallery" style="background-image: url('images/gallery-04.jpg');"></a>
+                            <a class="item-gallery bg-img1" href="{{ asset('Client-assets/images/gallery-04.jpg') }}"
+                                data-lightbox="gallery" style="background-image: url('Client-assets/images/gallery-04.jpg');"></a>
                         </div>
 
                         <!-- item gallery sidebar -->
                         <div class="wrap-item-gallery m-b-10">
-                            <a class="item-gallery bg-img1" href="{{ asset('CLient-assets/images/gallery-05.jpg') }}"
-                                data-lightbox="gallery" style="background-image: url('images/gallery-05.jpg');"></a>
+                            <a class="item-gallery bg-img1" href="{{ asset('Client-assets/images/gallery-05.jpg') }}"
+                                data-lightbox="gallery" style="background-image: url('Client-assets/images/gallery-05.jpg');"></a>
                         </div>
 
                         <!-- item gallery sidebar -->
                         <div class="wrap-item-gallery m-b-10">
-                            <a class="item-gallery bg-img1" href="{{ asset('CLient-assets/images/gallery-06.jpg') }}"
+                            <a class="item-gallery bg-img1" href="{{ asset('Client-assets/images/gallery-06.jpg') }}"
                                 data-lightbox="gallery"
-                                style="background-image: url('CLient-assets/images/gallery-06.jpg');"></a>
+                                style="background-image: url('Client-assets/images/gallery-06.jpg');"></a>
                         </div>
 
                         <!-- item gallery sidebar -->
                         <div class="wrap-item-gallery m-b-10">
-                            <a class="item-gallery bg-img1" href="{{ asset('CLient-assets/images/gallery-07.jpg') }}"
-                                data-lightbox="gallery" style="background-image: url('images/gallery-07.jpg');"></a>
+                            <a class="item-gallery bg-img1" href="{{ asset('Client-assets/images/gallery-07.jpg') }}"
+                                data-lightbox="gallery" style="background-image: url('Client-assets/images/gallery-07.jpg');"></a>
                         </div>
 
                         <!-- item gallery sidebar -->
                         <div class="wrap-item-gallery m-b-10">
-                            <a class="item-gallery bg-img1" href="{{ asset('CLient-assets/images/gallery-08.jpg') }}"
+                            <a class="item-gallery bg-img1" href="{{ asset('Client-assets/images/gallery-08.jpg') }}"
                                 data-lightbox="gallery"
-                                style="background-image: url('CLient-assets/images/gallery-08.jpg');"></a>
+                                style="background-image: url('Client-assets/images/gallery-08.jpg');"></a>
                         </div>
 
                         <!-- item gallery sidebar -->
                         <div class="wrap-item-gallery m-b-10">
-                            <a class="item-gallery bg-img1" href="{{ asset('CLient-assets/images/gallery-09.jpg') }}"
+                            <a class="item-gallery bg-img1" href="{{ asset('Client-assets/images/gallery-09.jpg') }}"
                                 data-lightbox="gallery"
-                                style="background-image: url('CLient-assets/images/gallery-09.jpg');"></a>
+                                style="background-image: url('Client-assets/images/gallery-09.jpg');"></a>
                         </div>
                     </div>
                 </div>
@@ -119,9 +109,6 @@
                     </span>
 
                     <p class="stext-108 cl6 p-t-27">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur maximus vulputate hendrerit.
-                        Praesent faucibus erat vitae rutrum gravida. Vestibulum tempus mi enim, in molestie sem
-                        fermentum quis.
                     </p>
                 </div>
             </div>

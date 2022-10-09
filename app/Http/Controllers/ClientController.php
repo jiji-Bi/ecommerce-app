@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
+    public function commandes()
+    {
+        return view('client.commandes');
+    }
     public function dashboard()
     {
         return view('client.dashboard');
