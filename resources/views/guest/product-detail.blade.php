@@ -81,8 +81,8 @@
                             <i class="zmdi zmdi-search"></i>
                         </div>
 
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                            data-notify="2">
+                        <div id="clickme"class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                            data-notify="3">
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
 
@@ -95,9 +95,11 @@
             </div>
         </div>
 
+        
         <!-- Cart -->
-        @include('guest.components.cart')
-        @yield('cart')
+        <div id="clickme">
+        <livewire:front-office.cart.shop-cart  />
+        </div>
         <!-- breadcrumb -->
         <div class="container">
             <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -385,6 +387,14 @@
                                 });
                                    
                                 </script> 
+
+                                   <script> 
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        windows.livewire.on('urlchanged',param=>{
+                                            history.pushState(null,null,`${document.location.pathname}?${param}`);
+                                        });
+                                    });
+                                    </script>
                                 <br>
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-203 flex-c-m respon6">
@@ -441,11 +451,6 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <br>
-                                <br>
-
-
-                                <br>
                                 <br>
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-204 flex-w flex-m respon6-next">
@@ -654,7 +659,26 @@
                                                     </div>
                                                 </div>
                                             @endforeach
+                                            {{-- Addedtocart --}}
+                                            @if ($message = Session::get('addpanier'))
+                                            {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
+                                            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+                                            <script type="text/javascript">
+                                                var message = {{ Js::from($message) }};
+                                                new swal({
+                                                    icon: 'success',
+                                                    confirmButtonColor: "#3874ff",
+                                                    title: '',
+                                                    text: message,
+                                                    timer: 5000
+                                                }).then((value) => {
+                                                    document.getElementById("clickme").click();
+                                                    //location.reload();
+                                                }).catch(swal.noop);
+                                                
+                                            </script>
+                                        @endif
                                             {{-- Notification --}}
                                             @if ($message = Session::get('ajout'))
                                                 {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
@@ -671,6 +695,7 @@
                                                     }).then((value) => {
                                                         //location.reload();
                                                     }).catch(swal.noop);
+                                                    
                                                 </script>
                                             @endif
                                             <!-- Add review -->
@@ -679,10 +704,6 @@
                                                 <h5 class="mtext-108 cl2 p-b-7">
                                                     Add a review
                                                 </h5>
-                                                <p class="stext-102 cl6">
-                                                    Your email address will not be published. Required fields are marked
-                                                    *
-                                                </p>
 
                                                 <label class="rating-label pointer">
                                                     <input class="rating" max="5" name="valueAsNumber"

@@ -25,6 +25,7 @@ class CartShow extends Component
                 'type' => 'success',
                 'status' => 200
             ]);
+            $this->emit('reviewSectionRefresh');
         }
     }
 
@@ -38,6 +39,7 @@ class CartShow extends Component
                 'type' => 'success',
                 'status' => 200
             ]);
+            $this->emit('reviewSectionRefresh');
         }
     }
     public function RemoveCartItem(int $itemId)

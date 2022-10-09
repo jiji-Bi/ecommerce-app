@@ -7,9 +7,8 @@
     @include('guest.components.sidebar')
     @yield('sidebar')
 
-    <!-- Cart -->
-    @include('guest.components.cart')
-    @yield('cart')
+   <!-- Cart -->
+   <livewire:front-office.cart.shop-cart  />
 
     <!-- Slider -->
     @include('guest.components.slider')

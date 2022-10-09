@@ -23,7 +23,7 @@ class CommandeController extends Controller
         //Tester si le  user conencté a une commande en cours 
 
         $commande = Commande::where('user_id', '=', Auth::user()->id)->where('etat', '=', 'en cours')->get();
-        if ($commande) {
+        if (count($commande) != 0) {
             $existe = false;
             foreach ($commande[0]->items as $item) {
                 if ($item->variant->id == $variant[0]->id) {
@@ -39,7 +39,7 @@ class CommandeController extends Controller
                 $itemc->commande_id = $commande[0]->id;
                 $itemc->save();
             }
-            return redirect('/client/cart')->with('ajout', 'Produit commandée avec succés');
+            return redirect()->back()->with('addpanier', 'Produit ajouté au panier ');
         }
         //creation d'une nouvelle commande
         else {

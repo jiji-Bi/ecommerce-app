@@ -80,13 +80,9 @@
                             <i class="zmdi zmdi-search"></i>
                         </div>
 
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                            data-notify="{{ count($commande->items) }}">
-                            <i class="zmdi zmdi-shopping-cart"></i>
-                        </div>
-
+                       
                         <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                            data-notify="{{ count($commande->items) }}">
+                            data-notify="">
                             <i class="zmdi zmdi-favorite-outline"></i>
                         </a>
                     </div>
@@ -95,8 +91,8 @@
         </div>
 
         <!-- Cart -->
-        @include('guest.components.cart')
-        @yield('cart')
+        <livewire:front-office.cart.shop-cart :commande="$commande" />
+
         <!-- breadcrumb -->
         <div class="container">
             <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
