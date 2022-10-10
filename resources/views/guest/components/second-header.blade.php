@@ -67,10 +67,9 @@
                         <i class="zmdi zmdi-search"></i>
                     </div>
 
-                    <div id="clickme"class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                        data-notify="3">
-                        <i class="zmdi zmdi-shopping-cart"></i>
-                    </div>
+                   
+                    <livewire:front-office.cart.cart-count />
+
 
                     <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
                         data-notify="0">

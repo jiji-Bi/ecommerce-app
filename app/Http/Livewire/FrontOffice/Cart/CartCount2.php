@@ -6,7 +6,7 @@ use App\Models\Commande;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class CartCount extends Component
+class CartCount2 extends Component
 {
     public $cartCount;
     protected $listeners = [
@@ -24,6 +24,6 @@ class CartCount extends Component
     public function render()
     {
         $this->cartCount = $this->CartCount();
-        return view('livewire.front-office.cart.cart-count', ['cartCount' => $this->cartCount]);
+        return view('livewire.front-office.cart.cart-count2', ['cartCount' => $this->cartCount]);
     }
 }

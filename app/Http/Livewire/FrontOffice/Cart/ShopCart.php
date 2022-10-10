@@ -16,7 +16,7 @@ class ShopCart extends Component
     public $lignecommande;
 
     protected $listeners = [
-        'reviewSectionRefresh' => '$refresh',
+        'CartRefresh' => '$refresh',
     ];
 
     public function render()

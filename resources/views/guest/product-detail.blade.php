@@ -136,6 +136,7 @@
                                             var variantsize = "{{ Js::from($variantdefault->taille_id) }}";
                                             var firstvalues = @json($firstvalues);
                                             var values1 = @json($values1);
+
                                             $.ajaxSetup({
                                                 headers: {
                                                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -148,14 +149,17 @@
                                                     taille: formData,
                                                 },
                                                 success: function() {
+                                                    
                                                     for (first in firstvalues) {
                                                         if (firstvalues[first][0].id == variant) {
                                                             othersizes = firstvalues[first];
                                                             for (othersize in othersizes) {
                                                                 if (othersizes[othersize].taille_id === formData) {
-                                                                    if (othersizes[othersize].quantity>0) {
-                                                                            const bgsuccess = document.getElementById(
+                                                                    if (othersizes[othersize].quantity>0 ) {
+                                                            
+                                                                                const bgsuccess = document.getElementById(
                                                                             'backgroundsd'); 
+                                                                             
                                                                             if (bgsuccess.classList.contains("bg-danger"))
                                                                           {
                                                                             bgsuccess.classList.replace("bg-danger", "bg-success");
@@ -166,9 +170,11 @@
                                                                             bgsuccess.innerHTML="In Stock"
                                                                           }
                                                                           document.getElementById('VerifDispo')
-                                                                        .disabled = false;
+                                                                        .disabled = false;  
                                                                         return document.getElementById('VerifDispo')
-                                                                        .style.cursor = "pointer";     
+                                                                        .style.cursor = "pointer";    
+                                                                      
+                                                                            
                                                                     }       
 
                                                                 else{
@@ -183,7 +189,6 @@
                                                                         else{
                                                                             bgsuccess.classList.replace("bg-danger", "bg-danger");
                                                                             bgsuccess.innerHTML="Out of Stock"
-                                                                            console.log('wooooooooh')
                                                                         }
                                                                         document.getElementById('VerifDispo')
                                                                         .disabled = true;
@@ -348,10 +353,11 @@
                                                 value="{{ $couleurdefault = $variants->first()->couleur->id }}">
                                             <input type="hidden" name="couleurvariant"
                                                 value="{{ Request::has('picture') ? $currentCouleur[0]->id : $couleurdefault }}">
+                                            
                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-minus"></i>
                                             </div>
-                                            <input class="mtext-104 cl3 txt-center num-product" type="number"
+                                            <input id="maxquantity" class="mtext-104 cl3 txt-center num-product" type="number"
                                                 name="numproduct" value="1">
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>
@@ -369,7 +375,7 @@
                                 </form>
 
                             </div>
-                            <!--  -->
+
                             <br>
                             <br>
 
@@ -832,6 +838,7 @@
                                         </div>
                                     </div>
                                 </div>
+                       
 
                                 <!--  -->
                                 <div class="flex-w flex-m p-l-100 p-t-40 respon7">

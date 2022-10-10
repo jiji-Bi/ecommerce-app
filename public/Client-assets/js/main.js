@@ -206,7 +206,7 @@
     [ Rating ]* Je l'ai pas utilisé dans le panier et à changer dans la page détails produit*/
     $(".btn-num-product-down").on("click", function () {
         var numProduct = Number($(this).next().val());
-        if (numProduct > 0)
+        if (numProduct > 1)
             $(this)
                 .next()
                 .val(numProduct - 1);

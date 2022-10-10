@@ -64,7 +64,7 @@ class GuestController extends Controller
                 $join->on('couleurs.id', '=', 'variants.couleur_id')
                     ->where('variants.id', request(['picture']));
             })->select('couleurs.nom', 'couleurs.id')->get();
-        //$product = Produit::with('produit')->where('produit_id', $request->produit_id);
+
 
         return view('guest.product-detail', [
             'images' => $images,

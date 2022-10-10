@@ -28,16 +28,25 @@ class CommandeController extends Controller
             foreach ($commande[0]->items as $item) {
                 if ($item->variant->id == $variant[0]->id) {
                     $existe = true;
-                    $item->quantity += $request->numproduct;
-                    $item->update();
+                    if ($item->quantity < $item->variant->quantity) {
+                        $item->quantity += $request->numproduct;
+                        $item->update();
+                    } else {
+                        return redirect()->back()->with('addpanier', 'Impossible dajouter au panier ');
+                    }
                 }
             }
             if (!$existe) {
                 $itemc = new LigneCommande();
                 $itemc->variant_id = $variant[0]->id;
                 $itemc->quantity = $request->numproduct;
-                $itemc->commande_id = $commande[0]->id;
-                $itemc->save();
+                if ($variant[0]->quantity >= $itemc->quantity) {
+                    $itemc->commande_id = $commande[0]->id;
+                    $itemc->save();
+                    return redirect()->back()->with('addpanier', 'Produit commandée avec succés');
+                } else {
+                    return redirect()->back()->with('addpanier', 'La quantité maximale à commander est depassé ');
+                }
             }
             return redirect()->back()->with('addpanier', 'Produit ajouté au panier ');
         }
@@ -50,10 +59,14 @@ class CommandeController extends Controller
                 $itemc->commande_id = $commande->id;
                 $itemc->variant_id = $variant[0]['id'];
                 $itemc->quantity = $request->numproduct;
-                $itemc->save();
-                return redirect('/client/cart')->with('ajout', 'Produit commandée avec succés');
+                if ($variant[0]->quantity >= $itemc->quantity) {
+                    $itemc->save();
+                    return redirect('/client/cart')->with('ajout', 'Produit commandée avec succés');
+                } else {
+                    return redirect()->back()->with('ajout', 'La quantité maximale à commander est depassé ');
+                }
             } else {
-                redirect()->back()->with('Impossible de commander le produit');
+                return redirect()->back()->with('Impossible de commander le produit');
             }
         }
 
