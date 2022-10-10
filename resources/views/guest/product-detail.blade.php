@@ -357,7 +357,7 @@
                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-minus"></i>
                                             </div>
-                                            <input id="maxquantity" class="mtext-104 cl3 txt-center num-product" type="number"
+                                            <input id="maxquantity" readonly class="mtext-104 cl3 txt-center num-product" type="number"
                                                 name="numproduct" value="1">
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>
@@ -553,34 +553,52 @@
                                                 </div>
                                             @endforeach
                                             {{-- Addedtocart --}}
-                                            @if ($message = Session::get('addpanier'))
                                             {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
-                                            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-                                            <script type="text/javascript">
-                                                var message = {{ Js::from($message) }};
-                                                new swal({
-                                                    icon: 'success',
-                                                    confirmButtonColor: "#3874ff",
-                                                    title: '',
-                                                    text: message,
-                                                    timer: 5000
-                                                }).then((value) => {
-                                                    document.getElementById("clickme").click();
-                                                    //location.reload();
-                                                }).catch(swal.noop);
-                                                
-                                            </script>
-                                        @endif
-                                            {{-- Notification --}}
-                                            @if ($message = Session::get('ajout'))
+                                            @if ($message = Session::get('addpanier'))
+                                                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                                <script type="text/javascript">
+                                                    var message = {{ Js::from($message) }};
+                                                    new swal({
+                                                        icon: 'success',
+                                                        confirmButtonColor: "#3874ff",
+                                                        title: '',
+                                                        text: message,
+                                                        timer: 5000
+                                                    }).then((value) => {
+                                                        document.getElementById("clickme").click();
+                                                        //location.reload();
+                                                    }).catch(swal.noop);
+                                                    
+                                                </script>
+                                             @endif
+                                            {{-- Warning --}}
+                                            @if ($message = Session::get('warning'))
                                                 {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
                                                 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                                                 <script type="text/javascript">
                                                     var message = {{ Js::from($message) }};
                                                     new swal({
-                                                        icon: 'success',
+                                                        icon: 'warning',
+                                                        confirmButtonColor: "#3874ff",
+                                                        title: '',
+                                                        text: message,
+                                                        timer: 5000
+                                                    }).then((value) => {
+                                                        //location.reload();
+                                                    }).catch(swal.noop);
+                                                    
+                                                </script>
+                                            @endif
+                                             {{-- Failure --}}
+                                            @if ($message = Session::get('failure'))
+                                                {{-- <div class="alert alert-soft-success">{{ $message }}</div> --}}
+                                                <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+                                                <script type="text/javascript">
+                                                    var message = {{ Js::from($message) }};
+                                                    new swal({
+                                                        icon: 'error',
                                                         confirmButtonColor: "#3874ff",
                                                         title: '',
                                                         text: message,
@@ -823,7 +841,7 @@
                                                     <i class="fs-16 zmdi zmdi-minus"></i>
                                                 </div>
 
-                                                <input class="mtext-104 cl3 txt-center num-product" type="number"
+                                                <input readonly class="mtext-104 cl3 txt-center num-product"  type="text"
                                                     name="num-product" value="1">
 
                                                 <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">

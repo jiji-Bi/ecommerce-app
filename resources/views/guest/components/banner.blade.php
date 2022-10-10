@@ -1,7 +1,7 @@
 @section('banner')
     <div class="sec-banner bg0 p-t-95 p-b-55">
         <div class="container">
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-md-6 p-b-30 m-lr-auto">
                     <!-- Block1 -->
                     <div class="block1 wrap-pic-w">
@@ -131,7 +131,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

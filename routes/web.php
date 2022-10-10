@@ -37,7 +37,7 @@ Route::get('/home', [HomeController::class, 'index']);
 Route::get('/', [GuestController::class, 'welcomepage']);
 Route::get('/welcome', [GuestController::class, 'index']);
 Route::get('/contact', [GuestController::class, 'contacts']);
-Route::get('/client/commandes', [ClientController::class, 'commandes']);
+Route::get('/client/commandes', [ClientController::class, 'commandes'])->middleware('auth', 'client');
 Route::get('/product/{category}/list', [GuestController::class, 'categoryProducts']);
 Route::post('/client/review/add', [ClientController::class, 'addReview'])->middleware('auth', 'client');
 Route::post('/client/order/add', [CommandeController::class, 'addCommande'])->middleware('auth', 'client');

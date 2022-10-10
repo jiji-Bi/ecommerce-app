@@ -32,7 +32,7 @@ class CommandeController extends Controller
                         $item->quantity += $request->numproduct;
                         $item->update();
                     } else {
-                        return redirect()->back()->with('addpanier', 'Impossible dajouter au panier ');
+                        return redirect()->back()->with('warning', 'Vous avez deja commandé toute la quantité disponible ');
                     }
                 }
             }
@@ -43,9 +43,9 @@ class CommandeController extends Controller
                 if ($variant[0]->quantity >= $itemc->quantity) {
                     $itemc->commande_id = $commande[0]->id;
                     $itemc->save();
-                    return redirect()->back()->with('addpanier', 'Produit commandée avec succés');
+                    return redirect()->back()->with('addpanier', 'Produit ajouté au panier');
                 } else {
-                    return redirect()->back()->with('addpanier', 'La quantité maximale à commander est depassé ');
+                    return redirect()->back()->with('failure', 'La quantité maximale à commander est depassé');
                 }
             }
             return redirect()->back()->with('addpanier', 'Produit ajouté au panier ');
@@ -61,12 +61,12 @@ class CommandeController extends Controller
                 $itemc->quantity = $request->numproduct;
                 if ($variant[0]->quantity >= $itemc->quantity) {
                     $itemc->save();
-                    return redirect('/client/cart')->with('ajout', 'Produit commandée avec succés');
+                    return redirect('/client/cart')->with('addpanier', 'Produit commandée avec succés');
                 } else {
-                    return redirect()->back()->with('ajout', 'La quantité maximale à commander est depassé ');
+                    return redirect()->back()->with('failure', 'La quantité maximale à commander est depassé ');
                 }
             } else {
-                return redirect()->back()->with('Impossible de commander le produit');
+                return redirect()->back()->with('failure', 'Impossible de commander le produit');
             }
         }
 

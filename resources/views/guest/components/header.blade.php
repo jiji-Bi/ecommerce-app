@@ -8,7 +8,7 @@
                  <nav class="limiter-menu-desktop p-l-45">
 
                      <!-- Logo desktop -->
-                     <a href="#" class="logo">
+                     <a href="/" class="logo">
                          <img src="{{ asset('Client-assets/images/icons/chezjiji-blanc.png') }}" width="130"alt="IMG-LOGO">
                      </a>
 
