@@ -13,7 +13,13 @@
                     <div class="col-sm-6 col-md-4 col-lg-2 isotope-item lg:grid">
                 @endif
                         <div class="block2">
+                            @if($variant->created_at->toDateString() == $mytime->toDateString())
+                           
                             <div class="img block2-pic hov-img0 label-new" data-label="New">
+                           @else
+                           <div class="img block2-pic hov-img0 " >
+   
+                           @endif
                                 <img src="{{ asset('uploads') }}/{{ $element->image }}" alt="IMG-PRODUCT">
                                 <a href="#"
                                     class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
