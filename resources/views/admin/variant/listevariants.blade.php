@@ -266,16 +266,18 @@
                                             </div>
                                             @if (Session::get('error_code') && Session::get('error_code') == 5)
                                                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                                                @if (Session::get('variant_edit')== $variant->id)
                                                 @foreach ($variant->images as $img)
                                                     @if ($img->variant_id == $variant->id)
                                                         <script>
-                                                            var id = "{{ Js::from($variant->id) }}";
+                                                            var id = "{{ Js::from( Session::get('variant_edit')) }}";
                                                             $(document).ready(function() {
                                                                 $('#editVariant' + id).modal('show');
                                                             });
                                                         </script>
                                                     @endif
                                                 @endforeach
+                                                @endif
                                             @endif
 
                                         </td>

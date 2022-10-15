@@ -6,7 +6,7 @@
         @foreach ($categories as $categorie)
             <ul>
                 <li class="bor18">
-                    <a href="/product/{{ $categorie->id }}/list" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
+                    <a href="/product/{{ $categorie->nom }}/list" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-tb-8 p-lr-4">
                         {{ $categorie->nom }}
                     </a>
                 </li>

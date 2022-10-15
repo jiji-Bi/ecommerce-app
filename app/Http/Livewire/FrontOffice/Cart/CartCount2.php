@@ -17,8 +17,10 @@ class CartCount2 extends Component
         if (Auth::check()) {
             $commande = Commande::where('user_id', '=', optional(Auth::user())->id)->where('etat', '=', 'en cours')->first();
             if ($commande) {
-                if (count($commande->items)) {
+                if (count($commande->items) > 0) {
                     return $this->cartCount = count($commande->items);
+                } else {
+                    return $this->cartCount = 0;
                 }
             } else {
                 return $this->cartCount = 0;

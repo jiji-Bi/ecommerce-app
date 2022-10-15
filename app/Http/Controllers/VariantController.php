@@ -40,12 +40,12 @@ class VariantController extends Controller
     public function SupprimerImageRecord(Request $request)
     { //find the image to remove 
         $variant_image = VariantImages::findOrFail($request->id);
-
+        $variant_edit = $variant_image->variant_id;
         $path = public_path()  . '/uploads/' . $variant_image->image;
         unlink($path);
 
         if ($variant_image->delete()) {
-            return  redirect()->back()->with('error_code', '5');
+            return  redirect()->back()->with('error_code', '5')->with('variant_edit', $variant_edit);
         } //Remove it from the product
     }
 

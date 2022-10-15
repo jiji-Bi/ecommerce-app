@@ -21,6 +21,7 @@
     {{-- Section contenue --}}
     @include('guest.components.contenue')
     @yield('contenue')
+   
     <!-- Footer -->
     @include('guest.components.footer')
     @yield('footer')

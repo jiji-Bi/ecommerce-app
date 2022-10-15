@@ -20,11 +20,10 @@ class GuestController extends Controller
 
     public function index()
     {
-        $categories = Categorie::all();
         $produits = Produit::all();
         $variants = Variant::all();
         $couleurs = Couleur::all();
-        return view('guest.index', ['categories' => $categories, 'couleurs' => $couleurs, 'variants' => $variants, 'produits' => $produits/*->Simplepaginate('6')*/]);
+        return view('guest.index', ['couleurs' => $couleurs, 'variants' => $variants, 'produits' => $produits/*->Simplepaginate('6')*/]);
     }
     public function contacts()
     {
@@ -75,10 +74,10 @@ class GuestController extends Controller
             'variant' => $variant
         ]);
     }
-    public function categoryProducts($category)
+    public function categoryProducts(Categorie $category)
     {
-        $categorie = Categorie::find($category);
+        $categorie = Categorie::find($category)->first();
         $produits = $categorie->produits;
-        return view('guest.components.categories_products')->with('produits', $produits);
+        return view('guest.components.categories_products')->with('categorie', $categorie)->with('produits', $produits);
     }
 }

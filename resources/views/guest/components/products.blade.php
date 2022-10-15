@@ -6,10 +6,13 @@
                 <input type="hidden" value="{{ $variant = $produit->variants->first() }}">
                 <input type="hidden" value="{{ $element = $variant->images->first() }}">
                 @if (count($variant->images))
-                    <div class="col-sm-6 col-md-4 col-lg-3 isotope-item lg:grid">
                         <!-- Block2 -->
+                @if($view_name=='guest.index')
+                    <div class="col-sm-6 col-md-4 col-lg-3 isotope-item lg:grid">
+                @elseif($view_name=='guest.components.categories_products')
+                    <div class="col-sm-6 col-md-4 col-lg-2 isotope-item lg:grid">
+                @endif
                         <div class="block2">
-
                             <div class="img block2-pic hov-img0 label-new" data-label="New">
                                 <img src="{{ asset('uploads') }}/{{ $element->image }}" alt="IMG-PRODUCT">
                                 <a href="#"
@@ -48,4 +51,5 @@
         @endforeach
 
     </div>
+   
 @endsection
