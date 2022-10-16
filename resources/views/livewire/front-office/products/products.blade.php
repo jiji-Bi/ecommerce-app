@@ -1,30 +1,5 @@
-@section('contenue')
-    @if($view_name=='guest.index')
-            <section class="bg0 p-t-6 p-b-6">
-    @elseif($view_name=='guest.components.categories_products')
-            <section class="bg0 m-t-23 p-b-140">
-    @endif
-        <div class="container">
-            <div class="row">
-              @if($view_name=='guest.index')
-                <div class="col-md-8 col-lg-9 p-b-80">
-              @endif
-                    <div class="p-r-45 p-r-0-lg">
-                        {{-- Section Overview --}}
-                        @if($view_name=='guest.index')
-                        <div class="p-b-10">
-                            <h3 class="ltext-103 cl5">
-                                Product Overview
-                            </h3>
-                        </div>
-                        @else 
-                        <div class="p-b-10">
-                            <h3 class="ltext-108 cl5">
-                                {{ $categorie->nom }} 
-                            </h3>
-                        </div>
-                        @endif
-                        {{-- <div class="flex-w flex-sb-m p-b-52">
+<div>
+<div class="flex-w flex-sb-m p-b-52">
                             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                                 <a href="/" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
                                     All Products
@@ -143,13 +118,11 @@
                                         <ul>
                                             @foreach($couleurs as $couleur)
                                             <li class="p-b-6">
-                                                <span class="fs-15 lh-12 m-r-6" style="color:{{ $couleur->code }}">
-                                                    <i class="zmdi zmdi-circle"></i>
-                                                </span>
-
-                                                <a href="#"  class="filter-link stext-106 trans-04">
-                                                    {{ $couleur->nom }}
-                                                </a>
+                                               
+                                                    <span class="fs-15 lh-12 m-r-6" style="color:{{ $couleur->code }}">
+                                                        
+                                                      <input style="display: inline" type="radio" name="colorfilters"value= "{{ $couleur->nom }}" wire:model="ColorFilters" class="filter-link stext-106 trans-04"> {{ $couleur->nom }} <i class="zmdi zmdi-circle"></i>
+                                                    </span>
                                             </li>
                                             @endforeach
                                         </ul>
@@ -189,21 +162,77 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+</div>
+<div class="row isotope-grid">
+
+    @foreach ($produits as $produit)
+        @if (count($produit->variants))
+            @foreach ( $produit->variants as $variant)
+            @if($colorfilter)
+                @if ($variant->couleur->nom ==  $colorfilter) 
+                    <input  type="hidden" value="{{ $element = $variant->images->first() }}">               
+                @endif
+            @else 
+                <input   type="hidden" value="{{ $variant = $produit->variants->first() }}">
+                <input  type="hidden" value="{{ $element = $variant->images->first() }}">
+            @endif
+            @endforeach
+           
+           
+            @if (count($variant->images))
+                    <!-- Block2 -->
+            
+            <div class="col-sm-6 col-md-4 col-lg-3 isotope-item lg:grid">
+            
+                
+        
+                    <div class="block2">
+                        @if($variant->created_at->toDateString() == $mytime->toDateString())
                         
-                       
-                           {{-- Section Products --}}
-                 @include('guest.components.products')
-                 @yield('products')
-                        
-                    
-                    </div>
+                        <div class="img block2-pic hov-img0 label-new" data-label="New">
+                        @else
+                        <div class="img block2-pic hov-img0 " >
+
+                        @endif
+                            <img src="{{ asset('uploads') }}/{{ $element->image }}" alt="IMG-PRODUCT">
+                            <a href="#"
+                                class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                                Quick View
+                            </a>
+                        </div>
+
+                        <div class="block2-txt flex-w flex-t p-t-14">
+                            <div class="block2-txt-child1 flex-col-l ">
+                                <a href="/product/details/{{ $produit->id }}"
+                                    class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                    {{ $produit->nom }}
+                                </a>
+
+                                <span class="stext-105 cl3">
+                                    {{ $produit->price }}
+                                </span>
+                            </div>
+
+                            <div class="block2-txt-child2 flex-r p-t-3">
+                                <a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                    <img class="icon-heart1 dis-block trans-04"
+                                        src="{{ asset('Client-assets/images/icons/icon-heart-01.png') }}"
+                                        alt="ICON">
+                                    <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                        src="{{ asset('Client-assets/images/icons/icon-heart-02.png') }}"
+                                        alt="ICON">
+                                </a>
+                            </div>
+                        </div>
+                        </div>
                 </div>
-              
-                    {{-- Section sidemenu --}}
-                    @include('guest.components.sidemenu')
-                    @yield('sidemenu')
-            </div>
-        </div>
-    </section>
-@endsection
+                
+            @endif
+        @endif
+    @endforeach
+
+</div>
+</div>
+
+
+

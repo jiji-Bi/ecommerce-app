@@ -58,6 +58,8 @@
                                 </a></li>
                         </ul>
                     </li>
+                
+
                     <li class="nav-item">
                         <a class="nav-link dropdown-indicator" href="#e-commerce4" role="button" data-bs-toggle="collapse"
                             aria-expanded="true" aria-controls="e-commerce4">
@@ -69,11 +71,16 @@
                             </div>
                         </a>
                         <ul class="nav collapse parent show" id="e-commerce4">
-                          
+                            <li class="nav-item"><a class="nav-link" href="/admin/couleur" data-bs-toggle=""
+                                    aria-expanded="false">
+                                    <div class="d-flex align-items-center"><span class="nav-link-text">Ajouter couleur
+                                        </span>
+                                    </div>
+                                </a></li>
                             <li class="nav-item"><a class="nav-link active" href="/admin/couleurs" data-bs-toggle=""
                                     aria-expanded="false">
-                                    <div class="d-flex align-items-center"><span class="nav-link-text">Liste des
-                                            couleurs</span>
+                                    <div class="d-flex align-items-center"><span class="nav-link-text">Lister
+                                            couleur</span>
                                     </div>
                                 </a></li>
                         </ul>

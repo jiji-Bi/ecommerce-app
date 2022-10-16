@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\View;
 
 use App\Http\View\Composers\CategorieComposer;
 use App\Models\Categorie;
+use App\Models\Couleur;
+use App\Models\Produit;
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Support\Carbon;
@@ -38,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
             View::share('view_name', $view->getName());
             $mytime = Carbon::now();
             View::share('mytime', $mytime);
+            View::share('produits', Produit::all());
+            View::share('couleurs', Couleur::all());
         });
 
 

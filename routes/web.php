@@ -73,7 +73,8 @@ Route::get('/admin/variant/delete/{id}', [VariantController::class, 'SupprimerVa
 Route::get('/admin/variant-image/{id}/delete', [VariantController::class, 'SupprimerImageRecord'])->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/variants/edit', [VariantController::class, 'ModifierVariant'])->middleware('auth', 'revalidate', 'admin');
 
-//Admin couleurs routes 
+//Admin couleurs routes
+Route::get('/admin/couleur', [ColorController::class, 'index'])->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/couleurs', [ColorController::class, 'listecouleurs'])->name('couleurs-liste')->middleware('auth', 'revalidate', 'admin');
 Route::post('/admin/couleur/add', [ColorController::class, 'AjouterCouleur'])->name('couleurs-ajouter')->middleware('auth', 'revalidate', 'admin');
 Route::get('/admin/couleur/delete/{id}', [ColorController::class, 'SupprimerCouleur'])->middleware('auth', 'revalidate', 'admin');

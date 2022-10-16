@@ -19,11 +19,12 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">ref</th>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">code</th>
-                                    <th scope="col">Visibilité</th>
-                                    <th scope="col">Actions</th>
+                                    <th colspan="1">ref</th>
+                                    <th colspan="1">Nom</th>
+                                    <th colspan="1">code</th>                               
+                                    <th colspan="1" width="28px" >Couleur</th>
+                                    <th colspan="1"><center>Visibilité </center></th>
+                                    <th colspan="1">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,7 +36,8 @@
                                         <th scope="row">{{ $couleur->id }}</th>
                                         <td>{{ $couleur->nom }}</td>
                                         <td>{{ $couleur->code }}</td>
-                                        <td>{{ $couleur->status }}</td>
+                                        <td style="background-color:{{ $couleur->code }}"></td>
+                                        <td><center>{{ $couleur->status }}</center></td>
 
                                         <td>
                                             {{-- Bouton Modifier --}}
@@ -141,64 +143,6 @@
                         </table>
                     </div>
 
-                    {{-- POPUP AJOUT --}}
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Ajouter
-                                        couleur</h5>
-                                    <button class="btn p-1" type="button" data-bs-dismiss="modal"
-                                        aria-label="Close"><span class="fas fa-times fs--1"></span></button>
-                                </div>
-                                <form method="POST" action="/admin/couleur/add">
-                                    @csrf
-                                    <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="exampleFormControlInput1">Nom
-                                                couleur </label>
-                                            <input class="form-control" value="{{ @old('nom') }}"
-                                                id="exampleFormControlInput1" type="text"
-                                                placeholder="name@example.com" name="nom">
-                                            @error('nom')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="mb-0">
-                                            <label class="form-label" for="exampleTextarea">
-                                                Code couleur </label>
-                                            <textarea name="code" class="form-control" id="exampleTextarea" rows="3">{{ @old('code') }}</textarea>
-                                            @error('code')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-0">
-                                            <label class="form-label" for="exampleTextarea">
-                                                Visibilité couleur </label>
-                                            <input class="form-control" value="{{ @old('$couleur->status ') }}"
-                                                id="exampleFormControlInput1" type="number" placeholder="Statut"
-                                                name="status">
-
-                                            @error('status')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-primary" type="submit">Confirmer
-                                        </button>
-
-                                        <button class="btn btn-outline-primary" type="button"
-                                            data-bs-dismiss="modal">Annuler</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
 
                 </div>
             </div>

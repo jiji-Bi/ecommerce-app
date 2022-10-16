@@ -13,7 +13,7 @@
     <link rel="manifest" href="assets/img/favicons/manifest.json">
     <meta name="msapplication-TileImage" content="assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
         rel="stylesheet">
@@ -43,9 +43,15 @@
             @yield('content')
         </div>
     </main>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    @yield('javascript')
+    </body>
+    </html>
     <script src="{{ asset('Admin-assets/js/phoenix.js') }}"></script>
     <script src="{{ asset('Admin-assets/js/ecommerce-dashboard.js') }}"></script>
-
+    </body>
+    </html>
 
 </body>
 

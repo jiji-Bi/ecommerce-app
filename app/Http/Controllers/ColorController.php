@@ -47,4 +47,8 @@ class ColorController extends Controller
         $couleurs = Couleur::all();
         return view('admin.couleurs.index', ['couleurs' => $couleurs]);
     }
+    public function index()
+    {
+        return view('admin.couleurs.create');
+    }
 }
