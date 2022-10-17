@@ -26,7 +26,7 @@ class Products extends Component
                 Produit::join('variants', 'produits.id', '=', 'variants.produit_id')
                 ->join('couleurs', 'variants.couleur_id', '=', 'couleurs.id')
                 ->whereIn('couleurs.nom', $this->ColorFilters)->select('produits.*')->distinct()
-                ->simplepaginate(3); // or first()
+                ->simplepaginate(10); // or first()
         } else {
             $produits = Produit::simplepaginate(10);
         }

@@ -28,7 +28,8 @@ class CommandeController extends Controller
             foreach ($commande[0]->items as $item) {
                 if ($item->variant->id == $variant[0]->id) {
                     $existe = true;
-                    if ($item->quantity < $item->variant->quantity) {
+                    $add = $request->numproduct + $item->quantity;
+                    if ($item->variant->quantity > $item->quantity && $add <= $item->variant->quantity) {
                         $item->quantity += $request->numproduct;
                         $item->update();
                     } else {

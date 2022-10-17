@@ -218,7 +218,7 @@
     
 
 </div>
-{{  $produits->links() }}
+{{-- {{  $produits->links() }} --}}
 
 </div>
 
