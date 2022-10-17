@@ -620,11 +620,11 @@
                 <div class="wrap-slick2">
                     <div class="slick2">
                         @foreach ($related as $prod)
-                            <input type="hidden" value="{{ $variant = $prod->variants->first() }}">
-                            <input type="hidden" value="{{ $element = $variant->images->first() }}">
                             <div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
                                 <!-- Block2 -->
                                 <div class="block2">
+                                    <input type="hidden" value="{{ $variant = $prod->variants->first() }}">
+                                    <input type="hidden" value="{{ $element = $variant->images->first() }}">
                                     <div class="block2-pic hov-img0 ">
                                         <img src="{{ asset('uploads') }}/{{ $element->image }}" alt="IMG-PRODUCT" height="390"
                                         width="50">

@@ -39,4 +39,8 @@ class ClientController extends Controller
         $commande = Commande::where('user_id', '=', Auth::user()->id)->where('etat', '=', 'en cours')->first();
         return view('guest.components.shoppingcart')->with('commande', $commande);
     }
+    public function checkout()
+    {
+        return view('client.checkout');
+    }
 }

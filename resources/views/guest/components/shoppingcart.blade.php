@@ -31,7 +31,7 @@
         @include('guest.components.arrow')
         @yield('arrow')
 
-        <!-- Modal1 -->
+        {{-- <!-- Modal1 -->
         <div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
             <div class="overlay-modal1 js-hide-modal1"></div>
 
@@ -197,5 +197,5 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     @endsection

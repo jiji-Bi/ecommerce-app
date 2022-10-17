@@ -42,6 +42,7 @@ Route::get('/product/{category:nom}/list', [GuestController::class, 'categoryPro
 Route::post('/client/review/add', [ClientController::class, 'addReview'])->middleware('auth', 'client');
 Route::post('/client/order/add', [CommandeController::class, 'addCommande'])->middleware('auth', 'client');
 Route::get('/client/cart', [ClientController::class, 'indexCart'])->middleware('auth', 'client');
+Route::get('/client/checkout', [ClientController::class, 'checkout'])->middleware('auth', 'client');
 
 //Scaffolded authentification routes 
 // Authentication Routes...

@@ -121,7 +121,8 @@
                                                    
                                                         <span class="fs-15 lh-12 m-r-6" style="color:{{ $couleur->code }}">
                                                             
-                                                          <input style="display: inline" type="radio" name="colorfilters"value= "{{ $couleur->nom }}" wire:model="ColorFilters" class="filter-link stext-106 trans-04"> {{ $couleur->nom }} <i class="zmdi zmdi-circle"></i>
+                                                          <input style="display: inline" type="checkbox" value= "{{ $couleur->nom }}" wire:model="ColorFilters" class="filter-link stext-106 trans-04" /> {{ $couleur->nom }} <i class="zmdi zmdi-circle"></i>
+                                                        
                                                         </span>
                                                 </li>
                                                 @endforeach
@@ -168,10 +169,12 @@
     @foreach ($produits as $produit)
         @if (count($produit->variants))
             @foreach ( $produit->variants as $variant)
-            @if($colorfilter)
-                @if ($variant->couleur->nom ==  $colorfilter) 
+            @if(count($colorfilter)!=0)
+            @foreach($colorfilter as $color)
+                @if ($variant->couleur->nom ==  $color) 
                     <input  type="hidden" value="{{ $element = $variant->images->first() }}">               
                 @endif
+            @endforeach
             @else            
                 <input  type="hidden" value="{{ $variant = $produit->variants->first() }}">
                 <input   type="hidden" value="{{ $element = $variant->images->first() }}">
