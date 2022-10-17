@@ -23,11 +23,15 @@ class Products2 extends Component
 
     public function render()
     {
-        $this->produits =
-            Produit::join('variants', 'produits.id', '=', 'variants.produit_id')
-            ->join('couleurs', 'variants.couleur_id', '=', 'couleurs.id')
-            ->whereIn('couleurs.nom', $this->ColorFilters)->select('produits.*')
-            ->distinct()->get(); // or first() 
+        if (count($this->ColorFilters) != 0) {
+            $this->produits =
+                Produit::join('variants', 'produits.id', '=', 'variants.produit_id')
+                ->join('couleurs', 'variants.couleur_id', '=', 'couleurs.id')
+                ->whereIn('couleurs.nom', $this->ColorFilters)->select('produits.*')
+                ->distinct()->get(); // or first() 
+        } else {
+            $this->produits = Produit::all();
+        }
         return view('livewire.front-office.products.products2')->with('produits', $this->produits)->with('colorfilter', $this->ColorFilters);
     }
 }

@@ -1,5 +1,7 @@
 <div>
-<div class="flex-w flex-sb-m p-b-52">
+
+<div class="flex-w flex-sb-m p-b-52">    
+
                             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
                                 <a href="/" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
                                     All Products
@@ -52,30 +54,6 @@
                                         <ul>
                                             <li class="p-b-6">
                                                 <a href="#" class="filter-link stext-106 trans-04">
-                                                    Default
-                                                </a>
-                                            </li>
-
-                                            <li class="p-b-6">
-                                                <a href="#" class="filter-link stext-106 trans-04">
-                                                    Popularity
-                                                </a>
-                                            </li>
-
-                                            <li class="p-b-6">
-                                                <a href="#" class="filter-link stext-106 trans-04">
-                                                    Average rating
-                                                </a>
-                                            </li>
-
-                                            <li class="p-b-6">
-                                                <a href="#" class="filter-link stext-106 trans-04 filter-link-active">
-                                                    Newness
-                                                </a>
-                                            </li>
-
-                                            <li class="p-b-6">
-                                                <a href="#" class="filter-link stext-106 trans-04">
                                                     Price: Low to High
                                                 </a>
                                             </li>
@@ -99,10 +77,12 @@
                                             </a>
                                             </li>
                                             @foreach($produits as $produit)
-                                            
                                             <li class="p-b-6">
                                                 <a href="#" class="filter-link stext-106 trans-04">
+
+                                                    @if (isset($produit->variants))
                                                     {{ $produit->variants->first()->prix }} TND - {{$produit->variants->last()->prix }} TND
+                                                @endif
                                                 </a>
                                             </li>
                                             @endforeach
@@ -121,7 +101,8 @@
                                                
                                                     <span class="fs-15 lh-12 m-r-6" style="color:{{ $couleur->code }}">
                                                         
-                                                      <input style="display: inline" type="radio" name="colorfilters"value= "{{ $couleur->nom }}" wire:model="ColorFilters" class="filter-link stext-106 trans-04"> {{ $couleur->nom }} <i class="zmdi zmdi-circle"></i>
+                                                      <input style="display: inline" type="checkbox" value= "{{ $couleur->nom }}" wire:model="ColorFilters" class="filter-link stext-106 trans-04" /> {{ $couleur->nom }} <i class="zmdi zmdi-circle"></i>
+                                                    
                                                     </span>
                                             </li>
                                             @endforeach
@@ -162,29 +143,32 @@
                                     </div>
                                 </div>
                             </div>
-</div>
+</div>    
 <div class="row isotope-grid">
 
-    @foreach ($produits as $produit)
-        @if (count($produit->variants))
-            @foreach ( $produit->variants as $variant)
-            @if($colorfilter)
-                @if ($variant->couleur->nom ==  $colorfilter) 
-                    <input  type="hidden" value="{{ $element = $variant->images->first() }}">               
-                @endif
-            @else 
-                <input   type="hidden" value="{{ $variant = $produit->variants->first() }}">
-                <input  type="hidden" value="{{ $element = $variant->images->first() }}">
+    @foreach ($produits as $produit)              
+
+        @if (isset($produit->variants))
+            @if (count($produit->variants))
+                @foreach ( $produit->variants as $variant)
+                @if(count($colorfilter)!=0)
+                @foreach($colorfilter as $color)
+                    @if ($variant->couleur->nom ==  $color) 
+                        <input  type="hidden" value="{{ $element = $variant->images->first() }}">               
+                    @endif
+                @endforeach
+            @else            
+                <input  type="hidden" value="{{ $variant = $produit->variants->first() }}">
+                <input   type="hidden" value="{{ $element = $variant->images->first() }}">
             @endif
             @endforeach
-           
-           
+               
             @if (count($variant->images))
                     <!-- Block2 -->
             
             <div class="col-sm-6 col-md-4 col-lg-3 isotope-item lg:grid">
             
-                
+
         
                     <div class="block2">
                         @if($variant->created_at->toDateString() == $mytime->toDateString())
@@ -226,12 +210,18 @@
                         </div>
                         </div>
                 </div>
-                
             @endif
         @endif
+        @endif
+
     @endforeach
+    
 
 </div>
+{{  $produits->links() }}
+
+</div>
+
 </div>
 
 

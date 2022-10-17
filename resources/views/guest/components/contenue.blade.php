@@ -197,12 +197,13 @@
                  @yield('products')
                         
                     
+                   
                     </div>
+                        {{-- Section sidemenu --}}
+               @include('guest.components.sidemenu')
+               @yield('sidemenu')
                 </div>
-              
-                    {{-- Section sidemenu --}}
-                    @include('guest.components.sidemenu')
-                    @yield('sidemenu')
+           
             </div>
         </div>
     </section>

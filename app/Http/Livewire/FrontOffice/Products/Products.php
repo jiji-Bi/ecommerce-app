@@ -3,28 +3,33 @@
 namespace App\Http\Livewire\FrontOffice\Products;
 
 use App\Models\Produit;
-
 use Livewire\Component;
 
 class Products extends Component
 {
-    public $produits;
     public $ColorFilters = [];
     protected $queryString = ['ColorFilters'];
-    protected $listeners = [
-        'refresh' => '$refresh',
-    ];
+    // protected $listeners = [
+    //     'refresh' => 'render',
+    // ];
+    // public function update()
+    // {
+    //     if (isset($this->ColorFilters)) {
+    //         $this->emit('refresh');
+    //     }
+    // }
 
-    
     public function render()
     {
-
-        $this->produits =
-            Produit::join('variants', 'produits.id', '=', 'variants.produit_id')
-            ->join('couleurs', 'variants.couleur_id', '=', 'couleurs.id')
-            ->where('couleurs.nom', $this->ColorFilters)->select('produits.*')
-            ->distinct()->get(); // or first() 
-
-        return view('livewire.front-office.products.products')->with('produits', $this->produits)->with('colorfilter', $this->ColorFilters);
+        if (count($this->ColorFilters) != 0) {
+            $produits =
+                Produit::join('variants', 'produits.id', '=', 'variants.produit_id')
+                ->join('couleurs', 'variants.couleur_id', '=', 'couleurs.id')
+                ->whereIn('couleurs.nom', $this->ColorFilters)->select('produits.*')->distinct()
+                ->simplepaginate(3); // or first()
+        } else {
+            $produits = Produit::simplepaginate(10);
+        }
+        return view('livewire.front-office.products.products')->with('produits', $produits)->with('colorfilter', $this->ColorFilters);
     }
 }
