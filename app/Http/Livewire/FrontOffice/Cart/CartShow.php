@@ -27,6 +27,7 @@ class CartShow extends Component
         }
     }
 
+    
     public function incrementQuantity(int $itemId)
     {
         $itemData = LigneCommande::where('id', '=', $itemId)->first();
